@@ -7,6 +7,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/`, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/pricing`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/docs/agents`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/about`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/terms`, changeFrequency: "monthly", priority: 0.3 },
+    { url: `${base}/privacy`, changeFrequency: "monthly", priority: 0.3 },
     ...Object.keys(LANDING_PAGES).map((slug) => ({
       url: `${base}/${slug}`,
       changeFrequency: "monthly" as const,
