@@ -4,7 +4,7 @@ import { trackEvent } from "@/lib/analytics";
 import { getSession } from "@/lib/auth/session";
 import { getCreditBalance } from "@/lib/billing/ledger";
 import { ensureSubscriptionRow } from "@/lib/billing/service";
-import { stripeConfigured } from "@/lib/env";
+import { stripeCheckoutAvailable } from "@/lib/env";
 import { PortalButton, UpgradeButton } from "./billing-actions";
 
 export default async function BillingPage() {
@@ -30,7 +30,7 @@ export default async function BillingPage() {
   ]);
   await trackEvent({ name: "billing_viewed", userId: session.user.id, organizationId: orgId });
 
-  const stripeOn = stripeConfigured();
+  const stripeOn = stripeCheckoutAvailable();
   const currentPlan = subscription?.plan;
 
   return (

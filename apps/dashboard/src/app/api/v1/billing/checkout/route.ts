@@ -3,7 +3,7 @@ import { z } from "zod";
 import { authenticateApi } from "@/lib/api/auth";
 import { apiError, forbidden, handleApiError, ok } from "@/lib/api/respond";
 import { createCheckoutSession } from "@/lib/billing/service";
-import { stripeConfigured } from "@/lib/env";
+import { stripeCheckoutAvailable } from "@/lib/env";
 
 const checkoutSchema = z.object({
   planSlug: z.string().min(1).max(50),
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const auth = await authenticateApi(request);
     // Upgrade de plano é decisão humana — exige sessão de dashboard.
     if (auth.kind !== "session") throw forbidden("Checkout é feito pelo dashboard.");
-    if (!stripeConfigured()) {
+    if (!stripeCheckoutAvailable()) {
       return apiError(
         501,
         "stripe_not_configured",

@@ -3,7 +3,7 @@ import { CloudflareProvider } from "@autocloud/provider-cloudflare";
 import { AdminTable, Stat } from "@/components/admin-ui";
 import { requireStaff } from "@/lib/auth/staff";
 import { getStripe } from "@/lib/billing/stripe-client";
-import { env, stripeConfigured } from "@/lib/env";
+import { env, stripeCheckoutAvailable, stripeConfigured } from "@/lib/env";
 import { formatDuration } from "@/lib/format";
 import { providerRegistry } from "@/lib/services/providers";
 
@@ -41,7 +41,7 @@ async function checkDatabase(): Promise<ComponentHealth> {
 }
 
 async function checkStripe(): Promise<ComponentHealth> {
-  if (!stripeConfigured()) {
+  if (!stripeCheckoutAvailable()) {
     return { name: "Stripe", status: "Unknown", detail: "Não configurado neste ambiente" };
   }
   try {
@@ -49,7 +49,15 @@ async function checkStripe(): Promise<ComponentHealth> {
     if (!stripe) throw new Error("cliente indisponível");
     const start = Date.now();
     await stripe.balance.retrieve();
-    return { name: "Stripe", status: "Operational", detail: `API em ${Date.now() - start}ms` };
+    const latency = Date.now() - start;
+    if (!stripeConfigured()) {
+      return {
+        name: "Stripe",
+        status: "Degraded",
+        detail: `API OK em ${latency}ms; STRIPE_WEBHOOK_SECRET ausente — confirmações dependem da reconciliação periódica`,
+      };
+    }
+    return { name: "Stripe", status: "Operational", detail: `API em ${latency}ms` };
   } catch (error) {
     return {
       name: "Stripe",

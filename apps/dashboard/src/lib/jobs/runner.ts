@@ -128,10 +128,48 @@ async function stripeReconciliation(): Promise<JobResult> {
       });
     }
   }
+  // Descoberta: customers nossos SEM subscription vinculada (checkout
+  // completado sem webhook chegar) — importa a assinatura ativa do Stripe.
+  let discovered = 0;
+  const orphanCustomers = await prisma.subscription.findMany({
+    where: { stripeCustomerId: { not: null }, stripeSubscriptionId: null },
+  });
+  for (const row of orphanCustomers) {
+    if (!row.stripeCustomerId) continue;
+    try {
+      const list = await stripe.subscriptions.list({
+        customer: row.stripeCustomerId,
+        status: "all",
+        limit: 3,
+      });
+      const active = list.data.find((s) => s.status === "active" || s.status === "trialing");
+      if (active) {
+        const { processStripeEvent: process } = await import("../billing/webhook");
+        await process({
+          type: "customer.subscription.updated",
+          data: { object: active },
+        } as unknown as Stripe.Event);
+        await audit({
+          organizationId: row.organizationId,
+          action: "reconciliation.subscription_discovered",
+          resourceType: "subscription",
+          resourceId: row.id,
+          after: { stripeSubscriptionId: active.id, stripeStatus: active.status },
+        });
+        discovered += 1;
+      }
+    } catch (error) {
+      logger.warn("reconciliation_discovery_failed", {
+        customerId: row.stripeCustomerId,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
   return {
     job: "stripe_reconciliation",
     ok: true,
-    detail: `${checked} assinaturas verificadas, ${fixed} divergências corrigidas`,
+    detail: `${checked} assinaturas verificadas, ${fixed} divergências corrigidas, ${discovered} descobertas via customer`,
   };
 }
 
