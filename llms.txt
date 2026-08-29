@@ -1,0 +1,39 @@
+# AutoCloud
+
+> AI-native deploy platform: it analyzes a project, picks the lowest-cost architecture, deploys it and keeps optimizing. Users (and coding agents) never choose servers, CPU, region or runtime.
+
+Deploy an existing application:
+
+1. Install the CLI: `npm i -g autocloud` (or use `npx autocloud`)
+2. Authenticate: `autocloud login --token <ac_live_...>` (token created at /dashboard/settings)
+3. Inspect first (offline, optional): `autocloud analyze --json`
+4. Deploy non-interactively: `autocloud deploy --yes`
+5. Check result: `autocloud status --json` — exit code is non-zero on failure
+6. Read failure logs: `autocloud logs`
+
+Key facts for agents:
+
+- `--json` on analyze/deploy/status/projects prints structured JSON.
+- `--yes` skips all prompts. Always use it in automation.
+- The CLI builds the project locally, then uploads only the build output.
+- Deployment states: CREATED, ANALYZING, QUEUED, BUILDING, DEPLOYING, READY, ANALYSIS_FAILED, BUILD_FAILED, DEPLOY_FAILED, CANCELED.
+- Cost figures are projections from provider price tables, never real invoices.
+
+## Docs
+
+- [Agent guide](/docs/agents): CLI, API and MCP reference for coding agents
+- [API v1](/docs/agents#api): REST endpoints with Bearer token auth (`Authorization: Bearer ac_live_...`)
+
+## API quick reference
+
+- POST /api/v1/projects {name} — create project
+- GET /api/v1/projects — list projects
+- POST /api/v1/projects/:id/analyze {analysis} — register analysis, get cost + planned route
+- POST /api/v1/projects/:id/deployments (multipart: meta JSON + artifact tar.gz) — deploy
+- GET /api/v1/deployments/:id — status and events
+- GET /api/v1/deployments/:id/logs?format=text — logs (JSON by default)
+- POST /api/v1/cost/estimate {analysis} — standalone cost estimate
+
+## MCP
+
+Run `autocloud-mcp` (stdio). Tools: analyze_project, estimate_cost, create_project, deploy_project, list_projects, get_project, get_deployment, get_logs. Auth reuses `~/.autocloud/config.json` from `autocloud login`.

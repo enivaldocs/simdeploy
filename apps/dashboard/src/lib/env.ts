@@ -1,0 +1,37 @@
+import { z } from "zod";
+
+/**
+ * Env vars do servidor, validadas uma única vez. Falha cedo e com mensagem
+ * clara se configuração obrigatória estiver ausente.
+ */
+const envSchema = z.object({
+  DATABASE_URL: z.string().min(1),
+  APP_URL: z.string().default("http://localhost:3000"),
+  AUTH_SECRET: z.string().min(32, "AUTH_SECRET precisa de pelo menos 32 caracteres"),
+  ENCRYPTION_KEY: z
+    .string()
+    .regex(/^[0-9a-f]{64}$/i, "ENCRYPTION_KEY deve ser 32 bytes em hex (64 chars)"),
+  GITHUB_CLIENT_ID: z.string().optional(),
+  GITHUB_CLIENT_SECRET: z.string().optional(),
+  CLOUDFLARE_API_TOKEN: z.string().optional(),
+  CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
+  NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+});
+
+let cached: z.infer<typeof envSchema> | null = null;
+
+export function env(): z.infer<typeof envSchema> {
+  if (!cached) {
+    cached = envSchema.parse(process.env);
+  }
+  return cached;
+}
+
+export function isDev(): boolean {
+  return env().NODE_ENV === "development";
+}
+
+export function githubOauthConfigured(): boolean {
+  const e = env();
+  return Boolean(e.GITHUB_CLIENT_ID && e.GITHUB_CLIENT_SECRET);
+}

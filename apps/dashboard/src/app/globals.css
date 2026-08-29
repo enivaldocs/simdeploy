@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/*
+ * Identidade AutoCloud: dark developer tool, acento verde-água próprio,
+ * dados técnicos em mono. Sem gradientes ruidosos, sem emoji.
+ */
+@theme {
+  --color-canvas: #0a0b0f;
+  --color-panel: #12141a;
+  --color-panel-2: #181b23;
+  --color-edge: #262a35;
+  --color-edge-soft: #1d2029;
+  --color-ink: #e8eaf0;
+  --color-ink-dim: #9299a8;
+  --color-ink-faint: #5c6272;
+  --color-accent: #2fd6ae;
+  --color-accent-dim: #1d8f75;
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-err: #f87171;
+  --color-info: #60a5fa;
+  --color-run: #c084fc;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+}

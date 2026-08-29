@@ -1,0 +1,24 @@
+{
+  "name": "autocloud-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "db:generate": "pnpm --filter @autocloud/db generate",
+    "db:migrate": "pnpm --filter @autocloud/db migrate:dev",
+    "db:seed": "pnpm --filter @autocloud/db seed"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.0",
+    "turbo": "^2.5.0",
+    "typescript": "^5.9.2"
+  }
+}

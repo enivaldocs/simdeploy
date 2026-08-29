@@ -1,0 +1,24 @@
+{
+  "name": "@autocloud/provider-local",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@autocloud/cost-engine": "workspace:*",
+    "@autocloud/provider-core": "workspace:*",
+    "@autocloud/shared": "workspace:*",
+    "tar": "^7.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

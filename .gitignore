@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+
+# builds
+.next/
+dist/
+out/
+*.tsbuildinfo
+.turbo/
+
+# env — nunca commitar credenciais
+.env
+.env.*
+!.env.example
+
+# runtime local (artefatos, sites publicados pelo provider local)
+var/
+
+# test
+coverage/
+
+# misc
+.DS_Store
+*.log
