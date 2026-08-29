@@ -15,6 +15,11 @@ const envSchema = z.object({
   GITHUB_CLIENT_SECRET: z.string().optional(),
   CLOUDFLARE_API_TOKEN: z.string().optional(),
   CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
+  STRIPE_SECRET_KEY: z.string().optional(),
+  STRIPE_WEBHOOK_SECRET: z.string().optional(),
+  STRIPE_PUBLISHABLE_KEY: z.string().optional(),
+  ADMIN_EMAILS: z.string().optional(),
+  CRON_SECRET: z.string().optional(),
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
 });
 
@@ -34,4 +39,16 @@ export function isDev(): boolean {
 export function githubOauthConfigured(): boolean {
   const e = env();
   return Boolean(e.GITHUB_CLIENT_ID && e.GITHUB_CLIENT_SECRET);
+}
+
+export function stripeConfigured(): boolean {
+  const e = env();
+  return Boolean(e.STRIPE_SECRET_KEY && e.STRIPE_WEBHOOK_SECRET);
+}
+
+export function adminEmails(): string[] {
+  return (env().ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
 }

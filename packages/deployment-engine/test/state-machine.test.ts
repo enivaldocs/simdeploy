@@ -12,8 +12,21 @@ describe("state machine", () => {
     expect(canTransition("CREATED", "ANALYZING")).toBe(true);
     expect(canTransition("ANALYZING", "QUEUED")).toBe(true);
     expect(canTransition("QUEUED", "BUILDING")).toBe(true);
+    expect(canTransition("BUILDING", "UPLOADING")).toBe(true);
+    expect(canTransition("UPLOADING", "DEPLOYING")).toBe(true);
+    expect(canTransition("DEPLOYING", "HEALTH_CHECK")).toBe(true);
+    expect(canTransition("HEALTH_CHECK", "READY")).toBe(true);
+  });
+
+  it("mantém caminho curto sem upload/health (retrocompatível)", () => {
     expect(canTransition("BUILDING", "DEPLOYING")).toBe(true);
     expect(canTransition("DEPLOYING", "READY")).toBe(true);
+  });
+
+  it("upload e health check falham para DEPLOY_FAILED", () => {
+    expect(canTransition("UPLOADING", "DEPLOY_FAILED")).toBe(true);
+    expect(canTransition("HEALTH_CHECK", "DEPLOY_FAILED")).toBe(true);
+    expect(canTransition("HEALTH_CHECK", "BUILDING")).toBe(false);
   });
 
   it("aceita atalho CREATED → QUEUED (análise feita no cliente)", () => {
@@ -51,5 +64,7 @@ describe("state machine", () => {
     expect(displayStatus("CREATED")).toBe("Queued");
     expect(displayStatus("BUILD_FAILED")).toBe("Failed");
     expect(displayStatus("READY")).toBe("Ready");
+    expect(displayStatus("UPLOADING")).toBe("Deploying");
+    expect(displayStatus("HEALTH_CHECK")).toBe("Deploying");
   });
 });

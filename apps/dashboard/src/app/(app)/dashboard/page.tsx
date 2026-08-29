@@ -43,6 +43,22 @@ export default async function OverviewPage() {
 
   const estimatedTotal = latestEstimates.reduce((sum, e) => sum + Number(e.monthlyUsd), 0);
 
+  // Onboarding: estado real de cada passo (nada marcado por cortesia).
+  const [customDomains, user] = await Promise.all([
+    prisma.domain.count({
+      where: { project: { organizationId: orgId }, type: "CUSTOM" },
+    }),
+    prisma.user.findUnique({ where: { id: session.user.id } }),
+  ]);
+  const onboarding = [
+    { label: "Create account", done: true },
+    { label: "Create project", done: projectCount > 0 },
+    { label: "Deploy first app", done: readyCount > 0 },
+    { label: "Connect domain", done: customDomains > 0 },
+    { label: "Connect GitHub", done: Boolean(user?.githubId) },
+  ];
+  const onboardingDone = onboarding.every((step) => step.done);
+
   const stats = [
     { label: "Projects", value: String(projectCount) },
     { label: "Deployments", value: String(deploymentCount) },
@@ -66,6 +82,33 @@ export default async function OverviewPage() {
           New project
         </Link>
       </div>
+
+      {!onboardingDone ? (
+        <div className="mb-8 rounded-lg border border-edge bg-panel p-5">
+          <h2 className="mb-3 text-sm font-medium">Getting started</h2>
+          <ol className="flex flex-wrap gap-x-6 gap-y-2">
+            {onboarding.map((step) => (
+              <li key={step.label} className="flex items-center gap-2 text-sm">
+                <span
+                  className={`inline-flex h-4 w-4 items-center justify-center rounded-full border font-mono text-[10px] ${
+                    step.done ? "border-ok/60 bg-ok/10 text-ok" : "border-edge text-ink-faint"
+                  }`}
+                >
+                  {step.done ? "x" : ""}
+                </span>
+                <span className={step.done ? "text-ink-dim line-through" : "text-ink"}>
+                  {step.label}
+                </span>
+              </li>
+            ))}
+          </ol>
+          {projectCount === 0 ? (
+            <pre className="mt-4 rounded-md bg-panel-2 p-3 font-mono text-xs text-ink-dim">
+              {`npx autocloud deploy --yes   # na raiz do seu projeto`}
+            </pre>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="mb-10 grid grid-cols-2 gap-4 lg:grid-cols-5">
         {stats.map((stat) => (

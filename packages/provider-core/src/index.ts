@@ -22,6 +22,12 @@ export interface DeployResult {
   url: string;
   /** Referência interna do provider (id do worker, path local, etc.). */
   providerRef: string;
+  /**
+   * URL para health check server-side. Default: a própria url — providers
+   * cujo endereço público não resolve de dentro do servidor (ex.: subdomínio
+   * .localhost) fornecem um endereço interno equivalente.
+   */
+  healthUrl?: string;
 }
 
 export interface ProviderHealth {

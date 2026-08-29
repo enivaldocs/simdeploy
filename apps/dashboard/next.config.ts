@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   transpilePackages: [
     "@autocloud/shared",
     "@autocloud/db",
+    "@autocloud/finance",
     "@autocloud/framework-detector",
     "@autocloud/project-analyzer",
     "@autocloud/cost-engine",

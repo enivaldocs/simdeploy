@@ -3,6 +3,7 @@ import { join, normalize, resolve, sep } from "node:path";
 import { Readable } from "node:stream";
 import type { NextRequest } from "next/server";
 import { sitesDir } from "@/lib/paths";
+import { usageCollector } from "@/lib/usage-collector";
 
 const SLUG_PATTERN = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 
@@ -70,6 +71,8 @@ export async function GET(_request: NextRequest, { params }: Params) {
   }
 
   const ext = filePath.slice(filePath.lastIndexOf(".") + 1).toLowerCase();
+  // Metering real: cada request servida conta em requests/bandwidth do projeto.
+  usageCollector().record(slug, statSync(filePath).size);
   const stream = Readable.toWeb(createReadStream(filePath)) as ReadableStream;
   return new Response(stream, {
     headers: {

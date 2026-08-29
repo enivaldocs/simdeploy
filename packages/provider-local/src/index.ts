@@ -74,6 +74,9 @@ export class LocalProvider implements DeploymentProvider {
     return {
       url: makeUrl(input.projectSlug),
       providerRef: `local:${input.projectSlug}`,
+      // Subdomínio .localhost não resolve via getaddrinfo no servidor —
+      // o health check usa a rota por path, que serve o mesmo conteúdo.
+      healthUrl: `${this.options.baseUrl}/sites/${input.projectSlug}/`,
     };
   }
 

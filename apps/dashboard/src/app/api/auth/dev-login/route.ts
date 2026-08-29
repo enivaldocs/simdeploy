@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { apiError } from "@/lib/api/respond";
+import { readAcquisitionCookie } from "@/lib/auth/acquisition";
 import { createSession } from "@/lib/auth/session";
 import { upsertUserWithPersonalOrg } from "@/lib/auth/users";
 import { env, isDev } from "@/lib/env";
@@ -15,7 +16,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const form = await request.formData().catch(() => null);
   const email = String(form?.get("email") ?? "dev@autocloud.local");
 
-  const user = await upsertUserWithPersonalOrg({ email, name: "Dev User" });
+  const user = await upsertUserWithPersonalOrg({
+    email,
+    name: "Dev User",
+    acquisition: readAcquisitionCookie(request),
+  });
   await createSession(user.id);
   return NextResponse.redirect(`${env().APP_URL}/dashboard`, 303);
 }

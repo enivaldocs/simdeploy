@@ -10,8 +10,10 @@ const TRANSITIONS: Record<DeploymentStatus, readonly DeploymentStatus[]> = {
   CREATED: ["ANALYZING", "QUEUED", "CANCELED"],
   ANALYZING: ["QUEUED", "ANALYSIS_FAILED", "CANCELED"],
   QUEUED: ["BUILDING", "CANCELED"],
-  BUILDING: ["DEPLOYING", "BUILD_FAILED", "CANCELED"],
-  DEPLOYING: ["READY", "DEPLOY_FAILED"],
+  BUILDING: ["UPLOADING", "DEPLOYING", "BUILD_FAILED", "CANCELED"],
+  UPLOADING: ["DEPLOYING", "DEPLOY_FAILED", "CANCELED"],
+  DEPLOYING: ["HEALTH_CHECK", "READY", "DEPLOY_FAILED"],
+  HEALTH_CHECK: ["READY", "DEPLOY_FAILED"],
   READY: [],
   ANALYSIS_FAILED: [],
   BUILD_FAILED: [],
@@ -53,7 +55,9 @@ export function displayStatus(
       return "Analyzing";
     case "BUILDING":
       return "Building";
+    case "UPLOADING":
     case "DEPLOYING":
+    case "HEALTH_CHECK":
       return "Deploying";
     case "READY":
       return "Ready";

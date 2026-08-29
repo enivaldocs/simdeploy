@@ -33,6 +33,9 @@ Rodar um pacote só: `pnpm --filter @autocloud/<nome> test|typecheck`.
 8. **Novos frameworks**: adicionar um detector em `packages/framework-detector/src/detectors.ts` + o id em `FRAMEWORK_IDS` (shared) + testes.
 9. **Estados de deployment**: alterar a máquina de estados exige atualizar `TRANSITIONS` + enum Prisma + testes de transição.
 10. **Sem emojis** em copy de UI/CLI.
+12. **Dinheiro**: minor units inteiros + currency (`@autocloud/finance`); nunca float; nunca somar moedas sem taxa; margens sem FX configurada mostram "Configure FX rate".
+13. **Dados reais somente**: dashboards/admin mostram 0/"No data" quando não há dado — nunca valores fabricados.
+14. **ESTIMATED vs ACTUAL**: custo projetado e custo real nunca se misturam (tabelas e telas separam).
 11. Imports internos entre pacotes usam extensão `.js` (estilo NodeNext resolvido pelo bundler); manter o padrão.
 
 ## Onde mexer
@@ -45,6 +48,10 @@ Rodar um pacote só: `pnpm --filter @autocloud/<nome> test|typecheck`.
 | Comando de CLI | `packages/cli/src/commands/` + registro em `src/index.ts` |
 | Ferramenta MCP | `packages/mcp-server/src/index.ts` (TOOLS + switch) |
 | Página do dashboard | `apps/dashboard/src/app/(app)/dashboard/...` |
+| Página do admin | `apps/dashboard/src/app/admin/...` (guard `requireStaff(area)`) |
+| Billing/Stripe | `apps/dashboard/src/lib/billing/` + `docs/stripe.md` |
+| Métricas de negócio | `packages/finance` (puro, testado) + `lib/admin/metrics.ts` |
+| Background job | `apps/dashboard/src/lib/jobs/runner.ts` |
 
 ## Verificação antes de concluir
 

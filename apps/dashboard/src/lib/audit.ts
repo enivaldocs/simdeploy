@@ -7,6 +7,11 @@ export interface AuditInput {
   action: string;
   resourceType: string;
   resourceId?: string;
+  /** Estado anterior/posterior para mudanças sensíveis (planos, créditos, permissões). */
+  before?: unknown;
+  after?: unknown;
+  ip?: string;
+  userAgent?: string;
   metadata?: Record<string, unknown>;
 }
 
@@ -20,6 +25,10 @@ export async function audit(input: AuditInput): Promise<void> {
         action: input.action,
         resourceType: input.resourceType,
         resourceId: input.resourceId,
+        before: (input.before ?? undefined) as object | undefined,
+        after: (input.after ?? undefined) as object | undefined,
+        ip: input.ip,
+        userAgent: input.userAgent,
         metadata: (input.metadata ?? undefined) as object | undefined,
       },
     });

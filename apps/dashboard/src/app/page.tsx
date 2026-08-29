@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TrackPageView } from "@/components/track-page-view";
 
 const BENEFITS = [
   {
@@ -26,11 +27,15 @@ const BENEFITS = [
 export default function HomePage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-5xl flex-col px-6">
+      <TrackPageView event="landing_view" />
       <header className="flex items-center justify-between py-8">
         <span className="font-mono text-lg font-semibold tracking-tight text-ink">
           auto<span className="text-accent">cloud</span>
         </span>
         <nav className="flex items-center gap-6 text-sm text-ink-dim">
+          <Link href="/pricing" className="hover:text-ink">
+            Pricing
+          </Link>
           <Link href="/docs/agents" className="hover:text-ink">
             Docs
           </Link>

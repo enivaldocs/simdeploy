@@ -9,6 +9,7 @@ export const TOKEN_SCOPES = [
   "env:read",
   "env:write",
   "cost:read",
+  "billing:read",
 ] as const;
 export const tokenScopeSchema = z.enum(TOKEN_SCOPES);
 export type TokenScope = z.infer<typeof tokenScopeSchema>;

@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { trackEvent } from "@/lib/analytics";
+import { readAcquisitionCookie } from "@/lib/auth/acquisition";
 import { exchangeGithubCode, verifyOauthState } from "@/lib/auth/github";
 import { createSession } from "@/lib/auth/session";
 import { upsertUserWithPersonalOrg } from "@/lib/auth/users";
@@ -26,6 +27,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       githubId: profile.githubId,
       githubLogin: profile.githubLogin,
       avatarUrl: profile.avatarUrl,
+      acquisition: readAcquisitionCookie(request),
     });
     await createSession(user.id);
     await trackEvent({ name: "github_connected", userId: user.id });

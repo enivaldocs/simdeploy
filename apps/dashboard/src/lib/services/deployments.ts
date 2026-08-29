@@ -13,6 +13,7 @@ import type {
 import { routingDecisionSchema } from "@autocloud/shared";
 import { trackEvent } from "../analytics";
 import { audit } from "../audit";
+import { notify } from "../notifications";
 import { artifactsDir } from "../paths";
 import { loadPricingTables } from "./pricing";
 import { providerRegistry } from "./providers";
@@ -123,6 +124,7 @@ export async function runDeployment(input: RunDeploymentInput): Promise<Deployme
   };
 
   let decision: RoutingDecision | null = null;
+  let healthUrl: string | null = null;
 
   const result = await runPipeline(
     "CREATED",
@@ -202,6 +204,20 @@ export async function runDeployment(input: RunDeploymentInput): Promise<Deployme
         },
       },
       {
+        stage: "UPLOAD",
+        enterStatus: "UPLOADING",
+        failureStatus: "DEPLOY_FAILED",
+        execute: async () => {
+          const size = statSync(artifactPath).size;
+          await hooks.log(
+            "UPLOAD",
+            "info",
+            `Artefato persistido no storage interno (${(size / 1024).toFixed(1)} KB)`,
+            { artifactRef: artifactPath },
+          );
+        },
+      },
+      {
         stage: "DEPLOY",
         enterStatus: "DEPLOYING",
         failureStatus: "DEPLOY_FAILED",
@@ -216,11 +232,29 @@ export async function runDeployment(input: RunDeploymentInput): Promise<Deployme
             artifactPath,
             env: {},
           });
+          healthUrl = deployResult.healthUrl ?? deployResult.url;
           await prisma.deployment.update({
             where: { id: deployment.id },
             data: { url: deployResult.url },
           });
           await hooks.log("DEPLOY", "info", `Publicado em ${deployResult.url}`);
+        },
+      },
+      {
+        stage: "HEALTH",
+        enterStatus: "HEALTH_CHECK",
+        failureStatus: "DEPLOY_FAILED",
+        execute: async () => {
+          if (!healthUrl) throw new Error("Health check sem URL de deployment");
+          const response = await fetch(healthUrl, { redirect: "follow" }).catch((error) => {
+            throw new Error(
+              `Health check falhou: ${error instanceof Error ? error.message : error}`,
+            );
+          });
+          if (!response.ok) {
+            throw new Error(`Health check falhou: HTTP ${response.status} em ${healthUrl}`);
+          }
+          await hooks.log("HEALTH", "info", `Health check OK (HTTP ${response.status})`);
         },
       },
     ],
@@ -247,6 +281,65 @@ export async function runDeployment(input: RunDeploymentInput): Promise<Deployme
     organizationId: project.organizationId,
     properties: { deploymentId: deployment.id, status: result.status, durationMs },
   });
+
+  // Métricas REAIS medidas neste deployment (nunca estimativas aqui).
+  if (result.status === "READY") {
+    const readyBefore = await prisma.deployment.count({
+      where: {
+        project: { organizationId: project.organizationId },
+        status: "READY",
+        id: { not: deployment.id },
+      },
+    });
+    if (readyBefore === 0) {
+      await notify({
+        organizationId: project.organizationId,
+        userId: input.userId,
+        type: "first_deploy",
+        title: "Primeiro deploy no ar",
+        body: "Seu projeto está publicado. O Autopilot segue monitorando custo e uso.",
+        metadata: { deploymentId: deployment.id },
+      });
+    }
+    const now = new Date();
+    const artifactBytes = statSync(artifactPath).size;
+    await prisma.usageMetric.createMany({
+      data: [
+        {
+          projectId: project.id,
+          metric: "deployments",
+          value: "1",
+          periodStart: now,
+          periodEnd: now,
+        },
+        {
+          projectId: project.id,
+          metric: "storage_bytes",
+          value: String(artifactBytes),
+          periodStart: now,
+          periodEnd: now,
+        },
+        {
+          projectId: project.id,
+          metric: "deploy_duration_ms",
+          value: String(durationMs),
+          periodStart: now,
+          periodEnd: now,
+        },
+      ],
+    });
+  }
+
+  if (result.status !== "READY") {
+    await notify({
+      organizationId: project.organizationId,
+      userId: input.userId,
+      type: "deploy_failed",
+      title: `Deploy do projeto ${project.name} falhou (${result.status})`,
+      body: result.error ?? undefined,
+      metadata: { deploymentId: deployment.id },
+    });
+  }
 
   const final = await prisma.deployment.findUniqueOrThrow({ where: { id: deployment.id } });
   return final;

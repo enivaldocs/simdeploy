@@ -37,13 +37,23 @@
 - [x] `docs/agents` + `llms.txt`
 - [ ] GitHub App: import de repositório, deploy por push, preview por branch
 
-## Fase 6 — Produto (pendente)
+## Fase 6 — Produto (em andamento)
 
-- [ ] Billing Stripe sobre os planos configuráveis (Free/Pro/Builder/Agency já seedados)
-- [ ] Coleta real de `UsageMetric` por provider
+- [x] Billing Stripe: checkout, portal, webhook robusto (assinatura/dedup/retry), sync de subscription, invoices, payments
+- [x] Créditos com ledger imutável (saldo derivado)
+- [x] Coleta real de `UsageMetric` (requests/bandwidth do serving; deployments/storage/duração do pipeline)
+- [x] ProviderCost ACTUAL separado de ESTIMATED (job de sync; local = 0 real)
+- [x] Admin/Business OS: overview, customers + Customer 360, finance + P&L por cliente, unit economics, growth/funil, usage, providers, webhooks, system health, settings (planos/FX/flags) — RBAC de staff no backend
+- [x] Analytics de funil + aquisição UTM first-touch
+- [x] Notificações (welcome, first_deploy, deploy_failed, payment_failed/recovered, usage 80/100, cancelamento) — entrega por email via adapter futuro
+- [x] Jobs + reconciliation (Stripe ↔ AutoCloud) + cleanup + limites de uso
+- [x] Estados UPLOADING/HEALTH_CHECK com health check HTTP real
+- [x] Pricing page + landings de aquisição + robots/sitemap/OG
 - [ ] Autopilot: comparação alocado × usado → `OptimizationRecommendation` na UI
-- [ ] Cloud Cost Scanner público (landing + análise sem login)
-- [ ] Fila para pipeline (hoje síncrono na request) + build server-side sandboxado
+- [ ] Cloud Cost Scanner público (análise sem login)
+- [ ] Entrega de email transacional (EmailProvider adapter)
+- [ ] Fila para pipeline + build server-side sandboxado
+- [ ] Usage-based billing (metering já existe; cobrança por excedente pendente)
 - [ ] Providers adicionais: AWS, Hetzner, DigitalOcean, servidores próprios
 
 ## Limitações conhecidas do MVP

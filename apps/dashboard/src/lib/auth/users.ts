@@ -1,5 +1,17 @@
 import { prisma, type User } from "@autocloud/db";
 import { trackEvent } from "../analytics";
+import { adminEmails, isDev } from "../env";
+import { notify } from "../notifications";
+
+export interface AcquisitionData {
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmContent?: string;
+  utmTerm?: string;
+  referrer?: string;
+  landingPage?: string;
+}
 
 function slugify(input: string): string {
   return (
@@ -29,6 +41,15 @@ export interface UpsertUserInput {
   githubId?: string;
   githubLogin?: string;
   avatarUrl?: string | null;
+  /** First-touch attribution capturada no cookie ac_attr (só em signup novo). */
+  acquisition?: AcquisitionData | null;
+}
+
+/** Staff role vem de ADMIN_EMAILS; em dev, o dev-login vira SUPER_ADMIN. */
+function resolveStaffRole(email: string): "SUPER_ADMIN" | "NONE" {
+  if (adminEmails().includes(email.toLowerCase())) return "SUPER_ADMIN";
+  if (isDev() && email === "dev@autocloud.local") return "SUPER_ADMIN";
+  return "NONE";
 }
 
 /**
@@ -49,6 +70,8 @@ export async function upsertUserWithPersonalOrg(input: UpsertUserInput): Promise
         githubId: input.githubId ?? existing.githubId,
         githubLogin: input.githubLogin ?? existing.githubLogin,
         avatarUrl: input.avatarUrl ?? existing.avatarUrl,
+        staffRole:
+          resolveStaffRole(input.email) === "SUPER_ADMIN" ? "SUPER_ADMIN" : existing.staffRole,
       },
     });
   }
@@ -65,6 +88,7 @@ export async function upsertUserWithPersonalOrg(input: UpsertUserInput): Promise
       githubId: input.githubId,
       githubLogin: input.githubLogin,
       avatarUrl: input.avatarUrl,
+      staffRole: resolveStaffRole(input.email),
       memberships: {
         create: {
           role: "OWNER",
@@ -82,6 +106,39 @@ export async function upsertUserWithPersonalOrg(input: UpsertUserInput): Promise
     },
   });
 
-  await trackEvent({ name: "user_registered", userId: user.id });
+  const membership = await prisma.organizationMember.findFirst({ where: { userId: user.id } });
+  if (input.acquisition) {
+    await prisma.acquisition.create({
+      data: {
+        userId: user.id,
+        organizationId: membership?.organizationId,
+        utmSource: input.acquisition.utmSource,
+        utmMedium: input.acquisition.utmMedium,
+        utmCampaign: input.acquisition.utmCampaign,
+        utmContent: input.acquisition.utmContent,
+        utmTerm: input.acquisition.utmTerm,
+        referrer: input.acquisition.referrer,
+        landingPage: input.acquisition.landingPage,
+      },
+    });
+  }
+  await notify({
+    organizationId: membership?.organizationId,
+    userId: user.id,
+    type: "welcome",
+    title: "Bem-vindo à AutoCloud",
+    body: "Rode `npx autocloud deploy --yes` em um projeto para publicar em minutos.",
+  });
+  await trackEvent({
+    name: "user_registered",
+    userId: user.id,
+    organizationId: membership?.organizationId,
+  });
+  await trackEvent({
+    name: "signup_completed",
+    userId: user.id,
+    organizationId: membership?.organizationId,
+    properties: { source: input.acquisition?.utmSource ?? null },
+  });
   return user;
 }

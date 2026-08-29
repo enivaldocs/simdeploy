@@ -11,9 +11,20 @@ datasource db {
 // Identidade e multi-tenancy
 // ============================================================
 
+/// Papel de STAFF da AutoCloud (admin interno) — não confundir com MemberRole (papel dentro de uma organização cliente)
+enum StaffRole {
+  NONE
+  SUPPORT
+  FINANCE
+  OPERATIONS
+  ADMIN
+  SUPER_ADMIN
+}
+
 model User {
-  id          String   @id @default(cuid())
-  email       String   @unique
+  id          String    @id @default(cuid())
+  email       String    @unique
+  staffRole   StaffRole @default(NONE)
   name        String?
   githubId    String?  @unique
   githubLogin String?
@@ -25,6 +36,7 @@ model User {
   sessions    Session[]
   apiTokens   ApiToken[]
   auditLogs   AuditLog[]
+  acquisition Acquisition?
 }
 
 model Session {
@@ -58,6 +70,11 @@ model Organization {
   auditLogs       AuditLog[]
   subscription    Subscription?
   analyticsEvents AnalyticsEvent[]
+  payments        Payment[]
+  invoices        Invoice[]
+  creditEntries   CreditLedgerEntry[]
+  providerCosts   ProviderCost[]
+  notifications   Notification[]
 }
 
 model OrganizationMember {
@@ -96,6 +113,7 @@ model Project {
   usageMetrics    UsageMetric[]
   costEstimates   CostEstimate[]
   recommendations OptimizationRecommendation[]
+  providerCosts   ProviderCost[]
 
   @@index([organizationId])
 }
@@ -119,7 +137,9 @@ enum DeploymentStatus {
   ANALYZING
   QUEUED
   BUILDING
+  UPLOADING
   DEPLOYING
+  HEALTH_CHECK
   READY
   ANALYSIS_FAILED
   BUILD_FAILED
@@ -385,6 +405,11 @@ model AuditLog {
   action         String
   resourceType   String
   resourceId     String?
+  /// Estado anterior/posterior para mudanças sensíveis (planos, créditos, permissões)
+  before         Json?
+  after          Json?
+  ip             String?
+  userAgent      String?
   metadata       Json?
   createdAt      DateTime      @default(now())
 
@@ -412,8 +437,13 @@ model Plan {
   /// free | pro | builder | agency
   slug       String   @unique
   name       String
-  /// Preço mensal em BRL (configuração, não constante de código)
-  priceBrl   Decimal  @db.Decimal(10, 2)
+  /// Dinheiro sempre em minor units (centavos) + currency — nunca float
+  currency             String  @default("BRL")
+  priceMonthlyMinor    Int     @default(0)
+  priceAnnualMinor     Int?
+  stripeProductId      String?
+  stripePriceMonthlyId String?
+  stripePriceAnnualId  String?
   /// Limites: { maxProjects, maxDeploymentsPerDay, customDomains, ... }
   limits     Json
   active     Boolean  @default(true)
@@ -441,7 +471,206 @@ model Subscription {
   /// Preparação para Stripe — preenchidos quando billing real for integrado
   stripeCustomerId     String?
   stripeSubscriptionId String?
+  stripePriceId        String?
+  currentPeriodStart   DateTime?
   currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean   @default(false)
+  canceledAt           DateTime?
+  cancelReason         String?
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
+}
+
+// ============================================================
+// Billing real: pagamentos, invoices, créditos (dinheiro SEMPRE em
+// minor units + currency; nunca float, nunca somar moedas distintas)
+// ============================================================
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  organizationId        String
+  organization          Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  amountMinor           Int
+  currency              String
+  status                PaymentStatus @default(PENDING)
+  stripePaymentIntentId String?       @unique
+  stripeChargeId        String?
+  invoiceId             String?
+  invoice               Invoice?      @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
+  description           String?
+  createdAt             DateTime      @default(now())
+
+  @@index([organizationId, createdAt(sort: Desc)])
+  @@index([status, createdAt])
+}
+
+model Invoice {
+  id              String       @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  stripeInvoiceId String       @unique
+  number          String?
+  amountDueMinor  Int
+  amountPaidMinor Int          @default(0)
+  currency        String
+  /// draft | open | paid | void | uncollectible (espelho do Stripe)
+  status          String
+  hostedInvoiceUrl String?
+  periodStart     DateTime?
+  periodEnd       DateTime?
+  paidAt          DateTime?
+  createdAt       DateTime     @default(now())
+
+  payments Payment[]
+
+  @@index([organizationId, createdAt(sort: Desc)])
+}
+
+enum CreditEntryType {
+  PURCHASE
+  PROMOTION
+  SUBSCRIPTION
+  USAGE
+  REFUND
+  MANUAL
+  REVERSAL
+}
+
+/// Carteira de créditos como LEDGER imutável — o saldo é sempre derivado
+/// da soma das entradas, nunca armazenado.
+model CreditLedgerEntry {
+  id             String          @id @default(cuid())
+  organizationId String
+  organization   Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  /// Positivo = crédito; negativo = débito (minor units)
+  amountMinor    Int
+  currency       String          @default("BRL")
+  type           CreditEntryType
+  reason         String
+  /// Origem (ex.: stripe:invoice_id, admin:user_id, promo:code)
+  source         String?
+  actorUserId    String?
+  metadata       Json?
+  createdAt      DateTime        @default(now())
+
+  @@index([organizationId, createdAt(sort: Desc)])
+}
+
+// ============================================================
+// Custos de provider: ESTIMATED (projeção) NUNCA se mistura com ACTUAL
+// ============================================================
+
+enum CostKind {
+  ESTIMATED
+  ACTUAL
+}
+
+model ProviderCost {
+  id             String        @id @default(cuid())
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  projectId      String?
+  project        Project?      @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  provider       String
+  kind           CostKind
+  amountMinor    Int
+  currency       String        @default("USD")
+  periodStart    DateTime
+  periodEnd      DateTime
+  /// De onde veio (ex.: sync:cloudflare-api, builtin:local-zero-cost)
+  source         String?
+  metadata       Json?
+  createdAt      DateTime      @default(now())
+
+  @@index([organizationId, kind, periodStart])
+  @@index([projectId, kind])
+}
+
+// ============================================================
+// Webhooks: dedup por (provider, eventId), retry e idempotência
+// ============================================================
+
+enum WebhookStatus {
+  RECEIVED
+  PROCESSING
+  PROCESSED
+  FAILED
+  SKIPPED
+}
+
+model WebhookEvent {
+  id          String        @id @default(cuid())
+  provider    String
+  eventId     String
+  eventType   String
+  status      WebhookStatus @default(RECEIVED)
+  attempts    Int           @default(0)
+  payload     Json
+  error       String?
+  receivedAt  DateTime      @default(now())
+  processedAt DateTime?
+
+  @@unique([provider, eventId])
+  @@index([status, receivedAt])
+}
+
+// ============================================================
+// Aquisição (first-touch) e configuração operacional
+// ============================================================
+
+model Acquisition {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId String?
+  utmSource      String?
+  utmMedium      String?
+  utmCampaign    String?
+  utmContent     String?
+  utmTerm        String?
+  referrer       String?
+  landingPage    String?
+  createdAt      DateTime @default(now())
+
+  @@index([utmSource, utmCampaign])
+}
+
+/// Configuração operacional gerenciável pelo admin (fx rate, feature flags,
+/// maintenance, domínios reservados) — nunca secrets.
+model AppConfig {
+  key         String   @id
+  value       Json
+  updatedById String?
+  updatedAt   DateTime @updatedAt
+}
+
+// ============================================================
+// Notificações (sink desacoplado; envio de email é adapter futuro)
+// ============================================================
+
+model Notification {
+  id             String        @id @default(cuid())
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String?
+  type           String
+  title          String
+  body           String?
+  channel        String        @default("in_app")
+  /// pending | sent | failed
+  status         String        @default("pending")
+  error          String?
+  metadata       Json?
+  createdAt      DateTime      @default(now())
+  sentAt         DateTime?
+
+  @@index([organizationId, createdAt(sort: Desc)])
+  @@index([status])
 }

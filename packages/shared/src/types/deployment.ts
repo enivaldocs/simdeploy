@@ -7,7 +7,9 @@ export const DEPLOYMENT_STATUSES = [
   "ANALYZING",
   "QUEUED",
   "BUILDING",
+  "UPLOADING",
   "DEPLOYING",
+  "HEALTH_CHECK",
   "READY",
   "ANALYSIS_FAILED",
   "BUILD_FAILED",
@@ -34,7 +36,15 @@ export const FAILED_STATUSES: readonly DeploymentStatus[] = [
 export const deploymentTriggerSchema = z.enum(["cli", "api", "dashboard", "git"]);
 export type DeploymentTrigger = z.infer<typeof deploymentTriggerSchema>;
 
-export const LOG_STAGES = ["ANALYZE", "QUEUE", "BUILD", "DEPLOY", "SYSTEM"] as const;
+export const LOG_STAGES = [
+  "ANALYZE",
+  "QUEUE",
+  "BUILD",
+  "UPLOAD",
+  "DEPLOY",
+  "HEALTH",
+  "SYSTEM",
+] as const;
 export const logStageSchema = z.enum(LOG_STAGES);
 export type LogStage = z.infer<typeof logStageSchema>;
 

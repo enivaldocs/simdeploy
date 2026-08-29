@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { trackEvent } from "@/lib/analytics";
 import { getSession } from "@/lib/auth/session";
 import { githubOauthConfigured, isDev } from "@/lib/env";
 
@@ -17,6 +18,7 @@ export default async function LoginPage({
   const session = await getSession();
   if (session) redirect("/dashboard");
   const { error } = await searchParams;
+  await trackEvent({ name: "signup_started" });
 
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
