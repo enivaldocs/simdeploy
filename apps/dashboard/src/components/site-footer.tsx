@@ -7,7 +7,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
       { href: "/pricing", label: "Pricing" },
       { href: "/ai-deployment-platform", label: "For AI-built software" },
       { href: "/cheap-nextjs-hosting", label: "Next.js hosting" },
-      { href: "/vercel-alternative", label: "Why AutoCloud" },
+      { href: "/docs/agents", label: "Docs" },
     ],
   },
   {
@@ -18,6 +18,14 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
       { href: "/codex-deploy", label: "Codex" },
       { href: "/cursor-deploy", label: "Cursor" },
       { href: "/llms.txt", label: "llms.txt" },
+    ],
+  },
+  {
+    title: "Compare",
+    links: [
+      { href: "/vercel-alternative", label: "AutoCloud vs plataformas de deploy" },
+      { href: "/cheap-nextjs-hosting", label: "Hosting Next.js de menor custo" },
+      { href: "/ai-deployment-platform", label: "Por que agent-first" },
     ],
   },
   {
@@ -32,6 +40,8 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
     links: [
       { href: "/terms", label: "Termos de Serviço" },
       { href: "/privacy", label: "Política de Privacidade" },
+      { href: "/acceptable-use", label: "Uso Aceitável" },
+      { href: "/dpa", label: "DPA" },
     ],
   },
 ];
@@ -40,7 +50,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
 export function SiteFooter() {
   return (
     <footer className="border-t border-edge-soft">
-      <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 py-12 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 py-12 sm:grid-cols-2 lg:grid-cols-6">
         <div>
           <p className="font-mono text-lg font-semibold">
             auto<span className="text-accent">cloud</span>

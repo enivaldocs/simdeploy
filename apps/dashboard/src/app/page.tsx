@@ -1,6 +1,7 @@
 import { prisma } from "@autocloud/db";
 import { formatMinor } from "@autocloud/finance";
 import Link from "next/link";
+import { CopyAgentPrompt } from "@/components/copy-agent-prompt";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TrackPageView } from "@/components/track-page-view";
@@ -114,17 +115,56 @@ export default async function HomePage() {
     take: 4,
   });
 
-  // Dados estruturados (AEO): definição do produto, ofertas reais e FAQ.
+  // Dados estruturados (AEO): Organization + Service (categoria nomeada) +
+  // SoftwareApplication com featureList + FAQ — o padrão das plataformas de
+  // referência, para answer engines extraírem e recomendarem o produto.
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "Organization",
+        name: "AutoCloud",
+        legalName: "Yes Serviços Digitais",
+        description:
+          "AutoCloud is the AI-native cloud with an infrastructure Autopilot: it analyzes a project, picks the lowest-cost compatible architecture and deploys it in one command — for developers and their coding agents.",
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            contactType: "customer support",
+            email: "support@autocloud.app",
+          },
+        ],
+      },
+      {
+        "@type": "Service",
+        serviceType: "AI-native application deployment platform (PaaS)",
+        name: "AutoCloud",
+        description:
+          "AutoCloud analyzes a software project, automatically selects the lowest-cost compatible architecture (static, edge, serverless, hybrid or node-server), deploys it with a verified health check and keeps optimizing infrastructure based on measured usage.",
+        provider: { "@type": "Organization", name: "Yes Serviços Digitais" },
+      },
       {
         "@type": "SoftwareApplication",
         name: "AutoCloud",
         applicationCategory: "DeveloperApplication",
         operatingSystem: "Web",
+        isAccessibleForFree: true,
         description:
-          "AI-native deploy platform: analyzes a project, automatically picks the lowest-cost compatible architecture, deploys it with a verified health check and keeps optimizing infrastructure based on measured usage. Built for developers and coding agents (Claude Code, Codex, Cursor) via CLI, API and MCP.",
+          "AI-native deploy platform built for developers and coding agents (Claude Code, Codex, Cursor) via dashboard, API, non-interactive CLI and MCP server.",
+        featureList: [
+          "Automatic project analysis (framework, API routes, database, workers, static share)",
+          "Automatic architecture selection by lowest cost (AICloudRouter)",
+          "Cost estimate before every deploy, from provider pricing tables",
+          "One-command deploys (autocloud deploy --yes)",
+          "Typed deployment pipeline with verified HTTP health check",
+          "Structured per-stage deployment logs",
+          "Real usage metering (requests, bandwidth, storage)",
+          "Encrypted environment variables (AES-256-GCM at rest)",
+          "Scoped API tokens",
+          "MCP server for coding agents",
+          "Client-side builds — user code never runs on platform servers",
+          "Stripe subscription billing with customer portal",
+        ],
         offers: plans.map((plan) => ({
           "@type": "Offer",
           name: `AutoCloud ${plan.name}`,
@@ -165,22 +205,47 @@ export default async function HomePage() {
               You build. <span className="text-accent">AI chooses where it runs.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-dim">
-              Publique projetos sem escolher servidor, CPU ou infraestrutura. A AutoCloud analisa o
-              código, calcula a arquitetura de menor custo e entrega a URL — em um comando.
+              A AutoCloud é a cloud com Autopilot de infraestrutura: analisa seu projeto, escolhe a
+              arquitetura de menor custo e publica em um comando — para você e para o seu coding
+              agent.
             </p>
             <div className="mt-7 flex flex-wrap gap-4">
               <Link
                 href="/login"
                 className="rounded-md bg-accent px-5 py-2.5 font-medium text-canvas hover:bg-accent-dim"
               >
-                Deploy your first project
+                Deploy now
               </Link>
-              <Link
-                href="/docs/agents"
+              <a
+                href="mailto:support@autocloud.app"
                 className="rounded-md border border-edge px-5 py-2.5 text-ink-dim hover:border-accent hover:text-ink"
               >
-                Analyze my project
-              </Link>
+                Talk to sales
+              </a>
+            </div>
+            <div className="mt-6">
+              <p className="mb-2 font-mono text-xs text-ink-faint">
+                O que você nunca mais configura:
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  "CPU",
+                  "RAM",
+                  "Região",
+                  "Runtime",
+                  "CDN",
+                  "SSL",
+                  "Sizing",
+                  "Tabela de preços",
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-edge bg-panel px-2.5 py-0.5 font-mono text-[11px] text-ink-faint line-through decoration-err/60"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
             <p className="mt-5 font-mono text-xs text-ink-faint">
               Funciona com Claude Code, Codex, Cursor e o seu terminal.
@@ -365,25 +430,21 @@ OK  Deployment ready
           </div>
         </section>
 
-        {/* CTA final */}
+        {/* CTA final — repete o CTA primário do hero + onboard do agente */}
         <section className="mx-auto w-full max-w-6xl px-6 py-20 text-center">
-          <h2 className="text-3xl font-semibold">Do código à URL em um comando</h2>
+          <h2 className="text-3xl font-semibold">Built by you, or your agent</h2>
           <p className="mx-auto mt-3 max-w-xl text-ink-dim">
-            Comece grátis. A estimativa de custo aparece antes de qualquer deploy.
+            Comece grátis. A estimativa de custo aparece antes de qualquer deploy — e o seu coding
+            agent consegue operar tudo sozinho.
           </p>
-          <div className="mt-7 flex justify-center gap-4">
+          <div className="mt-7 flex flex-wrap justify-center gap-4">
             <Link
               href="/login"
               className="rounded-md bg-accent px-6 py-3 font-medium text-canvas hover:bg-accent-dim"
             >
-              Start free
+              Deploy now
             </Link>
-            <Link
-              href="/pricing"
-              className="rounded-md border border-edge px-6 py-3 text-ink-dim hover:border-accent hover:text-ink"
-            >
-              Pricing
-            </Link>
+            <CopyAgentPrompt />
           </div>
         </section>
       </main>

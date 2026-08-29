@@ -12,7 +12,7 @@ export function SiteHeader() {
           Pricing
         </Link>
         <Link href="/docs/agents" className="hover:text-ink">
-          Docs
+          Agents
         </Link>
         <Link
           href="/login"
