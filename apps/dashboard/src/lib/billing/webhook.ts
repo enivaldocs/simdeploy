@@ -255,7 +255,7 @@ async function handleInvoice(invoice: Stripe.Invoice, paid: boolean): Promise<vo
       await notify({
         organizationId,
         type: "payment_recovered",
-        title: "Pagamento regularizado",
+        title: "Payment recovered",
         metadata: { invoiceId: invoiceRow.id },
       });
     }
@@ -329,7 +329,7 @@ export async function processStripeEvent(event: Stripe.Event): Promise<void> {
         await notify({
           organizationId,
           type: "subscription_canceled",
-          title: "Assinatura cancelada",
+          title: "Subscription canceled",
         });
       }
       break;

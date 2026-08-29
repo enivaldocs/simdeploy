@@ -3,15 +3,15 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 const API_ROUTES = [
-  ["GET /api/v1/me", "valida token; retorna organização e scopes"],
-  ["GET | POST /api/v1/projects", "listar / criar projeto {name}"],
-  ["GET | DELETE /api/v1/projects/:id", "detalhe / remover projeto"],
-  ["POST /api/v1/projects/:id/analyze", "registra análise; retorna custo + rota planejada"],
-  ["GET | POST /api/v1/projects/:id/deployments", "listar / deploy (multipart meta + artifact)"],
-  ["GET /api/v1/deployments/:id", "status + eventos do pipeline"],
-  ["GET /api/v1/deployments/:id/logs", "logs estruturados (?format=text para texto)"],
-  ["GET | POST /api/v1/projects/:id/env", "listar chaves / definir variável"],
-  ["POST /api/v1/cost/estimate", "estimativa de custo sem projeto"],
+  ["GET /api/v1/me", "validates token; returns organization and scopes"],
+  ["GET | POST /api/v1/projects", "list / create project {name}"],
+  ["GET | DELETE /api/v1/projects/:id", "detail / delete project"],
+  ["POST /api/v1/projects/:id/analyze", "registers analysis; returns cost + planned route"],
+  ["GET | POST /api/v1/projects/:id/deployments", "list / deploy (multipart meta + artifact)"],
+  ["GET /api/v1/deployments/:id", "status + pipeline events"],
+  ["GET /api/v1/deployments/:id/logs", "structured logs (?format=text for plain text)"],
+  ["GET | POST /api/v1/projects/:id/env", "list keys / set variable"],
+  ["POST /api/v1/cost/estimate", "standalone cost estimate"],
 ] as const;
 
 export default function AgentDocsPage() {
@@ -31,28 +31,28 @@ export default function AgentDocsPage() {
         </header>
 
         <section className="mb-10">
-          <h2 className="mb-3 text-xl font-medium">Deploy de uma aplicação existente</h2>
+          <h2 className="mb-3 text-xl font-medium">Deploy an existing application</h2>
           <pre className="overflow-x-auto rounded-lg border border-edge bg-panel p-4 font-mono text-sm leading-relaxed text-ink-dim">
-            {`# 1. Instalar a CLI
+            {`# 1. Install the CLI
 npm i -g autocloud
 
-# 2. Autenticar (token criado em /dashboard/settings)
+# 2. Authenticate (token created at /dashboard/settings)
 autocloud login --token ac_live_...
 
-# 3. Analisar (offline, sem efeitos colaterais)
+# 3. Analyze (offline, no side effects)
 autocloud analyze --json
 
-# 4. Deploy nao interativo — essencial para agents
+# 4. Non-interactive deploy — essential for agents
 autocloud deploy --yes
 
-# 5. Verificar (exit code != 0 em falha)
+# 5. Verify (exit code != 0 on failure)
 autocloud status --json
 autocloud logs`}
           </pre>
         </section>
 
         <section className="mb-10">
-          <h2 className="mb-3 text-xl font-medium">Regras de ouro</h2>
+          <h2 className="mb-3 text-xl font-medium">Golden rules</h2>
           <ul className="list-inside list-disc space-y-1 text-sm leading-relaxed text-ink-dim">
             <li>
               Sempre <span className="font-mono text-ink">--yes</span> em automação; sem ele a CLI
@@ -62,12 +62,12 @@ autocloud logs`}
               Sempre <span className="font-mono text-ink">--json</span> quando for interpretar a
               saída.
             </li>
-            <li>O build roda na máquina local; apenas o output vai para a AutoCloud.</li>
+            <li>Builds run on the local machine; only the output goes to AutoCloud.</li>
             <li>
               Estados de deployment: CREATED, ANALYZING, QUEUED, BUILDING, DEPLOYING, READY e as
               falhas tipadas ANALYSIS_FAILED, BUILD_FAILED, DEPLOY_FAILED.
             </li>
-            <li>Custos exibidos são projeções de tabelas de preço, nunca fatura real.</li>
+            <li>Displayed costs are projections from price tables, never a real bill.</li>
           </ul>
         </section>
 

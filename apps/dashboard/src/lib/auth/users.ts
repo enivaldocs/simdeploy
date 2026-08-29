@@ -126,8 +126,8 @@ export async function upsertUserWithPersonalOrg(input: UpsertUserInput): Promise
     organizationId: membership?.organizationId,
     userId: user.id,
     type: "welcome",
-    title: "Bem-vindo à AutoCloud",
-    body: "Rode `npx autocloud deploy --yes` em um projeto para publicar em minutos.",
+    title: "Welcome to AutoCloud",
+    body: "Run `npx autocloud deploy --yes` inside a project to publish it in minutes.",
   });
   await trackEvent({
     name: "user_registered",

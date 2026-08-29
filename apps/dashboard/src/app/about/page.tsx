@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata = {
   title: "About",
   description:
-    "AutoCloud é a plataforma de deploy AI-native da Yes Serviços Digitais: análise automática do projeto, arquitetura de menor custo e publicação em um comando.",
+    "AutoCloud is the AI-native deploy platform by Yes Servicos Digitais: automatic project analysis, lowest-cost architecture and one-command publishing.",
   alternates: { canonical: "/about" },
 };
 
@@ -14,29 +14,29 @@ export default function AboutPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
-        <h1 className="text-3xl font-semibold">Sobre a AutoCloud</h1>
+        <h1 className="text-3xl font-semibold">About AutoCloud</h1>
         <div className="mt-8 space-y-5 leading-relaxed text-ink-dim">
           <p>
-            A AutoCloud nasceu de uma constatação simples: hoje o código é cada vez mais escrito por
-            pessoas com ajuda de agentes de IA — mas publicar esse código continua exigindo decisões
-            de infraestrutura que nem a pessoa nem o agente deveriam precisar tomar. Qual runtime,
-            qual região, quanta memória, qual provider, quanto isso vai custar.
+            AutoCloud started from a simple observation: code is increasingly written by people with
+            the help of AI agents — yet shipping that code still demands infrastructure decisions
+            that neither the person nor the agent should have to make. Which runtime, which region,
+            how much memory, which provider, and what it will all cost.
           </p>
           <p>
-            Nossa resposta é o <span className="text-ink">Autopilot Infrastructure</span>: a
-            plataforma analisa o projeto, calcula o custo de cada arquitetura compatível nas tabelas
-            de preço dos provedores, escolhe a mais barata, publica com verificação de saúde e segue
-            medindo o uso real para recomendar otimizações. A pessoa (ou o agente) roda um comando e
-            recebe uma URL.
+            Our answer is <span className="text-ink">Autopilot Infrastructure</span>: the platform
+            analyzes the project, computes the cost of every compatible architecture from provider
+            price tables, picks the cheapest one, deploys with a verified health check and keeps
+            measuring real usage to recommend optimizations. You (or your agent) run one command and
+            get a URL.
           </p>
           <p>
-            Somos agent-first por princípio: tudo que existe no dashboard existe também em API, CLI
-            não interativa e MCP — porque acreditamos que o próximo deploy do seu projeto tem boa
-            chance de ser feito pelo seu agente, não por você.
+            We are agent-first by principle: everything the dashboard does also exists as an API, a
+            non-interactive CLI and an MCP server — because we believe the next deploy of your
+            project will quite possibly be done by your agent, not by you.
           </p>
           <p>
-            A AutoCloud é um produto <span className="text-ink">Yes Serviços Digitais</span>,
-            empresa brasileira que opera plataformas SaaS de consumo e infraestrutura digital.
+            AutoCloud is a product by <span className="text-ink">Yes Servicos Digitais</span>, a
+            Brazilian company operating consumer SaaS and digital infrastructure platforms.
           </p>
         </div>
         <div className="mt-10 flex gap-4">

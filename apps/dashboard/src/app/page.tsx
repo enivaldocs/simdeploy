@@ -12,99 +12,99 @@ const STEPS = [
   {
     number: "01",
     title: "Analyze",
-    body: "O AI Project Analyzer varre o projeto: framework, rotas de API, banco, workers, percentual estático. Determinístico, offline — nada sai da sua máquina.",
+    body: "The AI Project Analyzer scans your project: framework, API routes, database, workers, static share. Deterministic and offline — nothing leaves your machine.",
   },
   {
     number: "02",
     title: "Route",
-    body: "O AICloudRouter calcula o custo de cada arquitetura compatível nas tabelas de preço dos providers e escolhe a mais barata. Você vê a estimativa antes de publicar.",
+    body: "The AICloudRouter computes the cost of every compatible architecture from provider price tables and picks the cheapest. You see the estimate before anything ships.",
   },
   {
     number: "03",
     title: "Deploy",
-    body: "Build na sua máquina, upload só do resultado, publicação com health check verificado. URL pública no final — ou um erro tipado com logs para corrigir.",
+    body: "Build on your machine, upload only the output, publish with a verified health check. A public URL at the end — or a typed error with logs to fix.",
   },
   {
     number: "04",
     title: "Optimize",
-    body: "Uso medido de verdade (requests, banda, storage) alimenta o Autopilot, que compara alocado versus usado e aponta onde a infraestrutura pode custar menos.",
+    body: "Real measured usage (requests, bandwidth, storage) feeds the Autopilot, which compares allocated versus used and points out where infrastructure can cost less.",
   },
 ];
 
 /** O mecanismo único, etapa por etapa — a estrutura que a plataforma executa. */
 const PIPELINE = [
-  { stage: "Projeto", detail: "seu código, do jeito que está" },
-  { stage: "AI Project Analyzer", detail: "varredura determinística do repositório" },
-  { stage: "Detecção do framework", detail: "Next.js, Vite, React, Astro, Express, Node, static" },
+  { stage: "Your project", detail: "your code, exactly as it is" },
+  { stage: "AI Project Analyzer", detail: "deterministic scan of the repository" },
+  { stage: "Framework detection", detail: "Next.js, Vite, React, Astro, Express, Node, static" },
   {
-    stage: "Detecção das necessidades",
-    detail: "API routes, banco, cron, workers, storage, env vars",
+    stage: "Requirements detection",
+    detail: "API routes, database, cron, workers, storage, env vars",
   },
   {
-    stage: "Estimativa de recursos",
-    detail: "percentual estático, memória, timeout por arquitetura",
+    stage: "Resource estimation",
+    detail: "static share, memory and timeout per architecture",
   },
   {
-    stage: "Seleção da arquitetura",
-    detail: "static, edge, serverless, hybrid ou node-server — por compatibilidade",
+    stage: "Architecture selection",
+    detail: "static, edge, serverless, hybrid or node-server — by compatibility",
   },
   {
-    stage: "Estimativa de custo",
-    detail: "projeção mensal por provider, com free allowances aplicadas",
+    stage: "Cost estimation",
+    detail: "monthly projection per provider, free allowances applied",
   },
-  { stage: "Build", detail: "na sua máquina — código nunca executa no servidor da plataforma" },
-  { stage: "Deploy", detail: "upload do artefato, publicação e health check HTTP verificado" },
-  { stage: "Monitoramento", detail: "requests, banda e storage medidos por projeto" },
-  { stage: "Otimização", detail: "recomendações de custo conforme o uso real" },
+  { stage: "Build", detail: "on your machine — code never runs on platform servers" },
+  { stage: "Deploy", detail: "artifact upload, publish and verified HTTP health check" },
+  { stage: "Monitoring", detail: "requests, bandwidth and storage measured per project" },
+  { stage: "Optimization", detail: "cost recommendations from real usage" },
 ];
 
 const FEATURES = [
   {
-    title: "Zero decisões de infraestrutura",
-    body: "Sem escolher CPU, RAM, região, runtime ou provider. A plataforma decide pela arquitetura de menor custo compatível com o projeto.",
+    title: "Zero infrastructure decisions",
+    body: "No choosing CPU, RAM, region, runtime or provider. The platform picks the lowest-cost architecture compatible with your project.",
   },
   {
-    title: "Custo antes do deploy",
-    body: "Cada deploy mostra a projeção mensal por arquitetura, calculada sobre tabelas públicas de preço — sempre rotulada como estimativa, nunca surpresa.",
+    title: "Cost before the deploy",
+    body: "Every deploy shows the monthly projection per architecture, computed from public price tables — always labeled as an estimate, never a surprise.",
   },
   {
-    title: "Feita para coding agents",
-    body: "CLI não interativa (--yes, --json), estados de deployment tipados, logs estruturados por etapa e MCP server nativo para Claude Code, Codex e Cursor.",
+    title: "Built for coding agents",
+    body: "Non-interactive CLI (--yes, --json), typed deployment states, structured per-stage logs and a native MCP server for Claude Code, Codex and Cursor.",
   },
   {
-    title: "Pipeline transparente",
-    body: "Timeline completa de cada deploy: análise, fila, build, upload, publicação e health check HTTP real — com evento e log de cada transição.",
+    title: "Transparent pipeline",
+    body: "Full timeline for every deploy: analysis, queue, build, upload, publish and a real HTTP health check — with an event and log for each transition.",
   },
   {
-    title: "Segurança por desenho",
-    body: "Seu código nunca executa nos servidores da plataforma: o build roda na sua máquina e só o resultado é publicado, validado antes da extração.",
+    title: "Secure by design",
+    body: "Your code never runs on the platform's servers: builds happen on your machine and only the output is published, validated before extraction.",
   },
   {
-    title: "Preço previsível",
-    body: "Planos com limites explícitos, uso medido de verdade (requests e banda) e cobrança via Stripe. O que está incluso fica visível antes de pagar.",
+    title: "Predictable pricing",
+    body: "Plans with explicit limits, real measured usage (requests and bandwidth) and Stripe billing. What is included is visible before you pay.",
   },
 ];
 
 const FAQ = [
   {
-    q: "O que eu preciso fazer para publicar um projeto?",
-    a: "Instalar a CLI, autenticar uma vez e rodar autocloud deploy na raiz do projeto. A análise, a escolha de arquitetura e a publicação são automáticas.",
+    q: "What do I need to do to publish a project?",
+    a: "Install the CLI, authenticate once and run autocloud deploy at the project root. Analysis, architecture selection and publishing are automatic.",
   },
   {
-    q: "Quais frameworks são detectados?",
-    a: "Next.js, Vite, React (CRA), Astro, Express, Node genérico e sites estáticos. O deploy atual cobre builds estáticos (Vite, CRA, Astro estático, Next com output export); SSR/serverless está em rollout no adapter cloud — o pipeline avisa com erro claro quando o projeto ainda depende dele.",
+    q: "Which frameworks are detected?",
+    a: "Next.js, Vite, React (CRA), Astro, Express, generic Node and static sites. Deploys currently cover static builds (Vite, CRA, static Astro, Next with output export); SSR/serverless is rolling out on the cloud adapter — the pipeline fails with a clear message when a project still depends on it.",
   },
   {
-    q: "Como funciona com Claude Code, Codex ou Cursor?",
-    a: "A CLI aceita --yes e --json para automação, e há um MCP server com ferramentas de análise, deploy e leitura de logs. O agente publica, lê o erro tipado se falhar e corrige sozinho.",
+    q: "How does it work with Claude Code, Codex or Cursor?",
+    a: "The CLI takes --yes and --json for automation, and there is an MCP server with tools for analysis, deploys and log reading. The agent publishes, reads the typed error if something fails and fixes it on its own.",
   },
   {
-    q: "Quanto custa?",
-    a: "Há plano gratuito para começar. Os planos pagos têm preço fixo mensal com limites explícitos — e a estimativa de custo de infraestrutura aparece antes de cada deploy.",
+    q: "How much does it cost?",
+    a: "There is a free plan to start. Paid plans have a fixed monthly price with explicit limits — and the infrastructure cost estimate appears before every deploy.",
   },
   {
-    q: "Como é a cobrança?",
-    a: "Assinatura via Stripe (cartão), com portal para trocar de plano ou cancelar a qualquer momento. Compras online têm direito de arrependimento de 7 dias (art. 49 do CDC).",
+    q: "How does billing work?",
+    a: "Subscription via Stripe (card), with a portal to change plans or cancel at any time. Online purchases carry a 7-day right of withdrawal (article 49 of the Brazilian Consumer Code).",
   },
 ];
 
@@ -205,9 +205,9 @@ export default async function HomePage() {
               You build. <span className="text-accent">AI chooses where it runs.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-dim">
-              A AutoCloud é a cloud com Autopilot de infraestrutura: analisa seu projeto, escolhe a
-              arquitetura de menor custo e publica em um comando — para você e para o seu coding
-              agent.
+              AutoCloud is the cloud with an infrastructure Autopilot: it analyzes your project,
+              picks the lowest-cost architecture and ships it in one command — for you and for your
+              coding agent.
             </p>
             <div className="mt-7 flex flex-wrap gap-4">
               <Link
@@ -225,30 +225,23 @@ export default async function HomePage() {
             </div>
             <div className="mt-6">
               <p className="mb-2 font-mono text-xs text-ink-faint">
-                O que você nunca mais configura:
+                What you never configure again:
               </p>
               <div className="flex flex-wrap gap-1.5">
-                {[
-                  "CPU",
-                  "RAM",
-                  "Região",
-                  "Runtime",
-                  "CDN",
-                  "SSL",
-                  "Sizing",
-                  "Tabela de preços",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-edge bg-panel px-2.5 py-0.5 font-mono text-[11px] text-ink-faint line-through decoration-err/60"
-                  >
-                    {item}
-                  </span>
-                ))}
+                {["CPU", "RAM", "Region", "Runtime", "CDN", "SSL", "Sizing", "Price tables"].map(
+                  (item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-edge bg-panel px-2.5 py-0.5 font-mono text-[11px] text-ink-faint line-through decoration-err/60"
+                    >
+                      {item}
+                    </span>
+                  ),
+                )}
               </div>
             </div>
             <p className="mt-5 font-mono text-xs text-ink-faint">
-              Funciona com Claude Code, Codex, Cursor e o seu terminal.
+              Works with Claude Code, Codex, Cursor and your terminal.
             </p>
           </div>
           <pre className="overflow-x-auto rounded-xl border border-edge bg-panel p-5 font-mono text-sm leading-relaxed text-ink-dim shadow-2xl">
@@ -262,7 +255,7 @@ OK  Architecture calculated
 
   Recommended: static on cloudflare
   Estimated cost: USD 0.00/month
-  (projecao por tabelas de preco)
+  (projection from price tables)
 
 Building
 OK  Build completed
@@ -280,12 +273,11 @@ OK  Deployment ready
           <div className="mx-auto w-full max-w-3xl px-6 py-14 text-center">
             <h2 className="text-lg font-medium text-ink-dim">What is AutoCloud?</h2>
             <p className="mt-4 text-xl leading-relaxed">
-              A AutoCloud é uma plataforma de deploy AI-native: ela{" "}
-              <span className="text-accent">analisa o projeto</span>, escolhe automaticamente a{" "}
-              <span className="text-accent">arquitetura de menor custo</span> compatível, faz o
-              deploy com health check verificado e{" "}
-              <span className="text-accent">segue otimizando</span> a infraestrutura conforme o uso
-              real.
+              AutoCloud is an AI-native deploy platform: it{" "}
+              <span className="text-accent">analyzes the project</span>, automatically picks the{" "}
+              <span className="text-accent">lowest-cost compatible architecture</span>, deploys it
+              with a verified health check and <span className="text-accent">keeps optimizing</span>{" "}
+              the infrastructure based on real usage.
             </p>
           </div>
         </section>
@@ -294,11 +286,11 @@ OK  Deployment ready
         <section className="border-t border-edge-soft bg-panel/40">
           <div className="mx-auto w-full max-w-6xl px-6 py-16">
             <h2 className="text-2xl font-semibold">
-              O mecanismo: <span className="text-accent">Autopilot Infrastructure</span>
+              The mechanism: <span className="text-accent">Autopilot Infrastructure</span>
             </h2>
             <p className="mt-2 max-w-2xl text-ink-dim">
-              Nenhuma pergunta sobre CPU, RAM, região ou runtime. Esta é a estrutura completa que
-              roda em cada deploy:
+              No questions about CPU, RAM, region or runtime. This is the full structure that runs
+              on every deploy:
             </p>
             <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_1.2fr]">
               <ol className="space-y-0">
@@ -348,11 +340,11 @@ OK  Deployment ready
         <section className="border-t border-edge-soft bg-panel/40">
           <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-6 py-16 lg:grid-cols-2">
             <div>
-              <h2 className="text-2xl font-semibold">Feita para agentes operarem sozinhos</h2>
+              <h2 className="text-2xl font-semibold">Built for agents to operate alone</h2>
               <p className="mt-3 leading-relaxed text-ink-dim">
-                Tudo que o dashboard faz existe em API, CLI e MCP. Saída JSON, exit codes honestos,
-                estados de falha tipados e logs por etapa — o agente publica, diagnostica e corrige
-                sem intervenção humana.
+                Everything the dashboard does exists as API, CLI and MCP. JSON output, honest exit
+                codes, typed failure states and per-stage logs — the agent publishes, diagnoses and
+                fixes without human intervention.
               </p>
               <div className="mt-5 flex flex-wrap gap-3 font-mono text-xs text-ink-dim">
                 <span className="rounded-full border border-edge px-3 py-1">Claude Code</span>
@@ -364,7 +356,7 @@ OK  Deployment ready
                 href="/docs/agents"
                 className="mt-6 inline-block rounded-md border border-edge px-4 py-2 text-sm text-ink-dim hover:border-accent hover:text-ink"
               >
-                Documentação para agentes
+                Agent documentation
               </Link>
             </div>
             <pre className="overflow-x-auto rounded-xl border border-edge bg-panel p-5 font-mono text-xs leading-relaxed text-ink-dim">
@@ -387,11 +379,11 @@ OK  Deployment ready
             <div>
               <h2 className="text-2xl font-semibold">Predictable pricing</h2>
               <p className="mt-2 text-ink-dim">
-                Limites explícitos, uso medido, sem surpresa na fatura.
+                Explicit limits, measured usage, no surprise bills.
               </p>
             </div>
             <Link href="/pricing" className="text-sm text-accent hover:underline">
-              Ver planos completos
+              See full plans
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -408,7 +400,7 @@ OK  Deployment ready
                   {plan.priceMonthlyMinor === 0
                     ? "R$ 0"
                     : formatMinor(plan.priceMonthlyMinor, plan.currency)}
-                  <span className="text-xs text-ink-faint">/mês</span>
+                  <span className="text-xs text-ink-faint">/mo</span>
                 </p>
               </Link>
             ))}
@@ -418,7 +410,7 @@ OK  Deployment ready
         {/* FAQ */}
         <section className="border-t border-edge-soft bg-panel/40">
           <div className="mx-auto w-full max-w-3xl px-6 py-16">
-            <h2 className="text-2xl font-semibold">Perguntas frequentes</h2>
+            <h2 className="text-2xl font-semibold">Frequently asked questions</h2>
             <div className="mt-8 space-y-6">
               {FAQ.map((item) => (
                 <div key={item.q} className="border-b border-edge-soft pb-6 last:border-0">
@@ -434,8 +426,8 @@ OK  Deployment ready
         <section className="mx-auto w-full max-w-6xl px-6 py-20 text-center">
           <h2 className="text-3xl font-semibold">Built by you, or your agent</h2>
           <p className="mx-auto mt-3 max-w-xl text-ink-dim">
-            Comece grátis. A estimativa de custo aparece antes de qualquer deploy — e o seu coding
-            agent consegue operar tudo sozinho.
+            Start free. The cost estimate shows up before any deploy — and your coding agent can
+            operate everything on its own.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-4">
             <Link

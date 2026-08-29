@@ -23,9 +23,9 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
   {
     title: "Compare",
     links: [
-      { href: "/vercel-alternative", label: "AutoCloud vs plataformas de deploy" },
-      { href: "/cheap-nextjs-hosting", label: "Hosting Next.js de menor custo" },
-      { href: "/ai-deployment-platform", label: "Por que agent-first" },
+      { href: "/vercel-alternative", label: "AutoCloud vs deploy platforms" },
+      { href: "/cheap-nextjs-hosting", label: "Lowest-cost Next.js hosting" },
+      { href: "/ai-deployment-platform", label: "Why agent-first" },
     ],
   },
   {
@@ -38,9 +38,9 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
   {
     title: "Legal",
     links: [
-      { href: "/terms", label: "Termos de Serviço" },
-      { href: "/privacy", label: "Política de Privacidade" },
-      { href: "/acceptable-use", label: "Uso Aceitável" },
+      { href: "/terms", label: "Terms of Service" },
+      { href: "/privacy", label: "Privacy Policy" },
+      { href: "/acceptable-use", label: "Acceptable Use" },
       { href: "/dpa", label: "DPA" },
     ],
   },
@@ -78,7 +78,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-edge-soft">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-2 px-6 py-5 text-xs text-ink-faint">
-          <p>AutoCloud — um produto Yes Serviços Digitais. Todos os direitos reservados.</p>
+          <p>AutoCloud — a Yes Servicos Digitais product. All rights reserved.</p>
           <p className="font-mono">npx autocloud deploy</p>
         </div>
       </div>

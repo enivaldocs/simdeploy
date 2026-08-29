@@ -2,44 +2,44 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata = {
-  title: "Acordo de Processamento de Dados (DPA)",
+  title: "Data Processing Agreement",
   description:
-    "Como a AutoCloud atua como operadora dos dados pessoais contidos nos projetos dos clientes, nos termos da LGPD.",
+    "How AutoCloud acts as processor for personal data contained in customer projects, under the Brazilian LGPD.",
   alternates: { canonical: "/dpa" },
 };
 
 const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
-    title: "1. Papéis",
+    title: "1. Roles",
     paragraphs: [
-      "Para os dados da SUA conta (e-mail, billing, uso), a Yes Serviços Digitais é controladora — ver a Política de Privacidade.",
-      "Para dados pessoais eventualmente contidos nos PROJETOS que você publica (código, conteúdo servido, variáveis de ambiente), você é o controlador e a AutoCloud atua como operadora (art. 5º, VII, LGPD), tratando esses dados exclusivamente para prestar o serviço: armazenar, publicar e servir o projeto.",
+      "For YOUR account data (email, billing, usage), Yes Servicos Digitais is the controller — see the Privacy Policy.",
+      "For personal data possibly contained in the PROJECTS you publish (code, served content, environment variables), you are the controller and AutoCloud acts as processor (article 5, VII, LGPD), processing that data exclusively to provide the service: storing, publishing and serving your project.",
     ],
   },
   {
-    title: "2. Instruções e finalidade",
+    title: "2. Instructions and purpose",
     paragraphs: [
-      "Tratamos os dados dos seus projetos apenas conforme suas instruções expressas pela própria operação do produto (deploy, configuração de variáveis, remoção). Não acessamos o conteúdo dos seus projetos exceto para operar o serviço, atender solicitação sua de suporte ou cumprir obrigação legal.",
+      "We process your projects' data only according to your instructions as expressed through the product itself (deploying, configuring variables, deleting). We do not access your projects' content except to operate the service, handle a support request from you, or comply with a legal obligation.",
     ],
   },
   {
-    title: "3. Segurança",
+    title: "3. Security",
     paragraphs: [
-      "Medidas técnicas aplicadas: variáveis de ambiente criptografadas em repouso (AES-256-GCM); isolamento por organização em todas as consultas; builds executados fora dos servidores da plataforma; artefatos validados antes da extração; tokens armazenados apenas como hash; registro de auditoria de ações sensíveis.",
+      "Technical measures in place: environment variables encrypted at rest (AES-256-GCM); per-organization isolation in every query; builds executed outside the platform's servers; artifacts validated before extraction; tokens stored only as hashes; audit logging of sensitive actions.",
     ],
   },
   {
-    title: "4. Suboperadores",
+    title: "4. Subprocessors",
     paragraphs: [
-      "Utilizamos suboperadores estritamente necessários: provedores de infraestrutura onde os projetos são publicados (ex.: Cloudflare) e a Stripe para pagamentos (dados de billing, não dos seus projetos). Mudanças relevantes na lista são comunicadas.",
+      "We use strictly necessary subprocessors: the infrastructure providers where projects are published (e.g. Cloudflare) and Stripe for payments (billing data, not your projects' data). Relevant changes to this list are communicated.",
     ],
   },
   {
-    title: "5. Incidentes, devolução e eliminação",
+    title: "5. Incidents, return and deletion",
     paragraphs: [
-      "Incidentes de segurança com dados pessoais são comunicados ao cliente afetado sem demora injustificada, com as informações exigidas pela LGPD.",
-      "No encerramento da conta ou remoção de um projeto, o conteúdo publicado é despublicado e os artefatos eliminados dos nossos sistemas, ressalvadas cópias de backup com expurgo em ciclo regular.",
-      "Dúvidas e solicitações: support@autocloud.app.",
+      "Security incidents involving personal data are communicated to the affected customer without undue delay, with the information required by the LGPD.",
+      "Upon account closure or project deletion, published content is unpublished and artifacts are deleted from our systems, except backup copies purged on a regular cycle.",
+      "Questions and requests: support@autocloud.app.",
     ],
   },
 ];
@@ -49,8 +49,8 @@ export default function DpaPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
-        <h1 className="text-3xl font-semibold">Acordo de Processamento de Dados</h1>
-        <p className="mt-2 text-sm text-ink-faint">Última atualização: 29 de agosto de 2026</p>
+        <h1 className="text-3xl font-semibold">Data Processing Agreement</h1>
+        <p className="mt-2 text-sm text-ink-faint">Last updated: August 29, 2026</p>
         <div className="mt-10 space-y-10">
           {SECTIONS.map((section) => (
             <section key={section.title}>

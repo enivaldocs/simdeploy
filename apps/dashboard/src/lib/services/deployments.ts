@@ -296,8 +296,8 @@ export async function runDeployment(input: RunDeploymentInput): Promise<Deployme
         organizationId: project.organizationId,
         userId: input.userId,
         type: "first_deploy",
-        title: "Primeiro deploy no ar",
-        body: "Seu projeto está publicado. O Autopilot segue monitorando custo e uso.",
+        title: "First deploy is live",
+        body: "Your project is published. Autopilot keeps monitoring cost and usage.",
         metadata: { deploymentId: deployment.id },
       });
     }
@@ -335,7 +335,7 @@ export async function runDeployment(input: RunDeploymentInput): Promise<Deployme
       organizationId: project.organizationId,
       userId: input.userId,
       type: "deploy_failed",
-      title: `Deploy do projeto ${project.name} falhou (${result.status})`,
+      title: `Deployment of ${project.name} failed (${result.status})`,
       body: result.error ?? undefined,
       metadata: { deploymentId: deployment.id },
     });

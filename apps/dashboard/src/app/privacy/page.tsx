@@ -2,63 +2,63 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata = {
-  title: "Política de Privacidade",
+  title: "Privacy Policy",
   description:
-    "Como a AutoCloud coleta, usa e protege dados pessoais — bases legais (LGPD), subprocessadores, retenção e direitos do titular.",
+    "How AutoCloud collects, uses and protects personal data — legal bases (LGPD), subprocessors, retention and data subject rights.",
   alternates: { canonical: "/privacy" },
 };
 
 const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
-    title: "1. Quem somos",
+    title: "1. Who we are",
     paragraphs: [
-      "A AutoCloud é operada por Yes Serviços Digitais (controladora dos dados, nos termos da Lei 13.709/2018 — LGPD). Contato do encarregado: support@autocloud.app.",
+      "AutoCloud is operated by Yes Servicos Digitais (data controller under Brazilian law 13.709/2018 — LGPD). Data protection officer contact: support@autocloud.app.",
     ],
   },
   {
-    title: "2. O que coletamos",
+    title: "2. What we collect",
     paragraphs: [
-      "Dados de conta: e-mail, nome e, se você conectar o GitHub, o identificador público e login da sua conta GitHub.",
-      "Dados de uso do produto: projetos, deployments, logs de pipeline, métricas medidas de tráfego dos seus sites (contagens de requests e bytes — não registramos IP nem identidade dos visitantes dos seus sites), e eventos de produto (ex.: deploy concluído, checkout iniciado).",
-      "Dados de cobrança: plano, faturas e status de pagamento. Os dados de cartão são coletados e armazenados exclusivamente pela Stripe — nunca passam pelos nossos servidores.",
-      "Cookies: cookie de sessão (autenticação, essencial) e um cookie de atribuição de origem (utm/referrer do primeiro acesso, expira em 30 dias). Não usamos cookies de publicidade de terceiros.",
-      "Variáveis de ambiente dos seus projetos são criptografadas (AES-256-GCM) antes de gravadas, nunca aparecem em logs e nunca são exibidas depois de salvas.",
+      "Account data: email, name and — if you connect GitHub — your GitHub account's public identifier and login.",
+      "Product usage data: projects, deployments, pipeline logs, measured traffic metrics for your sites (request and byte counts — we do not record the IP or identity of your sites' visitors), and product events (e.g. deployment completed, checkout started).",
+      "Billing data: plan, invoices and payment status. Card data is collected and stored exclusively by Stripe — it never touches our servers.",
+      "Cookies: a session cookie (authentication, essential) and a first-touch attribution cookie (utm/referrer of the first visit, expires in 30 days). We do not use third-party advertising cookies.",
+      "Your projects' environment variables are encrypted (AES-256-GCM) before being stored, never appear in logs and are never displayed after being saved.",
     ],
   },
   {
-    title: "3. Para que usamos (bases legais)",
+    title: "3. Why we use it (legal bases)",
     paragraphs: [
-      "Prestar o serviço contratado — publicar, servir e medir seus projetos (execução de contrato).",
-      "Cobrança, prevenção a fraude e cumprimento de obrigações fiscais (obrigação legal e legítimo interesse).",
-      "Melhorar o produto a partir de eventos agregados de uso e origem de aquisição (legítimo interesse).",
-      "Comunicações transacionais — falha de deploy, falha de pagamento, limites de uso (execução de contrato). Não enviamos marketing sem consentimento.",
+      "To provide the contracted service — publishing, serving and metering your projects (performance of contract).",
+      "Billing, fraud prevention and tax obligations (legal obligation and legitimate interest).",
+      "Improving the product from aggregated usage and acquisition-source events (legitimate interest).",
+      "Transactional communications — deploy failures, payment failures, usage limits (performance of contract). We do not send marketing without consent.",
     ],
   },
   {
-    title: "4. Com quem compartilhamos (subprocessadores)",
+    title: "4. Who we share with (subprocessors)",
     paragraphs: [
-      "Stripe (processamento de pagamentos); provedores de infraestrutura onde os seus projetos são publicados (ex.: Cloudflare); GitHub, apenas se você conectar sua conta. Compartilhamos com cada um somente o necessário para a função.",
-      "Não vendemos dados pessoais. Dados podem ser fornecidos a autoridades mediante obrigação legal.",
+      "We use strictly necessary subprocessors: the infrastructure providers where your projects are published (e.g. Cloudflare) and Stripe for payments. Each receives only what its function requires.",
+      "We do not sell personal data. Data may be disclosed to authorities under legal obligation.",
     ],
   },
   {
-    title: "5. Retenção e segurança",
+    title: "5. Retention and security",
     paragraphs: [
-      "Dados da conta e de cobrança são mantidos enquanto a conta existir e pelos prazos legais fiscais após o encerramento. Logs de pipeline e métricas de uso são dados operacionais e podem ser expurgados periodicamente.",
-      "Medidas de segurança incluem: criptografia de secrets em repouso, tokens de API armazenados apenas como hash, isolamento por organização em todas as consultas, registro de auditoria de ações sensíveis e validação de assinatura em webhooks de pagamento.",
+      "Account and billing data are kept while the account exists and for the legally required tax periods after closure. Pipeline logs and usage metrics are operational data and may be purged periodically.",
+      "Security measures include: encryption of secrets at rest, API tokens stored only as hashes, per-organization isolation in every query, audit logging of sensitive actions, and signature validation on payment webhooks.",
     ],
   },
   {
-    title: "6. Seus direitos (LGPD)",
+    title: "6. Your rights (LGPD)",
     paragraphs: [
-      "Você pode solicitar: confirmação de tratamento, acesso, correção, anonimização, portabilidade, eliminação dos dados e revogação de consentimento — pelo e-mail support@autocloud.app. Respondemos nos prazos da LGPD.",
-      "O encerramento da conta despublica os projetos e inicia a eliminação dos dados pessoais, ressalvados os que devemos manter por obrigação legal.",
+      "You may request: confirmation of processing, access, correction, anonymization, portability, deletion and consent withdrawal — via support@autocloud.app. We respond within the timeframes set by the LGPD.",
+      "Closing your account unpublishes your projects and starts deletion of personal data, except what we must keep under legal obligation.",
     ],
   },
   {
-    title: "7. Alterações",
+    title: "7. Changes",
     paragraphs: [
-      "Esta política pode ser atualizada; mudanças relevantes são comunicadas. A data da última atualização está no topo da página.",
+      "This policy may be updated; relevant changes are communicated. The last-updated date is at the top of the page.",
     ],
   },
 ];
@@ -68,8 +68,8 @@ export default function PrivacyPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
-        <h1 className="text-3xl font-semibold">Política de Privacidade</h1>
-        <p className="mt-2 text-sm text-ink-faint">Última atualização: 29 de agosto de 2026</p>
+        <h1 className="text-3xl font-semibold">Privacy Policy</h1>
+        <p className="mt-2 text-sm text-ink-faint">Last updated: August 29, 2026</p>
         <div className="mt-10 space-y-10">
           {SECTIONS.map((section) => (
             <section key={section.title}>

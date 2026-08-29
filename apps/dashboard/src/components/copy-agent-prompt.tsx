@@ -33,7 +33,7 @@ export function CopyAgentPrompt() {
       onClick={copy}
       className="rounded-md border border-edge px-6 py-3 font-mono text-sm text-ink-dim hover:border-accent hover:text-ink"
     >
-      {copied ? "Copiado — cole no seu agente" : "Onboard your agent"}
+      {copied ? "Copied — paste it into your agent" : "Onboard your agent"}
     </button>
   );
 }

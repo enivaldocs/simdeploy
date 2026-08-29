@@ -35,8 +35,8 @@ export default async function PricingPage() {
       <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-12">
         <h1 className="mb-2 text-3xl font-semibold">Predictable cloud pricing</h1>
         <p className="mb-10 max-w-2xl text-ink-dim">
-          O que está incluso, os limites e o excedente — sempre visíveis antes da cobrança. A
-          estimativa de custo aparece antes de cada deploy.
+          What is included, the limits and the overage — always visible before you are charged. The
+          cost estimate appears before every deploy.
         </p>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -55,21 +55,19 @@ export default async function PricingPage() {
                   {plan.priceMonthlyMinor === 0
                     ? "R$ 0"
                     : formatMinor(plan.priceMonthlyMinor, plan.currency)}
-                  <span className="text-sm text-ink-faint">/mês</span>
+                  <span className="text-sm text-ink-faint">/mo</span>
                 </p>
                 {plan.priceAnnualMinor ? (
                   <p className="text-xs text-ink-faint">
-                    ou {formatMinor(plan.priceAnnualMinor, plan.currency)}/ano
+                    or {formatMinor(plan.priceAnnualMinor, plan.currency)}/yr
                   </p>
                 ) : null}
                 <ul className="mt-4 flex-1 space-y-1.5 text-sm text-ink-dim">
-                  <li>{limits.maxProjects ?? "—"} projetos</li>
-                  <li>{limits.maxDeploymentsPerDay ?? "—"} deploys/dia</li>
-                  <li>{limits.bandwidthGb ?? "—"} GB de banda/mês</li>
-                  <li>{limits.storageGb ?? "—"} GB de storage</li>
-                  <li>
-                    {limits.customDomains ? "Domínios personalizados" : "Subdomínio autocloud"}
-                  </li>
+                  <li>{limits.maxProjects ?? "—"} projects</li>
+                  <li>{limits.maxDeploymentsPerDay ?? "—"} deploys/day</li>
+                  <li>{limits.bandwidthGb ?? "—"} GB bandwidth/mo</li>
+                  <li>{limits.storageGb ?? "—"} GB storage</li>
+                  <li>{limits.customDomains ? "Custom domains" : "autocloud subdomain"}</li>
                 </ul>
                 <Link
                   href={plan.priceMonthlyMinor === 0 ? "/login" : "/dashboard/billing"}
@@ -86,9 +84,9 @@ export default async function PricingPage() {
           })}
         </div>
         <p className="mt-8 text-xs text-ink-faint">
-          Valores de infraestrutura exibidos no produto são projeções baseadas em tabelas públicas
-          de preço dos providers — a fatura real vem exclusivamente do billing. Cancelamento a
-          qualquer momento pelo portal; direito de arrependimento de 7 dias (art. 49 do CDC).
+          Infrastructure figures shown in the product are projections from public provider price
+          tables — the real bill comes exclusively from billing. Cancel anytime through the portal;
+          7-day right of withdrawal (article 49 of the Brazilian Consumer Code).
         </p>
       </main>
       <SiteFooter />

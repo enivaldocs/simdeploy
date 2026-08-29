@@ -2,68 +2,70 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata = {
-  title: "Termos de Serviço",
+  title: "Terms of Service",
   description:
-    "Termos de Serviço da AutoCloud: conta, planos e pagamento, uso aceitável, conteúdo do usuário, cancelamento e reembolso.",
+    "AutoCloud Terms of Service: account, plans and payment, acceptable use, user content, cancellation and refunds.",
   alternates: { canonical: "/terms" },
 };
 
 const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
-    title: "1. O serviço",
+    title: "1. The service",
     paragraphs: [
-      "A AutoCloud é uma plataforma de deploy e hospedagem operada por Yes Serviços Digitais. Ela analisa projetos de software, seleciona automaticamente a arquitetura de infraestrutura, publica o projeto em uma URL e mede o uso (requests, banda, armazenamento).",
-      "Valores de custo de infraestrutura exibidos no produto são projeções calculadas sobre tabelas públicas de preço de provedores, sempre rotuladas como estimativa. A cobrança real é exclusivamente a da sua assinatura, descrita na seção 3.",
+      "AutoCloud is a deployment and hosting platform operated by Yes Servicos Digitais (Brazil). It analyzes software projects, automatically selects the infrastructure architecture, publishes the project to a URL and measures usage (requests, bandwidth, storage).",
+      "Infrastructure cost figures shown in the product are projections computed from public provider price tables and are always labeled as estimates. The only real charge is your subscription, described in section 3.",
     ],
   },
   {
-    title: "2. Conta",
+    title: "2. Account",
     paragraphs: [
-      "Você é responsável pela segurança das credenciais da sua conta e dos API tokens criados nela. Tokens podem ser revogados a qualquer momento no dashboard.",
-      "Podemos suspender contas que violem estes termos, com registro do motivo e comunicação ao titular.",
+      "You are responsible for the security of your account credentials and of the API tokens created in it. Tokens can be revoked at any time in the dashboard.",
+      "We may suspend accounts that violate these terms, with the reason recorded and communicated to the account holder.",
     ],
   },
   {
-    title: "3. Planos, pagamento e reembolso",
+    title: "3. Plans, payment and refunds",
     paragraphs: [
-      "Os planos têm preço fixo mensal (ou anual) em reais, com limites explícitos exibidos na página de preços e no dashboard. O pagamento é processado pela Stripe; a AutoCloud não armazena dados de cartão.",
-      "Você pode trocar de plano ou cancelar a qualquer momento pelo portal de assinatura. O cancelamento vale para o próximo ciclo; o acesso permanece até o fim do período pago.",
-      "Compras realizadas online têm direito de arrependimento em até 7 (sete) dias corridos a contar da contratação, com reembolso integral (art. 49 do Código de Defesa do Consumidor). Para exercer, contate support@autocloud.app.",
-      "Falhas de pagamento são notificadas; após o período de tolerância, a assinatura volta ao plano gratuito e os limites correspondentes passam a valer.",
+      "Plans have a fixed monthly (or annual) price with explicit limits shown on the pricing page and in the dashboard. Payments are processed by Stripe; AutoCloud never stores card data.",
+      "You can change plans or cancel at any time through the billing portal. Cancellation takes effect at the next cycle; access remains until the end of the paid period.",
+      "Online purchases carry a 7 (seven) calendar day right of withdrawal from the date of purchase, with a full refund (article 49 of the Brazilian Consumer Code). To exercise it, contact support@autocloud.app.",
+      "Failed payments are notified; after the grace period, the subscription reverts to the free plan and its limits apply.",
     ],
   },
   {
-    title: "4. Uso aceitável",
+    title: "4. Acceptable use",
     paragraphs: [
-      "É proibido usar a AutoCloud para hospedar ou distribuir: malware, phishing ou páginas que se passem por terceiros; conteúdo que viole direitos autorais ou a lei brasileira; spam ou infraestrutura de abuso (incluindo ataques a terceiros); mineração de criptomoedas; conteúdo de exploração sexual infantil (removido e reportado imediatamente).",
-      "Também é proibido tentar contornar limites do plano, interferir na plataforma ou em projetos de outros clientes, ou revender o serviço sem acordo por escrito.",
-      "Projetos que violem esta seção podem ser despublicados imediatamente. Sempre que possível, notificamos antes; em abuso ativo contra terceiros, agimos primeiro e notificamos depois.",
+      "You may not use AutoCloud to host or distribute: malware, phishing or pages impersonating third parties; content that infringes copyright or violates applicable law; spam or abuse infrastructure (including attacks against third parties); cryptocurrency mining; child sexual abuse material (removed and reported immediately).",
+      "It is also prohibited to circumvent plan limits, interfere with the platform or with other customers' projects, or resell the service without a written agreement.",
+      "Projects that violate this section may be unpublished immediately. Whenever possible we notify first; for active abuse against third parties we act first and notify afterwards. See the full Acceptable Use Policy.",
     ],
   },
   {
-    title: "5. Conteúdo e responsabilidade do usuário",
+    title: "5. User content and responsibility",
     paragraphs: [
-      "O código e o conteúdo publicados são seus e permanecem seus. Você nos concede apenas a licença técnica necessária para armazenar, processar e servir esse conteúdo — que é o serviço.",
-      "Por desenho de segurança, o build do seu código roda na sua máquina (CLI); a plataforma recebe e serve apenas o resultado. Você é o responsável legal pelo conteúdo que publica.",
+      "The code and content you publish are yours and remain yours. You grant us only the technical license needed to store, process and serve that content — which is the service itself.",
+      "By security design, your code is built on your machine (CLI); the platform receives and serves only the build output. You are legally responsible for the content you publish.",
     ],
   },
   {
-    title: "6. Disponibilidade",
+    title: "6. Availability",
     paragraphs: [
-      "Trabalhamos para manter o serviço disponível e publicamos o estado dos componentes internamente. Nesta fase do produto não há SLA contratual formal; interrupções relevantes são comunicadas aos afetados.",
-      "Backups do banco de dados da plataforma são realizados regularmente. A responsabilidade por manter cópia do código-fonte dos seus projetos é sua (o fluxo padrão publica a partir do seu repositório/máquina).",
+      "We work to keep the service available. At this stage of the product there is no formal contractual SLA; relevant outages are communicated to affected customers.",
+      "Platform database backups run regularly. Keeping a copy of your projects' source code is your responsibility (the standard flow publishes from your repository/machine).",
     ],
   },
   {
-    title: "7. Alterações e encerramento",
+    title: "7. Changes and termination",
     paragraphs: [
-      "Estes termos podem ser atualizados; mudanças relevantes são comunicadas com antecedência razoável. O uso continuado após a vigência da nova versão constitui aceite.",
-      "Você pode encerrar a conta a qualquer momento. No encerramento, projetos são despublicados e os dados tratados conforme a Política de Privacidade.",
+      "These terms may be updated; relevant changes are communicated with reasonable notice. Continued use after the new version takes effect constitutes acceptance.",
+      "You may close your account at any time. Upon closure, projects are unpublished and data is handled according to the Privacy Policy.",
     ],
   },
   {
-    title: "8. Contato e foro",
-    paragraphs: ["Dúvidas sobre estes termos: support@autocloud.app. Aplica-se a lei brasileira."],
+    title: "8. Contact and governing law",
+    paragraphs: [
+      "Questions about these terms: support@autocloud.app. These terms are governed by Brazilian law.",
+    ],
   },
 ];
 
@@ -72,8 +74,8 @@ export default function TermsPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
-        <h1 className="text-3xl font-semibold">Termos de Serviço</h1>
-        <p className="mt-2 text-sm text-ink-faint">Última atualização: 29 de agosto de 2026</p>
+        <h1 className="text-3xl font-semibold">Terms of Service</h1>
+        <p className="mt-2 text-sm text-ink-faint">Last updated: August 29, 2026</p>
         <div className="mt-10 space-y-10">
           {SECTIONS.map((section) => (
             <section key={section.title}>

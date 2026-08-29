@@ -39,7 +39,7 @@ export default async function LandingPage({ params }: Params) {
         <h1 className="mb-4 text-3xl font-semibold leading-tight">{content.h1}</h1>
         <p className="mb-8 leading-relaxed text-ink-dim">{content.intro}</p>
 
-        <h2 className="mb-3 text-lg font-medium">Como funciona</h2>
+        <h2 className="mb-3 text-lg font-medium">How it works</h2>
         <pre className="mb-8 overflow-x-auto rounded-lg border border-edge bg-panel p-5 font-mono text-sm leading-relaxed text-ink-dim">
           {content.steps.map((step, index) => `${index + 1}. ${step}`).join("\n")}
         </pre>

@@ -5,9 +5,9 @@ import { getSession } from "@/lib/auth/session";
 import { githubOauthConfigured, isDev } from "@/lib/env";
 
 const ERROR_MESSAGES: Record<string, string> = {
-  oauth_invalid: "Fluxo OAuth inválido ou expirado. Tente novamente.",
-  oauth_failed: "Falha ao autenticar com o GitHub.",
-  rate_limited: "Muitas tentativas. Aguarde um instante.",
+  oauth_invalid: "Invalid or expired OAuth flow. Please try again.",
+  oauth_failed: "GitHub authentication failed.",
+  rate_limited: "Too many attempts. Please wait a moment.",
 };
 
 export default async function LoginPage({
@@ -32,7 +32,7 @@ export default async function LoginPage({
 
           {error ? (
             <p className="mb-4 rounded-md border border-err/40 bg-err/10 px-3 py-2 text-sm text-err">
-              {ERROR_MESSAGES[error] ?? "Erro ao autenticar."}
+              {ERROR_MESSAGES[error] ?? "Authentication error."}
             </p>
           ) : null}
 
@@ -45,7 +45,7 @@ export default async function LoginPage({
             </a>
           ) : (
             <p className="mb-3 rounded-md border border-edge bg-panel-2 px-3 py-2 text-xs text-ink-faint">
-              GitHub OAuth não configurado (defina GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET).
+              GitHub OAuth not configured (set GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET).
             </p>
           )}
 
@@ -55,7 +55,7 @@ export default async function LoginPage({
                 type="submit"
                 className="w-full rounded-md border border-edge px-4 py-2.5 text-sm text-ink-dim hover:border-accent hover:text-ink"
               >
-                Dev login (somente ambiente local)
+                Dev login (local environment only)
               </button>
             </form>
           ) : null}
