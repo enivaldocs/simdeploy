@@ -58,6 +58,14 @@ export default function DocsHubPage() {
             </div>
           </section>
         ))}
+
+        <p className="mt-10 border-t border-edge-soft pt-6 text-sm text-ink-dim">
+          New to hosting concepts? The{" "}
+          <Link href="/learn" className="text-accent hover:underline">
+            Learn hub
+          </Link>{" "}
+          explains cost models, VPS management and security in plain terms.
+        </p>
       </main>
       <SiteFooter />
     </div>

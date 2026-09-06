@@ -2,8 +2,37 @@
  * Criptografia de secrets e geração/hashing de API tokens.
  * Server-only: importar via "@simdeploy/shared/crypto" — nunca em código de client.
  */
-import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
+import {
+  createCipheriv,
+  createDecipheriv,
+  createHash,
+  randomBytes,
+  scryptSync,
+  timingSafeEqual,
+} from "node:crypto";
 import { API_TOKEN_PREFIX } from "./types/tokens.js";
+
+const SCRYPT_N = 16384;
+const SCRYPT_KEYLEN = 64;
+
+/** Hash de senha com scrypt (nativo). Formato: scrypt$N$salt$hash (hex). */
+export function hashPassword(password: string): string {
+  const salt = randomBytes(16);
+  const hash = scryptSync(password, salt, SCRYPT_KEYLEN, { N: SCRYPT_N });
+  return `scrypt$${SCRYPT_N}$${salt.toString("hex")}$${hash.toString("hex")}`;
+}
+
+/** Verifica senha em tempo constante. false para hash malformado. */
+export function verifyPassword(password: string, stored: string): boolean {
+  const parts = stored.split("$");
+  if (parts.length !== 4 || parts[0] !== "scrypt") return false;
+  const n = Number(parts[1]);
+  const salt = Buffer.from(parts[2] as string, "hex");
+  const expected = Buffer.from(parts[3] as string, "hex");
+  if (!Number.isFinite(n) || salt.length === 0 || expected.length === 0) return false;
+  const actual = scryptSync(password, salt, expected.length, { N: n });
+  return actual.length === expected.length && timingSafeEqual(actual, expected);
+}
 
 const ALGO = "aes-256-gcm";
 const VERSION = "v1";

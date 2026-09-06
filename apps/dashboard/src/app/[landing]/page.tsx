@@ -67,6 +67,40 @@ export default async function LandingPage({ params }: Params) {
             Agent docs
           </Link>
         </div>
+
+        <section className="mt-12 border-t border-edge-soft pt-8">
+          <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-ink-faint">
+            Learn more
+          </h2>
+          <ul className="space-y-2">
+            <li>
+              <Link
+                href="/learn/cloud-hosting-vs-vps"
+                className="text-sm text-accent hover:underline"
+              >
+                Cloud hosting vs VPS: which one do you actually need?
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/learn/server-cost-per-month"
+                className="text-sm text-accent hover:underline"
+              >
+                How much does a server cost per month?
+              </Link>
+            </li>
+            <li>
+              <Link href="/docs/getting-started" className="text-sm text-accent hover:underline">
+                Deploy your project in one command
+              </Link>
+            </li>
+            <li>
+              <Link href="/pricing" className="text-sm text-accent hover:underline">
+                Pricing and free tier
+              </Link>
+            </li>
+          </ul>
+        </section>
       </main>
       <SiteFooter />
     </div>

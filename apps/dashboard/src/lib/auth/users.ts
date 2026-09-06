@@ -41,6 +41,8 @@ export interface UpsertUserInput {
   githubId?: string;
   githubLogin?: string;
   avatarUrl?: string | null;
+  /** Hash scrypt para cadastro com senha (contas OAuth ficam sem). */
+  passwordHash?: string | null;
   /** First-touch attribution capturada no cookie ac_attr (só em signup novo). */
   acquisition?: AcquisitionData | null;
 }
@@ -88,6 +90,7 @@ export async function upsertUserWithPersonalOrg(input: UpsertUserInput): Promise
       githubId: input.githubId,
       githubLogin: input.githubLogin,
       avatarUrl: input.avatarUrl,
+      passwordHash: input.passwordHash,
       staffRole: resolveStaffRole(input.email),
       memberships: {
         create: {
@@ -141,4 +144,40 @@ export async function upsertUserWithPersonalOrg(input: UpsertUserInput): Promise
     properties: { source: input.acquisition?.utmSource ?? null },
   });
   return user;
+}
+
+export class EmailTakenError extends Error {
+  constructor() {
+    super("email_taken");
+    this.name = "EmailTakenError";
+  }
+}
+
+/** Cadastro com e-mail e senha. Falha se o e-mail já existe. */
+export async function registerWithPassword(input: {
+  email: string;
+  password: string;
+  name?: string | null;
+  acquisition?: AcquisitionData | null;
+}): Promise<User> {
+  const { hashPassword } = await import("@simdeploy/shared/crypto");
+  const existing = await prisma.user.findUnique({ where: { email: input.email } });
+  if (existing) throw new EmailTakenError();
+  return upsertUserWithPersonalOrg({
+    email: input.email,
+    name: input.name,
+    passwordHash: hashPassword(input.password),
+    acquisition: input.acquisition,
+  });
+}
+
+/** Login com e-mail e senha. null se não existe, sem senha, ou senha errada. */
+export async function authenticateWithPassword(
+  email: string,
+  password: string,
+): Promise<User | null> {
+  const { verifyPassword } = await import("@simdeploy/shared/crypto");
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user?.passwordHash) return null;
+  return verifyPassword(password, user.passwordHash) ? user : null;
 }

@@ -13,6 +13,11 @@ export interface LearnSection {
   paragraphs: string[];
 }
 
+export interface RelatedLink {
+  href: string;
+  label: string;
+}
+
 export interface LearnArticle {
   slug: string;
   title: string;
@@ -21,6 +26,8 @@ export interface LearnArticle {
   updated: string;
   sections: LearnSection[];
   faq: Array<{ q: string; a: string }>;
+  /** Docs relacionadas — malha interna Learn → produto (SEO + jornada). */
+  relatedDocs?: RelatedLink[];
 }
 
 export const LEARN_ARTICLES: LearnArticle[] = [
@@ -69,6 +76,11 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         a: "Yes — if your app builds to static output or standard serverless functions, migration is mostly repointing DNS. The lock-in risk is in bespoke server configuration, which platforms eliminate.",
       },
     ],
+    relatedDocs: [
+      { href: "/docs/cost-engine", label: "How SimDeploy prices each architecture" },
+      { href: "/learn/vps-vs-dedicated-server", label: "VPS vs dedicated server" },
+      { href: "/learn/server-cost-per-month", label: "What a server really costs per month" },
+    ],
   },
   {
     slug: "vps-vs-dedicated-server",
@@ -109,6 +121,11 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         q: "Is a dedicated server faster than a VPS?",
         a: "For consistent, hardware-bound workloads, yes — no neighbors, full disk I/O. For typical web traffic, a well-sized VPS or a request-based platform is indistinguishable to users.",
       },
+    ],
+    relatedDocs: [
+      { href: "/learn/cloud-hosting-vs-vps", label: "Cloud hosting vs VPS" },
+      { href: "/learn/server-cost-per-month", label: "Server cost per month by architecture" },
+      { href: "/docs/getting-started", label: "Deploy your project in one command" },
     ],
   },
   {
@@ -152,6 +169,11 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         a: "They are projections from price tables and usage assumptions — useful for choosing an architecture, not invoices. Always check the free allowances; they dominate the math at small scale.",
       },
     ],
+    relatedDocs: [
+      { href: "/docs/cost-engine", label: "Cost engine and architecture routing" },
+      { href: "/pricing", label: "SimDeploy plans and free tier" },
+      { href: "/learn/cloud-hosting-vs-vps", label: "Cloud hosting vs VPS" },
+    ],
   },
   {
     slug: "what-is-server-hardening",
@@ -192,6 +214,11 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         q: "What is the first thing to do on a new VPS?",
         a: "Before anything else: create a non-root user, switch SSH to key-only authentication, and enable a default-deny firewall allowing only SSH and 80/443. Then enable automatic security updates.",
       },
+    ],
+    relatedDocs: [
+      { href: "/security", label: "How SimDeploy secures deployments" },
+      { href: "/learn/vps-management", label: "What VPS management really takes" },
+      { href: "/learn/automated-backups-for-a-vps", label: "Automated VPS backups" },
     ],
   },
   {
@@ -234,6 +261,11 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         q: "How often should a VPS be backed up?",
         a: "Databases: at least daily, more often if the data changes fast. Files/config: daily incrementals are cheap with restic/borg. Snapshots: weekly plus before risky changes.",
       },
+    ],
+    relatedDocs: [
+      { href: "/learn/vps-management", label: "VPS management workload" },
+      { href: "/learn/what-is-server-hardening", label: "Server hardening checklist" },
+      { href: "/docs/deployments", label: "How SimDeploy deployments work" },
     ],
   },
   {
@@ -278,6 +310,11 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         q: "What is the alternative to managing a VPS?",
         a: "A managed deploy platform: you keep the code, the platform owns the servers, patching, scaling and TLS. It trades some control for eliminating a category of work and risk.",
       },
+    ],
+    relatedDocs: [
+      { href: "/docs/getting-started", label: "Deploy in one command" },
+      { href: "/learn/cloud-hosting-vs-vps", label: "Cloud hosting vs VPS" },
+      { href: "/ai-deployment-platform", label: "Built for coding agents" },
     ],
   },
 ];

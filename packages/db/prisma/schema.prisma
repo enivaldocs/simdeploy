@@ -22,13 +22,15 @@ enum StaffRole {
 }
 
 model User {
-  id          String    @id @default(cuid())
-  email       String    @unique
-  staffRole   StaffRole @default(NONE)
-  name        String?
-  githubId    String?  @unique
-  githubLogin String?
-  avatarUrl   String?
+  id           String    @id @default(cuid())
+  email        String    @unique
+  staffRole    StaffRole @default(NONE)
+  name         String?
+  /// scrypt$N$salt$hash — null para contas só-OAuth
+  passwordHash String?
+  githubId     String?  @unique
+  githubLogin  String?
+  avatarUrl    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

@@ -113,9 +113,26 @@ export default async function LearnArticlePage({ params }: Params) {
           </Link>
         </div>
 
+        {article.relatedDocs && article.relatedDocs.length > 0 ? (
+          <section className="mt-12">
+            <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-ink-faint">
+              Keep reading
+            </h2>
+            <ul className="space-y-2">
+              {article.relatedDocs.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-accent hover:underline">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <section className="mt-12">
           <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-ink-faint">
-            Related guides
+            More guides
           </h2>
           <ul className="space-y-2">
             {related.map((item) => (
