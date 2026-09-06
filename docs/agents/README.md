@@ -1,54 +1,54 @@
-# SimDeploy para coding agents
+# SimDeploy for coding agents
 
-SimDeploy foi desenhada para ser operada por agentes: tudo que o dashboard faz existe em CLI (não interativa) e API. Este diretório documenta o uso por agente/ferramenta:
+SimDeploy is designed to be operated by agents: everything the dashboard does exists in the (non-interactive) CLI and the API. This directory documents usage per agent/tool:
 
 - [claude-code.md](claude-code.md) — Claude Code (CLI + MCP)
 - [codex.md](codex.md) — OpenAI Codex
 - [cursor.md](cursor.md) — Cursor
 
-## Fluxo canônico (qualquer agente)
+## Canonical flow (any agent)
 
 ```bash
-# 1. Autenticar uma vez (token criado por um humano em /dashboard/settings)
+# 1. Authenticate once (token created by a human in /dashboard/settings)
 simdeploy login --token sd_live_...
 
-# 2. Analisar (offline, sem efeitos colaterais)
+# 2. Analyze (offline, no side effects)
 simdeploy analyze --json
 
-# 3. Deploy não interativo
+# 3. Non-interactive deploy
 simdeploy deploy --yes
 
-# 4. Verificar
-simdeploy status --json   # exit code != 0 se o deploy falhou
-simdeploy logs            # logs por etapa quando falhar
+# 4. Verify
+simdeploy status --json   # exit code != 0 if the deploy failed
+simdeploy logs            # per-step logs when it fails
 ```
 
-Regras de ouro:
+Golden rules:
 
-- Sempre `--yes` em automação; sem ele a CLI pede confirmação em TTY.
-- Sempre `--json` quando for interpretar a saída.
-- `deploy` retorna exit code diferente de zero em falha — trate como sinal.
-- A URL pública vem em `deployment.url` no JSON do deploy/status.
+- Always use `--yes` in automation; without it the CLI asks for confirmation in a TTY.
+- Always use `--json` when you will parse the output.
+- `deploy` returns a non-zero exit code on failure — treat it as a signal.
+- The public URL comes in `deployment.url` in the deploy/status JSON.
 
 ## API
 
 Base: `$SIMDEPLOY_API_URL` (default `http://localhost:3000`). Auth: header `Authorization: Bearer sd_live_...`.
 
-| Método | Rota | Descrição |
+| Method | Route | Description |
 | --- | --- | --- |
-| GET | `/api/v1/me` | valida token; retorna org e scopes |
-| GET/POST | `/api/v1/projects` | listar / criar `{name, gitRepoUrl?}` |
-| GET/DELETE | `/api/v1/projects/:id` | detalhe / remover |
-| POST | `/api/v1/projects/:id/analyze` | `{analysis, usage?, strategy?}` → custo + rota planejada |
-| GET/POST | `/api/v1/projects/:id/deployments` | listar / deploy (multipart `meta` + `artifact`) |
-| GET | `/api/v1/deployments/:id` | status + eventos |
-| GET | `/api/v1/deployments/:id/logs` | logs (`?format=text` para texto) |
-| GET/POST | `/api/v1/projects/:id/env` | listar chaves / definir `{key, value, target}` |
-| DELETE | `/api/v1/projects/:id/env/:key` | remover variável |
-| POST | `/api/v1/cost/estimate` | `{analysis}` → estimativa sem projeto |
+| GET | `/api/v1/me` | validates the token; returns org and scopes |
+| GET/POST | `/api/v1/projects` | list / create `{name, gitRepoUrl?}` |
+| GET/DELETE | `/api/v1/projects/:id` | detail / delete |
+| POST | `/api/v1/projects/:id/analyze` | `{analysis, usage?, strategy?}` → cost + planned route |
+| GET/POST | `/api/v1/projects/:id/deployments` | list / deploy (multipart `meta` + `artifact`) |
+| GET | `/api/v1/deployments/:id` | status + events |
+| GET | `/api/v1/deployments/:id/logs` | logs (`?format=text` for text) |
+| GET/POST | `/api/v1/projects/:id/env` | list keys / set `{key, value, target}` |
+| DELETE | `/api/v1/projects/:id/env/:key` | remove a variable |
+| POST | `/api/v1/cost/estimate` | `{analysis}` → estimate without a project |
 
-Erros: `{"error": {"code", "message"}}` com HTTP status semântico (401/403/404/413/429/400).
+Errors: `{"error": {"code", "message"}}` with a semantic HTTP status (401/403/404/413/429/400).
 
 ## MCP
 
-Servidor stdio: `simdeploy-mcp` (binário do pacote `@simdeploy/mcp-server`). Ferramentas: `analyze_project`, `estimate_cost`, `create_project`, `deploy_project`, `list_projects`, `get_project`, `get_deployment`, `get_logs`. A autenticação reusa `~/.simdeploy/config.json` (criada por `simdeploy login`).
+stdio server: `simdeploy-mcp` (binary from the `@simdeploy/mcp-server` package). Tools: `analyze_project`, `estimate_cost`, `create_project`, `deploy_project`, `list_projects`, `get_project`, `get_deployment`, `get_logs`. Authentication reuses `~/.simdeploy/config.json` (created by `simdeploy login`).

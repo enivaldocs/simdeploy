@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { trackEvent } from "@/lib/analytics";
 
 export const metadata = {
-  title: "Pricing — SimDeploy",
+  title: "Pricing",
   description:
     "Predictable cloud pricing. Free to start, plans that scale with your projects — no surprise bills.",
 };

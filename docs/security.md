@@ -1,29 +1,29 @@
-# Segurança
+# Security
 
-## Modelo de ameaça central
+## Core threat model
 
-Código de usuário é HOSTIL. Ele nunca executa no servidor da plataforma: o build roda no cliente (CLI) e o servidor recebe apenas artefatos, validados antes da extração (sem symlinks/hardlinks/devices, sem `..`/paths absolutos, limites de 20k arquivos/500MB).
+User code is HOSTILE. It never runs on the platform server: the build runs on the client (CLI) and the server receives only artifacts, validated before extraction (no symlinks/hardlinks/devices, no `..`/absolute paths, limits of 20k files/500MB).
 
-## Controles implementados
+## Implemented controls
 
-| Área | Controle |
+| Area | Control |
 | --- | --- |
-| Autenticação | Sessão httpOnly com hash SHA-256 no banco; OAuth state HMAC; dev-login só com NODE_ENV=development |
-| API tokens | `sd_live_*`, só hash persistido, scopes, expiração, revogação, lastUsedAt |
-| RBAC | MemberRole (org) + StaffRole (admin) verificados no backend em toda rota/página |
-| Multi-tenant | Toda query filtra por organizationId derivado do auth context, nunca do input (anti-IDOR) |
-| Input | zod em toda rota de API (schemas compartilhados) |
-| Secrets | Env vars AES-256-GCM em repouso; nunca logados; nunca retornados após criação; auditoria de alteração registra a CHAVE, nunca o valor |
-| Webhooks | Assinatura Stripe validada antes de qualquer efeito; dedup; retry controlado |
-| Upload | Multipart limitado a 100MB; artefato validado na extração |
-| Serving | Path traversal bloqueado (resolve + startsWith); content-types por allowlist |
-| Rate limit | Token bucket por identidade (API), por IP (auth), por org (deploy) |
-| Audit | Mutações sensíveis com before/after, IP e user-agent |
-| CSRF | Cookies sameSite=lax; mutações via fetch same-origin; tokens Bearer imunes |
-| Billing | Estado de pagamento só muda via webhook assinado — nunca pelo frontend |
+| Authentication | httpOnly session with a SHA-256 hash in the database; OAuth state HMAC; dev-login only with NODE_ENV=development |
+| API tokens | `sd_live_*`, only the hash persisted, scopes, expiration, revocation, lastUsedAt |
+| RBAC | MemberRole (org) + StaffRole (admin) verified in the backend on every route/page |
+| Multi-tenant | Every query filters by organizationId derived from the auth context, never from input (anti-IDOR) |
+| Input | zod on every API route (shared schemas) |
+| Secrets | Env vars AES-256-GCM at rest; never logged; never returned after creation; a change audit records the KEY, never the value |
+| Webhooks | Stripe signature validated before any effect; dedup; controlled retry |
+| Upload | Multipart limited to 100MB; artifact validated on extraction |
+| Serving | Path traversal blocked (resolve + startsWith); content-types by allowlist |
+| Rate limit | Token bucket per identity (API), per IP (auth), per org (deploy) |
+| Audit | Sensitive mutations with before/after, IP, and user-agent |
+| CSRF | Cookies sameSite=lax; mutations via same-origin fetch; Bearer tokens immune |
+| Billing | Payment state only changes via a signed webhook — never from the frontend |
 
-## Pendências conhecidas (registradas, não escondidas)
+## Known open items (recorded, not hidden)
 
-- Rate limit em memória (single-instance) — trocar por Redis ao escalar horizontalmente.
-- Idempotency-Key header em POSTs de deployment (hoje: rate limit + dedup natural por artefato).
-- 2FA/SSO para contas staff.
+- In-memory rate limit (single-instance) — swap for Redis when scaling horizontally.
+- Idempotency-Key header on deployment POSTs (today: rate limit + natural dedup by artifact).
+- 2FA/SSO for staff accounts.

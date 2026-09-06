@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const content = LANDING_PAGES[landing];
   if (!content) return {};
   return {
-    title: content.title,
+    // content.title já inclui a marca — absolute evita duplicar via template.
+    title: { absolute: content.title },
     description: content.description,
     alternates: { canonical: `/${landing}` },
   };

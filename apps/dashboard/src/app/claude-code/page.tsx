@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { TrackPageView } from "@/components/track-page-view";
 
 export const metadata: Metadata = {
-  title: "Deploy with Claude Code — SimDeploy",
+  title: { absolute: "Deploy with Claude Code — SimDeploy" },
   description:
     "SimDeploy is the deploy platform optimized for Claude Code: one command to analyze, deploy and debug any project, with a native MCP server and typed states Claude can act on.",
   alternates: { canonical: "/claude-code" },

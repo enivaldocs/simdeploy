@@ -1,64 +1,64 @@
 # Roadmap
 
-## Fase 1 — Fundação (concluída)
+## Phase 1 — Foundation (done)
 
-- [x] Monorepo pnpm + Turborepo + Biome + TypeScript strict
-- [x] Schema Prisma multi-tenant (User, Organization, Project, Environment, Deployment, Domain, EnvironmentVariable, Provider, ProviderPricing, UsageMetric, CostEstimate, OptimizationRecommendation, ApiToken, AuditLog, AnalyticsEvent, Plan, Subscription)
-- [x] Autenticação: sessão própria + dev login; GitHub OAuth pronto via env
+- [x] pnpm monorepo + Turborepo + Biome + TypeScript strict
+- [x] Multi-tenant Prisma schema (User, Organization, Project, Environment, Deployment, Domain, EnvironmentVariable, Provider, ProviderPricing, UsageMetric, CostEstimate, OptimizationRecommendation, ApiToken, AuditLog, AnalyticsEvent, Plan, Subscription)
+- [x] Authentication: custom session + dev login; GitHub OAuth ready via env
 - [x] Dashboard: Overview, Projects, Deployments (timeline + logs), Environment Variables, Settings/Tokens
-- [x] Homepage com posicionamento
+- [x] Homepage with positioning
 
-## Fase 2 — Inteligência (concluída)
+## Phase 2 — Intelligence (done)
 
-- [x] `framework-detector` (registry extensível; Next.js, Vite, CRA, Astro, Express, Node, static)
-- [x] `project-analyzer` (rotas de API, banco, cron, workers, env vars, percentual estático, Dockerfile)
-- [x] `cost-engine` (tabelas de preço configuráveis, free allowances, breakdown por recurso)
-- [x] `AICloudRouter` (compatibilidade → disponibilidade → estratégia; CHEAPEST default)
-- [x] Testes de todos os módulos críticos
+- [x] `framework-detector` (extensible registry; Next.js, Vite, CRA, Astro, Express, Node, static)
+- [x] `project-analyzer` (API routes, database, cron, workers, env vars, static percentage, Dockerfile)
+- [x] `cost-engine` (configurable pricing tables, free allowances, per-resource breakdown)
+- [x] `AICloudRouter` (compatibility → availability → strategy; CHEAPEST default)
+- [x] Tests for all critical modules
 
-## Fase 3 — Deploy (parcial)
+## Phase 3 — Deploy (partial)
 
-- [x] Interface `DeploymentProvider` + registry
-- [x] Provider `local` funcional (extração sanitizada, URL por subdomínio)
-- [x] Pipeline com máquina de estados, eventos e logs persistidos
-- [x] Subdomínios (`<slug>.localhost` em dev; modelo `Domain` pronto para `simdeploy.com`)
-- [ ] Deploy real no Cloudflare (Workers Static Assets / Workers for Platforms) — healthCheck e pricing prontos
-- [ ] Custom domains com validação DNS + SSL
+- [x] `DeploymentProvider` interface + registry
+- [x] Functional `local` provider (sanitized extraction, subdomain URL)
+- [x] Pipeline with state machine, events, and persisted logs
+- [x] Subdomains (`<slug>.localhost` in dev; `Domain` model ready for `simdeploy.com`)
+- [ ] Real deploy on Cloudflare (Workers Static Assets / Workers for Platforms) — healthCheck and pricing ready
+- [ ] Custom domains with DNS validation + SSL
 
-## Fase 4 — CLI (concluída)
+## Phase 4 — CLI (done)
 
 - [x] `simdeploy login | analyze | deploy [--yes|--json] | logs | status | projects`
-- [x] API tokens com scopes; criação/revogação no dashboard
-- [x] Modo não interativo e saída JSON para agents
+- [x] API tokens with scopes; creation/revocation in the dashboard
+- [x] Non-interactive mode and JSON output for agents
 
-## Fase 5 — Agents (parcial)
+## Phase 5 — Agents (partial)
 
 - [x] MCP server (analyze_project, estimate_cost, create_project, deploy_project, get_deployment, get_logs, get_project, list_projects)
 - [x] `docs/agents` + `llms.txt`
-- [ ] GitHub App: import de repositório, deploy por push, preview por branch
+- [ ] GitHub App: repository import, deploy on push, per-branch preview
 
-## Fase 6 — Produto (em andamento)
+## Phase 6 — Product (in progress)
 
-- [x] Billing Stripe: checkout, portal, webhook robusto (assinatura/dedup/retry), sync de subscription, invoices, payments
-- [x] Créditos com ledger imutável (saldo derivado)
-- [x] Coleta real de `UsageMetric` (requests/bandwidth do serving; deployments/storage/duração do pipeline)
-- [x] ProviderCost ACTUAL separado de ESTIMATED (job de sync; local = 0 real)
-- [x] Admin/Business OS: overview, customers + Customer 360, finance + P&L por cliente, unit economics, growth/funil, usage, providers, webhooks, system health, settings (planos/FX/flags) — RBAC de staff no backend
-- [x] Analytics de funil + aquisição UTM first-touch
-- [x] Notificações (welcome, first_deploy, deploy_failed, payment_failed/recovered, usage 80/100, cancelamento) — entrega por email via adapter futuro
-- [x] Jobs + reconciliation (Stripe ↔ SimDeploy) + cleanup + limites de uso
-- [x] Estados UPLOADING/HEALTH_CHECK com health check HTTP real
-- [x] Pricing page + landings de aquisição + robots/sitemap/OG
-- [ ] Autopilot: comparação alocado × usado → `OptimizationRecommendation` na UI
-- [ ] Cloud Cost Scanner público (análise sem login)
-- [ ] Entrega de email transacional (EmailProvider adapter)
-- [ ] Fila para pipeline + build server-side sandboxado
-- [ ] Usage-based billing (metering já existe; cobrança por excedente pendente)
-- [ ] Providers adicionais: AWS, Hetzner, DigitalOcean, servidores próprios
+- [x] Stripe billing: checkout, portal, robust webhook (signature/dedup/retry), subscription sync, invoices, payments
+- [x] Credits with an immutable ledger (derived balance)
+- [x] Real `UsageMetric` collection (requests/bandwidth from serving; deployments/storage/duration from the pipeline)
+- [x] ACTUAL ProviderCost separated from ESTIMATED (sync job; local = 0 real)
+- [x] Admin/Business OS: overview, customers + Customer 360, finance + per-customer P&L, unit economics, growth/funnel, usage, providers, webhooks, system health, settings (plans/FX/flags) — staff RBAC in the backend
+- [x] Funnel analytics + first-touch UTM acquisition
+- [x] Notifications (welcome, first_deploy, deploy_failed, payment_failed/recovered, usage 80/100, cancellation) — email delivery via a future adapter
+- [x] Jobs + reconciliation (Stripe ↔ SimDeploy) + cleanup + usage limits
+- [x] UPLOADING/HEALTH_CHECK states with a real HTTP health check
+- [x] Pricing page + acquisition landings + robots/sitemap/OG
+- [ ] Autopilot: allocated × used comparison → `OptimizationRecommendation` in the UI
+- [ ] Public Cloud Cost Scanner (analysis without login)
+- [ ] Transactional email delivery (EmailProvider adapter)
+- [ ] Queue for the pipeline + sandboxed server-side build
+- [ ] Usage-based billing (metering already exists; overage charging pending)
+- [ ] Additional providers: AWS, Hetzner, DigitalOcean, self-hosted servers
 
-## Limitações conhecidas do MVP
+## Known MVP limitations
 
-- Deploy funcional cobre builds estáticos (Vite/CRA/static/Astro estático/Next `output: "export"`). SSR/serverless aguardam o adapter Cloudflare; o pipeline falha com mensagem orientando o usuário.
-- Pipeline roda síncrono na request de deploy (aceitável para artefatos estáticos; fila entra na Fase 6).
-- Rate limiting em memória (single-instance).
-- `BALANCED`/`PERFORMANCE` existem, mas sem métricas reais de performance por provider ainda decidem por custo/ranking estático.
+- Functional deploy covers static builds (Vite/CRA/static/static Astro/Next `output: "export"`). SSR/serverless await the Cloudflare adapter; the pipeline fails with a message guiding the user.
+- The pipeline runs synchronously within the deploy request (acceptable for static artifacts; a queue arrives in Phase 6).
+- In-memory rate limiting (single-instance).
+- `BALANCED`/`PERFORMANCE` exist, but without real per-provider performance metrics they still decide by cost/static ranking.

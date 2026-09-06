@@ -1,58 +1,58 @@
-# AGENTS.md — guia para coding agents trabalhando NESTE repositório
+# AGENTS.md — guide for coding agents working IN THIS repository
 
-## O que é
+## What it is
 
-SimDeploy: plataforma SaaS de deploy que analisa o projeto do usuário, escolhe a arquitetura de menor custo e publica. Monorepo pnpm + Turborepo. Detalhes: [ARCHITECTURE.md](ARCHITECTURE.md).
+SimDeploy: a deployment SaaS platform that analyzes the user's project, picks the lowest-cost architecture, and publishes it. pnpm monorepo + Turborepo. Details: [ARCHITECTURE.md](ARCHITECTURE.md).
 
-Para instruções de USO da plataforma por agentes (deployar um app com a CLI/MCP), ver [docs/agents/](docs/agents/).
+For instructions on USING the platform from agents (deploying an app with the CLI/MCP), see [docs/agents/](docs/agents/).
 
-## Comandos
+## Commands
 
 ```bash
-pnpm install                      # instalar (requer pnpm 10)
-pnpm test                         # vitest em todos os pacotes
-pnpm typecheck                    # tsc strict em todos os pacotes
+pnpm install                      # install (requires pnpm 10)
+pnpm test                         # vitest across all packages
+pnpm typecheck                    # tsc strict across all packages
 pnpm lint                         # biome check .
 pnpm build                        # turbo build (dashboard + cli + mcp)
-pnpm db:migrate                   # prisma migrate dev (usa .env da raiz)
-pnpm db:seed                      # providers, pricing e planos
-pnpm --filter @simdeploy/dashboard dev   # dashboard em :3000
+pnpm db:migrate                   # prisma migrate dev (uses the root .env)
+pnpm db:seed                      # providers, pricing, and plans
+pnpm --filter @simdeploy/dashboard dev   # dashboard on :3000
 ```
 
-Rodar um pacote só: `pnpm --filter @simdeploy/<nome> test|typecheck`.
+Run a single package: `pnpm --filter @simdeploy/<name> test|typecheck`.
 
-## Regras do repositório
+## Repository rules
 
-1. **Preços nunca em lógica.** Valores monetários vivem em `ProviderPricing` (banco) e no snapshot `packages/cost-engine/src/pricing/defaults.ts` (config com fonte e data). A UI nunca hardcoda preço.
-2. **Custos são projeções.** Toda exibição de custo leva rótulo de estimativa/projeção. Nunca apresentar estimativa como fatura real.
-3. **Código de usuário não roda no servidor.** Build acontece na CLI. Não introduzir `exec` de conteúdo de artefato no dashboard.
-4. **Isolamento por organização.** Toda query de dados de usuário filtra por `organizationId` derivado do auth context — nunca do input da request.
-5. **Input da API sempre validado com zod** (schemas compartilhados em `@simdeploy/shared`).
-6. **Secrets**: criptografar com `@simdeploy/shared/crypto`; nunca logar valores; nunca retornar depois de salvos.
-7. **Providers desacoplados**: novidades de infraestrutura entram como implementação de `DeploymentProvider` registrada no registry — sem `if (provider === "x")` na lógica.
-8. **Novos frameworks**: adicionar um detector em `packages/framework-detector/src/detectors.ts` + o id em `FRAMEWORK_IDS` (shared) + testes.
-9. **Estados de deployment**: alterar a máquina de estados exige atualizar `TRANSITIONS` + enum Prisma + testes de transição.
-10. **Sem emojis** em copy de UI/CLI.
-12. **Dinheiro**: minor units inteiros + currency (`@simdeploy/finance`); nunca float; nunca somar moedas sem taxa; margens sem FX configurada mostram "Configure FX rate".
-13. **Dados reais somente**: dashboards/admin mostram 0/"No data" quando não há dado — nunca valores fabricados.
-14. **ESTIMATED vs ACTUAL**: custo projetado e custo real nunca se misturam (tabelas e telas separam).
-11. Imports internos entre pacotes usam extensão `.js` (estilo NodeNext resolvido pelo bundler); manter o padrão.
+1. **Prices never in logic.** Monetary values live in `ProviderPricing` (database) and in the `packages/cost-engine/src/pricing/defaults.ts` snapshot (config with source and date). The UI never hardcodes a price.
+2. **Costs are projections.** Every cost display carries an estimate/projection label. Never present an estimate as a real invoice.
+3. **User code does not run on the server.** The build happens in the CLI. Do not introduce an `exec` of artifact content in the dashboard.
+4. **Per-organization isolation.** Every query over user data filters by `organizationId` derived from the auth context — never from the request input.
+5. **API input is always validated with zod** (shared schemas in `@simdeploy/shared`).
+6. **Secrets**: encrypt with `@simdeploy/shared/crypto`; never log values; never return them after they are saved.
+7. **Decoupled providers**: infrastructure additions arrive as a `DeploymentProvider` implementation registered in the registry — no `if (provider === "x")` in the logic.
+8. **New frameworks**: add a detector in `packages/framework-detector/src/detectors.ts` + the id in `FRAMEWORK_IDS` (shared) + tests.
+9. **Deployment states**: changing the state machine requires updating `TRANSITIONS` + the Prisma enum + transition tests.
+10. **No emojis** in UI/CLI copy.
+12. **Money**: integer minor units + currency (`@simdeploy/finance`); never a float; never sum currencies without a rate; margins without a configured FX show "Configure FX rate".
+13. **Real data only**: dashboards/admin show 0/"No data" when there is no data — never fabricated values.
+14. **ESTIMATED vs ACTUAL**: projected cost and real cost never mix (tables and screens keep them separate).
+11. Internal imports between packages use the `.js` extension (NodeNext style resolved by the bundler); keep the convention.
 
-## Onde mexer
+## Where to make changes
 
-| Tarefa | Lugar |
+| Task | Place |
 | --- | --- |
-| Nova rota de API | `apps/dashboard/src/app/api/v1/...` + schema em `packages/shared/src/api.ts` |
-| Regra de análise | `packages/project-analyzer/src/scanners.ts` ou `architecture.ts` |
-| Preço/provider novo | seed em `packages/db/prisma/seed.ts` + snapshot em `cost-engine/src/pricing/defaults.ts` |
-| Comando de CLI | `packages/cli/src/commands/` + registro em `src/index.ts` |
-| Ferramenta MCP | `packages/mcp-server/src/index.ts` (TOOLS + switch) |
-| Página do dashboard | `apps/dashboard/src/app/(app)/dashboard/...` |
-| Página do admin | `apps/dashboard/src/app/admin/...` (guard `requireStaff(area)`) |
+| New API route | `apps/dashboard/src/app/api/v1/...` + schema in `packages/shared/src/api.ts` |
+| Analysis rule | `packages/project-analyzer/src/scanners.ts` or `architecture.ts` |
+| New price/provider | seed in `packages/db/prisma/seed.ts` + snapshot in `cost-engine/src/pricing/defaults.ts` |
+| CLI command | `packages/cli/src/commands/` + registration in `src/index.ts` |
+| MCP tool | `packages/mcp-server/src/index.ts` (TOOLS + switch) |
+| Dashboard page | `apps/dashboard/src/app/(app)/dashboard/...` |
+| Admin page | `apps/dashboard/src/app/admin/...` (guard `requireStaff(area)`) |
 | Billing/Stripe | `apps/dashboard/src/lib/billing/` + `docs/stripe.md` |
-| Métricas de negócio | `packages/finance` (puro, testado) + `lib/admin/metrics.ts` |
+| Business metrics | `packages/finance` (pure, tested) + `lib/admin/metrics.ts` |
 | Background job | `apps/dashboard/src/lib/jobs/runner.ts` |
 
-## Verificação antes de concluir
+## Verification before completion
 
-`pnpm typecheck && pnpm test && pnpm lint` verdes, e para mudanças no fluxo de deploy: subir o dashboard, deployar um projeto de teste com a CLI (`deploy --yes`) e conferir a URL retornada com `curl`.
+`pnpm typecheck && pnpm test && pnpm lint` green, and for changes to the deploy flow: bring up the dashboard, deploy a test project with the CLI (`deploy --yes`), and check the returned URL with `curl`.

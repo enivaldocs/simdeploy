@@ -1,31 +1,31 @@
-# Estratégia de conteúdo SEO — hub /learn
+# SEO content strategy — /learn hub
 
-Fonte: Semrush Keyword Strategy Builder, seed "vps", database US (2026-08-29). O dump completo tem 10 tópicos / 182 páginas sugeridas; esta é a priorização aplicada ao produto.
+Source: Semrush Keyword Strategy Builder, seed "vps", US database (2026-08-29). The full dump has 10 topics / 182 suggested pages; this is the prioritization applied to the product.
 
-## Tese
+## Thesis
 
-A SimDeploy não vende VPS — ela torna o VPS desnecessário para a maioria dos projetos. O jogo certo com esse universo de keywords é **interceptar o funil de quem pesquisa VPS/hosting** com guias tecnicamente honestos, nos ângulos onde o produto é a conclusão natural: **custo calculado** e **zero gestão de servidor**. Guias que terminam em "e neste caso você realmente precisa de um VPS" ganham confiança (e citação por IAs) — o oposto de landing disfarçada.
+SimDeploy does not sell VPS — it makes a VPS unnecessary for most projects. The right play with this keyword universe is to **intercept the funnel of people researching VPS/hosting** with technically honest guides, at the angles where the product is the natural conclusion: **calculated cost** and **zero server management**. Guides that end with "and in this case you really do need a VPS" earn trust (and citation by AIs) — the opposite of a disguised landing page.
 
-Regra herdada dos outros projetos: **nunca gerar as 182 páginas de uma vez** (thin content). Escalar adicionando guias bons, medindo indexação/queries no GSC antes de cada lote.
+Rule inherited from the other projects: **never generate all 182 pages at once** (thin content). Scale by adding good guides, measuring indexing/queries in GSC before each batch.
 
-## Priorização dos clusters do dump
+## Prioritization of the dump's clusters
 
-| Cluster (Semrush) | Fit com o produto | Decisão |
+| Cluster (Semrush) | Fit with the product | Decision |
 | --- | --- | --- |
-| vps pricing and plans (87K vol) | ALTO — custo é o nosso mecanismo | Lote 1: server cost per month; Lote 2: cloud server cost, free tiers, storage cheap |
-| vps hosting fundamentals (65K) | ALTO — comparações decidem arquitetura | Lote 1: cloud hosting vs vps, vps vs dedicated; Lote 2: vps vs vm, benefits, kvm |
-| vps management (660) + operations | ALTO — "zero ops" é o produto | Lote 1: vps management, automated backups |
-| vps security (5.4K) | ALTO — "não é seu trabalho" angle | Lote 1: what is server hardening; Lote 2: ddos protected hosting, hardening checklist |
-| vps use cases (8K) | MÉDIO | Lote 2: docker hosting (2.2K, liga ao roadmap de containers), vps reseller |
-| vps backup and recovery (4K) | MÉDIO | Lote 1 cobre o pillar; Lote 2: disaster recovery in cloud computing (3.4K) |
-| windows vps hosting (29K) | BAIXO — fora do produto | Ignorar |
-| linux vps hosting (22K) | BAIXO-MÉDIO | Só ângulos de custo (cheap linux vps) no Lote 3 |
-| vps control panels (7K) | BAIXO — cPanel não é o público | Ignorar |
-| vps website hosting / geo (peru vps, chile vps…) | BAIXO por ora | Reavaliar com dados de aquisição |
+| vps pricing and plans (87K vol) | HIGH — cost is our mechanism | Batch 1: server cost per month; Batch 2: cloud server cost, free tiers, storage cheap |
+| vps hosting fundamentals (65K) | HIGH — comparisons decide the architecture | Batch 1: cloud hosting vs vps, vps vs dedicated; Batch 2: vps vs vm, benefits, kvm |
+| vps management (660) + operations | HIGH — "zero ops" is the product | Batch 1: vps management, automated backups |
+| vps security (5.4K) | HIGH — "not your job" angle | Batch 1: what is server hardening; Batch 2: ddos protected hosting, hardening checklist |
+| vps use cases (8K) | MEDIUM | Batch 2: docker hosting (2.2K, ties into the containers roadmap), vps reseller |
+| vps backup and recovery (4K) | MEDIUM | Batch 1 covers the pillar; Batch 2: disaster recovery in cloud computing (3.4K) |
+| windows vps hosting (29K) | LOW — outside the product | Ignore |
+| linux vps hosting (22K) | LOW-MEDIUM | Cost angles only (cheap linux vps) in Batch 3 |
+| vps control panels (7K) | LOW — cPanel is not the audience | Ignore |
+| vps website hosting / geo (peru vps, chile vps…) | LOW for now | Reassess with acquisition data |
 
-## Lote 1 — publicado em /learn (6 guias)
+## Batch 1 — published in /learn (6 guides)
 
-| Slug | Keyword alvo | KD | Vol |
+| Slug | Target keyword | KD | Vol |
 | --- | --- | --- | --- |
 | cloud-hosting-vs-vps | cloud hosting vs vps | 38 | 2.4K |
 | vps-vs-dedicated-server | vps vs dedicated server | 39 | 2.3K |
@@ -34,12 +34,12 @@ Regra herdada dos outros projetos: **nunca gerar as 182 páginas de uma vez** (t
 | automated-backups-for-a-vps | how to set up automated backups for a vps | 14 | 120 |
 | vps-management | vps management + benefits angle | 21 | 660 |
 
-Formato de cada guia: 4 seções honestas + FAQ (schema FAQPage + Article JSON-LD) + uma única seção final "Where SimDeploy fits" + CTA para analyze. Conteúdo real, sem números inventados.
+Format of each guide: 4 honest sections + FAQ (FAQPage schema + Article JSON-LD) + a single closing "Where SimDeploy fits" section + a CTA to analyze. Real content, no invented numbers.
 
-## Lote 2 (próximo, após indexação do Lote 1)
+## Batch 2 (next, after Batch 1 is indexed)
 
-docker hosting · vps vs vm · benefits of vps hosting · how to setup a vps (guia genuíno + alternativa) · ddos protected vps hosting · disaster recovery in cloud computing · free vps no credit card (ângulo honesto: o que "free" cobre de verdade) · cloud vps hourly billing.
+docker hosting · vps vs vm · benefits of vps hosting · how to setup a vps (a genuine guide + alternative) · ddos protected vps hosting · disaster recovery in cloud computing · free vps no credit card (honest angle: what "free" actually covers) · cloud vps hourly billing.
 
-## Medição
+## Measurement
 
-Quando houver domínio público: GSC (impressões/posição por guia), evento landing_view por página em /admin/growth, e share-of-answer nas IAs para as perguntas dos FAQs.
+Once there is a public domain: GSC (impressions/position per guide), a landing_view event per page in /admin/growth, and share-of-answer in the AIs for the FAQ questions.

@@ -1,8 +1,8 @@
 # SimDeploy + Cursor
 
-## MCP (recomendado)
+## MCP (recommended)
 
-Em `.cursor/mcp.json` do projeto (ou config global do Cursor):
+In the project's `.cursor/mcp.json` (or Cursor's global config):
 
 ```json
 {
@@ -14,11 +14,11 @@ Em `.cursor/mcp.json` do projeto (ou config global do Cursor):
 }
 ```
 
-O agente do Cursor ganha as ferramentas `analyze_project`, `estimate_cost`, `create_project`, `deploy_project`, `list_projects`, `get_project`, `get_deployment`, `get_logs`.
+The Cursor agent gains the tools `analyze_project`, `estimate_cost`, `create_project`, `deploy_project`, `list_projects`, `get_project`, `get_deployment`, `get_logs`.
 
-Pré-requisito: `simdeploy login --token sd_live_...` executado uma vez na máquina (o MCP reusa essa credencial).
+Prerequisite: `simdeploy login --token sd_live_...` run once on the machine (the MCP reuses that credential).
 
-## CLI no terminal do Cursor
+## CLI in the Cursor terminal
 
 ```bash
 simdeploy analyze --json
@@ -27,10 +27,10 @@ simdeploy status --json
 simdeploy logs
 ```
 
-## Regra sugerida (.cursor/rules)
+## Suggested rule (.cursor/rules)
 
 ```
-Quando o usuário pedir para publicar/deployar o projeto, use `simdeploy deploy --yes`.
-Se o deploy falhar, rode `simdeploy logs`, corrija a causa e tente novamente.
-Antes de mudanças grandes de infraestrutura, rode `simdeploy analyze --json` e mostre o custo estimado.
+When the user asks to publish/deploy the project, use `simdeploy deploy --yes`.
+If the deploy fails, run `simdeploy logs`, fix the cause, and try again.
+Before large infrastructure changes, run `simdeploy analyze --json` and show the estimated cost.
 ```

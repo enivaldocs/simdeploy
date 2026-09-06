@@ -1,34 +1,34 @@
 # Stripe
 
-## Configuração
+## Configuration
 
 ```
-STRIPE_SECRET_KEY=sk_...        # obrigatório para billing
-STRIPE_WEBHOOK_SECRET=whsec_... # obrigatório para o webhook
-STRIPE_PUBLISHABLE_KEY=pk_...   # reservado para elementos client-side futuros
+STRIPE_SECRET_KEY=sk_...        # required for billing
+STRIPE_WEBHOOK_SECRET=whsec_... # required for the webhook
+STRIPE_PUBLISHABLE_KEY=pk_...   # reserved for future client-side elements
 ```
 
-Sem as chaves, o produto funciona com billing em modo leitura (planos exibidos, upgrade desabilitado com aviso).
+Without the keys, the product runs with billing in read-only mode (plans displayed, upgrade disabled with a notice).
 
-## Objetos usados
+## Objects used
 
-Customer (1 por organização, criado on-demand), Product/Price (auto-provisionados a partir do Plan na primeira compra e persistidos em `stripeProductId`/`stripePrice*Id`), Checkout Session (mode=subscription), Subscription, Invoice, PaymentIntent, Refund, Billing Portal.
+Customer (1 per organization, created on-demand), Product/Price (auto-provisioned from the Plan on the first purchase and persisted in `stripeProductId`/`stripePrice*Id`), Checkout Session (mode=subscription), Subscription, Invoice, PaymentIntent, Refund, Billing Portal.
 
 ## Webhook (POST /api/webhooks/stripe)
 
-Pipeline de processamento:
+Processing pipeline:
 
-1. **Assinatura validada** (`constructEventAsync`) — inválida → 400 (Stripe não reenvia).
-2. **Dedup** por `(provider, eventId)` na tabela WebhookEvent — PROCESSED/SKIPPED nunca reprocessa.
-3. **Processamento** por tipo: `customer.subscription.*` (sync), `invoice.paid` (Invoice+Payment+créditos inclusos), `invoice.payment_failed` (Payment FAILED + notificação), `charge.refunded` (Payment REFUNDED), `checkout.session.completed` (analytics).
-4. **Falha** → status FAILED + erro gravado + resposta 500 (Stripe reenvia; `attempts` incrementa). Job `webhook_retry` reprocessa FAILED recentes.
+1. **Signature validated** (`constructEventAsync`) — invalid → 400 (Stripe does not resend).
+2. **Dedup** by `(provider, eventId)` in the WebhookEvent table — PROCESSED/SKIPPED never reprocesses.
+3. **Processing** by type: `customer.subscription.*` (sync), `invoice.paid` (Invoice+Payment+included credits), `invoice.payment_failed` (Payment FAILED + notification), `charge.refunded` (Payment REFUNDED), `checkout.session.completed` (analytics).
+4. **Failure** → status FAILED + error recorded + 500 response (Stripe resends; `attempts` increments). The `webhook_retry` job reprocesses recent FAILED events.
 
-Registrar o endpoint no Stripe: `https://<host>/api/webhooks/stripe` com os eventos acima.
+Register the endpoint in Stripe: `https://<host>/api/webhooks/stripe` with the events above.
 
-## Compatibilidade de API
+## API compatibility
 
-`subscriptionPeriod()` lê `current_period_*` do SubscriptionItem (API 2025+) com fallback para o objeto Subscription (APIs anteriores).
+`subscriptionPeriod()` reads `current_period_*` from the SubscriptionItem (API 2025+) with a fallback to the Subscription object (earlier APIs).
 
-## Teste local
+## Local testing
 
-`stripe listen --forward-to localhost:3000/api/webhooks/stripe` (Stripe CLI) e checkout em modo teste. Eventos aparecem em /admin/webhooks.
+`stripe listen --forward-to localhost:3000/api/webhooks/stripe` (Stripe CLI) and checkout in test mode. Events appear in /admin/webhooks.

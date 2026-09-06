@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "simdeploy": {
+      "command": "npx",
+      "args": ["-y", "simdeploy-mcp"]
+    }
+  }
+}

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const page = getDocPage(slug);
   if (!page) return {};
   return {
-    title: `${page.title} — Docs`,
+    title: { absolute: `${page.title} — SimDeploy Docs` },
     description: page.description,
     alternates: { canonical: `/docs/${slug}` },
   };

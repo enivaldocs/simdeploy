@@ -1,37 +1,37 @@
-# Produto
+# Product
 
-## Proposta
+## Value proposition
 
-Você cria o projeto. A SimDeploy analisa, escolhe a arquitetura de menor custo, faz o deploy e otimiza. O usuário (humano ou agente) nunca escolhe CPU, RAM, região, runtime ou provider.
+You create the project. SimDeploy analyzes it, picks the lowest-cost architecture, deploys it, and optimizes it. The user (human or agent) never chooses CPU, RAM, region, runtime, or provider.
 
-## Fluxo principal (estado atual)
+## Main flow (current state)
 
 ```
-Visitante → homepage/landings (landing_view)
-→ Signup (dev login local; GitHub OAuth via env) (signup_started/completed)
-→ Cria projeto (dashboard ou CLI cria na hora do deploy)
-→ simdeploy analyze (offline) — arquitetura + custo estimado
-→ simdeploy deploy --yes — build no cliente, pipeline no servidor
-→ URL pública com health check verificado
-→ Uso medido (requests/bandwidth do serving; deployments; storage)
-→ Billing: planos no banco; upgrade via Stripe Checkout; webhook confirma
-→ Admin: revenue, custo de provider, margem, funil
+Visitor → homepage/landings (landing_view)
+→ Signup (local dev login; GitHub OAuth via env) (signup_started/completed)
+→ Create project (dashboard, or the CLI creates it at deploy time)
+→ simdeploy analyze (offline) — architecture + estimated cost
+→ simdeploy deploy --yes — build on the client, pipeline on the server
+→ Public URL with a verified health check
+→ Metered usage (requests/bandwidth from serving; deployments; storage)
+→ Billing: plans in the database; upgrade via Stripe Checkout; webhook confirms
+→ Admin: revenue, provider cost, margin, funnel
 ```
 
-## Superfícies
+## Surfaces
 
-Toda capacidade importante existe em: Dashboard, API v1, CLI e MCP (agent-first). Nada crítico é só-dashboard.
+Every important capability exists in: Dashboard, API v1, CLI, and MCP (agent-first). Nothing critical is dashboard-only.
 
 ## Onboarding
 
-Checklist real no Overview do cliente: Create account → Create project → Deploy first app → Connect domain → Connect GitHub. Cada item reflete o estado verdadeiro no banco.
+A real checklist in the customer's Overview: Create account → Create project → Deploy first app → Connect domain → Connect GitHub. Each item reflects the true state in the database.
 
-## Autopilot (estado)
+## Autopilot (state)
 
-Hoje: analisa (determinístico), escolhe (CHEAPEST default), publica, verifica (health check) e mede uso. Recomendações de otimização e migração automática: fase futura (`OptimizationRecommendation` já modelada).
+Today: it analyzes (deterministic), chooses (CHEAPEST default), publishes, verifies (health check), and meters usage. Optimization recommendations and automatic migration: a future phase (`OptimizationRecommendation` is already modeled).
 
-## Limitações conhecidas
+## Known limitations
 
-- Deploy funcional cobre builds estáticos; SSR aguarda o adapter Cloudflare (erro claro orienta o usuário).
-- Pagamento real exige STRIPE_SECRET_KEY/STRIPE_WEBHOOK_SECRET configurados.
-- Pipeline síncrono na request (fila planejada).
+- Functional deploy covers static builds; SSR awaits the Cloudflare adapter (a clear error guides the user).
+- Real payment requires STRIPE_SECRET_KEY/STRIPE_WEBHOOK_SECRET to be configured.
+- Synchronous pipeline within the request (a queue is planned).

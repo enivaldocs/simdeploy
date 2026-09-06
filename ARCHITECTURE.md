@@ -1,15 +1,15 @@
-# Arquitetura da SimDeploy
+# SimDeploy Architecture
 
-## Princípios
+## Principles
 
-1. **Autopilot primeiro** — o usuário nunca escolhe infraestrutura; o sistema analisa, decide, publica e otimiza.
-2. **Determinismo antes de IA** — análise e roteamento são regras determinísticas testáveis. Uma camada de IA pode ser adicionada POR CIMA do resultado (segunda opinião, casos ambíguos), nunca como dependência do caminho crítico.
-3. **Agent-first** — toda capacidade existe em três superfícies: Dashboard, API e CLI (e MCP). Nada é exclusivo de UI.
-4. **Providers plugáveis** — a plataforma só conhece a interface `DeploymentProvider`. Cloudflare, AWS, Hetzner ou servidor próprio são adapters registrados.
-5. **Preço é configuração** — nenhum valor monetário vive em código de lógica. Tabelas de preço moram no banco (`ProviderPricing`), com snapshot default versionado para uso offline; planos de billing moram em `Plan`.
-6. **Código de usuário é hostil** — nunca executa no servidor da plataforma (ver Segurança).
+1. **Autopilot first** — the user never chooses infrastructure; the system analyzes, decides, publishes, and optimizes.
+2. **Determinism before AI** — analysis and routing are testable deterministic rules. An AI layer can be added ON TOP of the result (second opinion, ambiguous cases), never as a dependency of the critical path.
+3. **Agent-first** — every capability exists across three surfaces: Dashboard, API, and CLI (plus MCP). Nothing is UI-exclusive.
+4. **Pluggable providers** — the platform only knows the `DeploymentProvider` interface. Cloudflare, AWS, Hetzner, or your own server are registered adapters.
+5. **Price is configuration** — no monetary value lives in business logic. Pricing tables live in the database (`ProviderPricing`), with a versioned default snapshot for offline use; billing plans live in `Plan`.
+6. **User code is hostile** — it never runs on the platform server (see Security).
 
-## Visão geral
+## Overview
 
 ```
 ┌───────────┐   ┌────────────┐   ┌───────────────┐
@@ -28,62 +28,62 @@
    └───┬───────────┬──────────────┬───────────┘
        ▼           ▼              ▼
   project-     cost-engine   deployment-engine
-  analyzer     (tabelas de   (state machine +
-  (CLI side)    preço)        AICloudRouter +
+  analyzer     (pricing      (state machine +
+  (CLI side)    tables)       AICloudRouter +
                               pipeline)
                                    ▼
                           provider registry
                         ┌──────────┴─────────┐
                         ▼                    ▼
                   provider-local      provider-cloudflare
-                  (dev, funcional)    (healthCheck/pricing
-                                       prontos; deploy WIP)
+                  (dev, functional)   (healthCheck/pricing
+                                       ready; deploy WIP)
 ```
 
-## Fluxo de deployment (MVP)
+## Deployment flow (MVP)
 
-1. **CLI** roda `ProjectAnalyzer` localmente (determinístico, offline).
-2. **CLI** roda o build NA MÁQUINA DO USUÁRIO (`build-engine`), empacota o output em tar.gz.
-3. **CLI** envia `meta` (análise + git info) + artefato via multipart para `POST /api/v1/projects/:id/deployments`.
-4. **Servidor** executa o pipeline:
-   - `ANALYZING`: recalcula custo com as tabelas do banco, roteia via `AICloudRouter` (compatibilidade → disponibilidade de adapter → estratégia `CHEAPEST`), persiste o plano e o `CostEstimate`;
-   - `QUEUED` → `BUILDING`: valida o artefato;
-   - `DEPLOYING`: `provider.deploy()` extrai o artefato com sanitização e publica;
-   - `READY`: URL persistida.
-5. Cada transição gera `DeploymentEvent`; cada etapa gera `LogEntry` — consumíveis por `GET /deployments/:id/logs` (JSON ou texto).
+1. **CLI** runs `ProjectAnalyzer` locally (deterministic, offline).
+2. **CLI** runs the build ON THE USER'S MACHINE (`build-engine`) and packages the output into a tar.gz.
+3. **CLI** sends `meta` (analysis + git info) + artifact via multipart to `POST /api/v1/projects/:id/deployments`.
+4. **Server** runs the pipeline:
+   - `ANALYZING`: recomputes cost using the database tables, routes via `AICloudRouter` (compatibility → adapter availability → `CHEAPEST` strategy), persists the plan and the `CostEstimate`;
+   - `QUEUED` → `BUILDING`: validates the artifact;
+   - `DEPLOYING`: `provider.deploy()` extracts the artifact with sanitization and publishes;
+   - `READY`: URL persisted.
+5. Each transition emits a `DeploymentEvent`; each step emits a `LogEntry` — consumable via `GET /deployments/:id/logs` (JSON or text).
 
-Falhas são tipadas por etapa: `ANALYSIS_FAILED`, `BUILD_FAILED`, `DEPLOY_FAILED`.
+Failures are typed per step: `ANALYSIS_FAILED`, `BUILD_FAILED`, `DEPLOY_FAILED`.
 
-### Por que o build roda no cliente
+### Why the build runs on the client
 
-Executar `npm install && npm run build` de código arbitrário é execução remota de código. Sem sandbox de verdade (microVM/container isolado), o servidor não faz build. O `build-engine` é desenhado para rodar dos dois lados: quando houver sandboxing (Firecracker/Workers for Platforms), o mesmo módulo passa a rodar no servidor sem mudar os chamadores. Até lá, o servidor só recebe artefatos estáticos validados.
+Running `npm install && npm run build` on arbitrary code is remote code execution. Without a real sandbox (microVM/isolated container), the server does not build. The `build-engine` is designed to run on both sides: once sandboxing exists (Firecracker/Workers for Platforms), the same module can run on the server without changing its callers. Until then, the server only receives validated static artifacts.
 
-## Decisões de design
+## Design decisions
 
-| Decisão | Motivo |
+| Decision | Rationale |
 | --- | --- |
-| Monorepo pnpm + Turborepo, pacotes internos consumidos como fonte TS | zero etapa de build em dev; CLI/MCP fazem bundle próprio via tsup |
-| Prisma + PostgreSQL | multi-tenant relacional com enums e JSON onde o formato evolui (análise, plano, breakdown) |
-| Auth própria (sessão com hash no banco + OAuth GitHub manual) | sem dependência beta; superfície pequena e auditável; trocar por lib depois não muda os chamadores |
-| `ProjectAnalysis.schemaVersion` | CLI antiga ↔ API nova sem quebra |
-| Router separado do CostEngine | custo é cálculo; rota é decisão (estratégia, disponibilidade de adapter) |
-| Provider `local` completo | pipeline exercitado de ponta a ponta sem credenciais cloud; contrato idêntico ao de produção |
-| Subdomínio em dev (`<slug>.localhost:3000`) | espelha produção (`<slug>.simdeploy.com`); assets com path absoluto funcionam |
-| Rate limiter em memória atrás de interface | trocar por Redis quando houver mais de uma instância, sem tocar os chamadores |
+| pnpm monorepo + Turborepo, internal packages consumed as TS source | zero build step in dev; CLI/MCP bundle themselves via tsup |
+| Prisma + PostgreSQL | relational multi-tenant with enums and JSON where the format evolves (analysis, plan, breakdown) |
+| Custom auth (session with DB hash + manual GitHub OAuth) | no beta dependency; small, auditable surface; swapping for a library later does not change the callers |
+| `ProjectAnalysis.schemaVersion` | old CLI ↔ new API without breakage |
+| Router separated from CostEngine | cost is a computation; routing is a decision (strategy, adapter availability) |
+| Complete `local` provider | pipeline exercised end to end without cloud credentials; contract identical to production |
+| Subdomain in dev (`<slug>.localhost:3000`) | mirrors production (`<slug>.simdeploy.com`); assets with absolute paths work |
+| In-memory rate limiter behind an interface | swap for Redis when there is more than one instance, without touching the callers |
 
 ## Multi-tenancy
 
 `User → OrganizationMember → Organization → Project → {Environment, Deployment, Domain, EnvironmentVariable, UsageMetric, CostEstimate, OptimizationRecommendation}`.
 
-Toda query de API filtra por `organizationId` derivado da autenticação (nunca do input). Tokens de API pertencem a uma organização; sessões resolvem a organização pela membership.
+Every API query filters by `organizationId` derived from authentication (never from input). API tokens belong to an organization; sessions resolve the organization through membership.
 
-## Observabilidade
+## Observability
 
-- Logger estruturado central (`@simdeploy/shared/logger`, JSON por linha) — sem `console.log` espalhado na lógica.
-- Logs de pipeline persistidos (`LogEntry`) com stage/level/metadata.
-- `AuditLog` para mutações; `AnalyticsEvent` para eventos de produto (sink desacoplado em tabela própria).
-- Traces: fase futura (interface do logger aceita bindings para correlação).
+- Central structured logger (`@simdeploy/shared/logger`, one JSON per line) — no `console.log` scattered through the logic.
+- Persisted pipeline logs (`LogEntry`) with stage/level/metadata.
+- `AuditLog` for mutations; `AnalyticsEvent` for product events (decoupled sink in its own table).
+- Traces: a future phase (the logger interface accepts bindings for correlation).
 
-## Segurança
+## Security
 
-Ver seção no [README.md](README.md#segurança). Pontos estruturais: build no cliente; extração de artefato com allowlist de tipos de entrada; secrets AES-256-GCM; tokens hasheados; scopes; isolamento por organização; rate limits; audit log; validação zod em toda entrada da API.
+See the section in the [README.md](README.md#security-by-design). Structural points: build on the client; artifact extraction with an allowlist of entry types; AES-256-GCM secrets; hashed tokens; scopes; per-organization isolation; rate limits; audit log; zod validation on every API input.

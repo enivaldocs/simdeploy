@@ -2,120 +2,96 @@
 
 **You build. AI chooses where it runs.**
 
-SimDeploy é uma plataforma de deploy AI-native: ela analisa o projeto, escolhe a arquitetura de menor custo, publica e segue otimizando a infraestrutura conforme o uso. O usuário nunca escolhe CPU, RAM, região, runtime ou provider.
+SimDeploy is an AI-native deploy platform. It analyzes your project, automatically picks the lowest-cost compatible architecture, deploys it with a verified health check and returns a public URL — in one command. You never choose CPU, RAM, region, runtime or provider.
+
+Built to be operated by developers **and coding agents** (Claude Code, Codex, Cursor).
 
 ```bash
-npx simdeploy deploy
+npx simdeploy deploy --yes
 ```
 
-## O mecanismo: Autopilot Infrastructure
+→ https://simdeploy.com · [Docs](https://simdeploy.com/docs) · [Deploy with Claude Code](https://simdeploy.com/claude-code) · [llms.txt](https://simdeploy.com/llms.txt)
 
-```
-Projeto → AI Project Analyzer → detecção de framework → detecção de necessidades
-→ estimativa de recursos → seleção de arquitetura → estimativa de custo
-→ build → deploy → monitoramento → otimização contínua
-```
-
-1. **Analisa** — `ProjectAnalyzer` inspeciona o projeto com regras determinísticas (framework, rotas de API, banco, cron, workers, percentual estático).
-2. **Escolhe** — `CostEngine` projeta o custo mensal de cada arquitetura em cada provider a partir de tabelas de preço configuráveis; `AICloudRouter` decide provider/arquitetura/região (estratégia default: `CHEAPEST`).
-3. **Publica** — pipeline com máquina de estados tipada (`CREATED → ANALYZING → QUEUED → BUILDING → DEPLOYING → READY`), eventos e logs por etapa.
-4. **Monitora/Otimiza** — entidades `UsageMetric` e `OptimizationRecommendation` já modeladas; o Autopilot compara alocado × usado e recomenda mudanças (fase futura).
-
-## Estado atual (MVP)
-
-Funcionando de ponta a ponta hoje:
-
-- `simdeploy analyze` — Cloud Cost Scanner offline (nada sai da máquina).
-- `simdeploy deploy --yes` — cria projeto, builda no cliente, publica no provider `local` e retorna URL funcional (`http://<slug>.localhost:3000/`).
-- Dashboard (Next.js): Overview, Projects, Deployments com timeline e logs, Environment Variables criptografadas, API tokens com scopes.
-- API v1 completa (mesmas capacidades da CLI/dashboard) e MCP server para Claude Code/Codex/Cursor.
-
-Frameworks suportados pelo detector: Next.js, Vite, React (CRA), Astro, Express, Node genérico e sites estáticos. Deploy real no MVP: builds estáticos (Vite/CRA/static/Next com `output: "export"`). SSR/serverless dependem do adapter Cloudflare (interface pronta, upload em desenvolvimento) — o pipeline falha com mensagem clara nesses casos.
-
-## Stack
-
-- **Monorepo**: pnpm workspaces + Turborepo + Biome
-- **Web/API**: Next.js 15 (App Router) + TypeScript + Tailwind CSS v4
-- **Banco**: PostgreSQL + Prisma
-- **CLI/MCP**: Node 20+, bundles standalone via tsup
-
-## Estrutura
-
-```
-apps/dashboard          Dashboard + API v1 + serving de sites publicados
-packages/shared         Tipos, schemas zod, crypto, logger, analytics
-packages/db             Schema Prisma + client (multi-tenant)
-packages/framework-detector   Registry determinístico de detectores
-packages/project-analyzer     Análise de projeto (fs walk + scanners)
-packages/cost-engine          Projeção de custo por tabelas de preço
-packages/deployment-engine    Máquina de estados + AICloudRouter + pipeline
-packages/provider-core        Interface DeploymentProvider + registry
-packages/provider-local       Provider de dev (publica em var/sites)
-packages/provider-cloudflare  Adapter Cloudflare (healthCheck/pricing prontos)
-packages/build-engine         Build no cliente + empacotamento tar.gz
-packages/cli                  CLI simdeploy
-packages/mcp-server           MCP server (Claude Code, Codex, Cursor)
-```
-
-Detalhes de design: [ARCHITECTURE.md](ARCHITECTURE.md). Fases: [ROADMAP.md](ROADMAP.md). Guia para agentes: [AGENTS.md](AGENTS.md).
-
-## Rodando localmente
-
-Pré-requisitos: Node >= 20, pnpm >= 10, PostgreSQL >= 14.
+## Quickstart
 
 ```bash
-# 1. Dependências
+npm i -g simdeploy
+simdeploy login --token sd_live_...   # create at https://simdeploy.com/dashboard/settings
+simdeploy analyze --json              # offline: framework, architecture, estimated cost
+simdeploy deploy --yes                # build locally, publish, get a URL
+```
+
+## Use it from Claude Code
+
+Install the plugin (skill + MCP server) from this repo:
+
+```
+/plugin marketplace add enivaldocs/simdeploy
+/plugin install simdeploy@simdeploy
+```
+
+Or wire any agent up in one command inside your project:
+
+```bash
+simdeploy setup   # writes .mcp.json (Claude Code), .cursor/mcp.json and an AGENTS.md deploy section
+```
+
+Then just ask your agent to deploy. It reads typed states (READY, BUILD_FAILED, DEPLOY_FAILED, ANALYSIS_FAILED), fixes failures from the logs and retries.
+
+## The mechanism: Autopilot Infrastructure
+
+```
+Your project → AI Project Analyzer → framework detection → requirements detection
+→ resource estimation → architecture selection → cost estimation
+→ build (on your machine) → deploy → health check → monitoring → optimization
+```
+
+1. **Analyze** — deterministic scan of the repo (framework, API routes, database, cron, workers, static share). Offline; nothing leaves your machine.
+2. **Route** — the cost engine projects the monthly cost of every compatible architecture from provider price tables; the router picks the cheapest (default strategy: `CHEAPEST`).
+3. **Deploy** — typed state machine, per-stage events and logs, real HTTP health check before a deploy is marked ready.
+4. **Optimize** — real measured usage (requests, bandwidth, storage) feeds recommendations.
+
+## Security by design
+
+Your code never runs on the platform's servers: the build happens on your machine and only the output is published, validated before extraction (no symlinks, no path traversal, size limits). Secrets are encrypted at rest (AES-256-GCM), API tokens are stored as hashes with scopes, and every data query is isolated per organization. See [SECURITY](https://simdeploy.com/security).
+
+## Monorepo layout
+
+```
+apps/dashboard          Dashboard + API v1 + serving of published sites
+packages/shared         Types, zod schemas, crypto, logger, analytics
+packages/db             Prisma schema + client (multi-tenant)
+packages/framework-detector   Deterministic framework detectors
+packages/project-analyzer     Project analysis (fs walk + scanners)
+packages/cost-engine          Cost projection over provider price tables
+packages/deployment-engine    State machine + AICloudRouter + pipeline
+packages/provider-core        DeploymentProvider interface + registry
+packages/provider-local       Dev/self-host provider
+packages/provider-cloudflare  Cloudflare adapter
+packages/build-engine         Client-side build + tar.gz packaging
+packages/finance              Money (minor units), MRR/margin/funnel math
+packages/cli                  simdeploy CLI
+packages/mcp-server           simdeploy-mcp (Claude Code, Codex, Cursor)
+plugin/                       Claude Code plugin (skill + MCP)
+```
+
+Design: [ARCHITECTURE.md](ARCHITECTURE.md) · Roadmap: [ROADMAP.md](ROADMAP.md) · Repo rules: [AGENTS.md](AGENTS.md) · Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## Local development
+
+```bash
 pnpm install
-
-# 2. Configuração
-cp .env.example .env
-# preencha DATABASE_URL, AUTH_SECRET (openssl rand -hex 32) e
-# ENCRYPTION_KEY (openssl rand -hex 32)
-ln -sf ../../.env apps/dashboard/.env
-
-# 3. Banco
-createdb autocloud_dev
-pnpm db:migrate
-pnpm db:seed        # providers, tabelas de preço e planos
-
-# 4. Dashboard + API
-pnpm --filter @simdeploy/dashboard dev   # http://localhost:3000
-
-# 5. CLI
-pnpm --filter simdeploy build
-# no dashboard: Dev login → Settings → Create API token
-node packages/cli/dist/index.js login --token sd_live_...
-
-# 6. Deploy de um projeto qualquer
-cd ~/meu-projeto
-node /caminho/para/simdeploy/packages/cli/dist/index.js deploy --yes
+cp .env.example .env   # DATABASE_URL, AUTH_SECRET (openssl rand -hex 32), ENCRYPTION_KEY (openssl rand -hex 32)
+createdb simdeploy && pnpm db:migrate && pnpm db:seed
+pnpm --filter @simdeploy/dashboard dev
 ```
 
-### Environment variables
-
-| Variável | Obrigatória | Descrição |
-| --- | --- | --- |
-| `DATABASE_URL` | sim | PostgreSQL |
-| `AUTH_SECRET` | sim | Assinatura de cookies/state OAuth (>= 32 chars) |
-| `ENCRYPTION_KEY` | sim | AES-256-GCM para secrets (32 bytes hex) |
-| `APP_URL` | não | URL pública (default `http://localhost:3000`) |
-| `GITHUB_CLIENT_ID/SECRET` | não | Habilita login GitHub |
-| `CLOUDFLARE_API_TOKEN/ACCOUNT_ID` | não | Habilita healthCheck do adapter Cloudflare |
-
-## Qualidade
+Requirements: Node >= 20, pnpm >= 10, PostgreSQL >= 14.
 
 ```bash
-pnpm test        # vitest em todos os pacotes (detector, analyzer, cost, router, state machine, providers, crypto)
-pnpm typecheck   # tsc strict em todos os pacotes
-pnpm lint        # biome
-pnpm build       # turbo build (dashboard + CLI + MCP)
+pnpm lint && pnpm typecheck && pnpm turbo run test && pnpm turbo run build
 ```
 
-## Segurança
+## License
 
-- Código de usuário **nunca roda no servidor**: o build acontece no cliente (CLI) e o servidor recebe apenas artefatos estáticos, validados antes da extração (sem symlinks, sem `..`, limites de tamanho e quantidade).
-- Secrets de projeto criptografados em repouso (AES-256-GCM) e nunca exibidos após salvos.
-- API tokens `sd_live_*` com scopes; apenas o hash SHA-256 é persistido.
-- Sessões httpOnly com hash no banco; OAuth state assinado com HMAC.
-- Isolamento multi-tenant por `organizationId` em todas as queries; rate limiting por identidade; audit log de todas as mutações.
-- Serving de sites com proteção de path traversal e allowlist de content-types.
+MIT © Yes Serviços Digitais

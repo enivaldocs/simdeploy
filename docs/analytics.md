@@ -1,26 +1,26 @@
 # Analytics
 
-## Arquitetura
+## Architecture
 
-Camada desacoplada: eventos nomeados (`ANALYTICS_EVENTS` em @simdeploy/shared) → `trackEvent()` → sink plugável (hoje: tabela AnalyticsEvent; ferramenta externa entra trocando o sink, sem tocar chamadores). Falha de analytics nunca derruba o caminho principal.
+A decoupled layer: named events (`ANALYTICS_EVENTS` in @simdeploy/shared) → `trackEvent()` → pluggable sink (today: the AnalyticsEvent table; an external tool is adopted by swapping the sink, without touching callers). An analytics failure never brings down the main path.
 
-## Eventos
+## Events
 
-**Funil**: landing_view, signup_started, signup_completed, user_registered, github_connected.
-**Produto**: project_created, project_analyzed, deployment_started/completed/failed, cost_estimate_generated, domain_added, api_token_created, cli_used, mcp_used.
-**Comercial**: plan_viewed, billing_viewed, checkout_started, subscription_started/upgraded/downgraded/canceled, payment_failed, payment_recovered.
+**Funnel**: landing_view, signup_started, signup_completed, user_registered, github_connected.
+**Product**: project_created, project_analyzed, deployment_started/completed/failed, cost_estimate_generated, domain_added, api_token_created, cli_used, mcp_used.
+**Commercial**: plan_viewed, billing_viewed, checkout_started, subscription_started/upgraded/downgraded/canceled, payment_failed, payment_recovered.
 
-## Emissão
+## Emission
 
-- Server-side na origem do fato (services, webhook Stripe, rotas auth).
-- Páginas públicas estáticas usam `TrackPageView` → POST /api/track (rate-limited; anônimo só para landing_view/plan_viewed).
+- Server-side at the origin of the fact (services, Stripe webhook, auth routes).
+- Static public pages use `TrackPageView` → POST /api/track (rate-limited; anonymous only for landing_view/plan_viewed).
 
-## Aquisição
+## Acquisition
 
-Middleware grava cookie first-touch `ac_attr` (utm_source/medium/campaign/content/term + referrer + landing page) no primeiro acesso com UTM; o signup persiste em `Acquisition` (1 por usuário). Visões por fonte em /admin/growth.
+Middleware writes a first-touch cookie `ac_attr` (utm_source/medium/campaign/content/term + referrer + landing page) on the first visit carrying a UTM; the signup persists it in `Acquisition` (1 per user). Views by source in /admin/growth.
 
-## Consumo
+## Consumption
 
-- /admin/growth: funil 30d com conversão por etapa e do topo (computeFunnel — sem base, conversão é null, não 0%).
-- Customer 360: timeline por organização.
-- Regra: contagens sempre de eventos reais; nunca preencher funil com valores sintéticos.
+- /admin/growth: 30d funnel with per-step and top-of-funnel conversion (computeFunnel — with no base, conversion is null, not 0%).
+- Customer 360: per-organization timeline.
+- Rule: counts always from real events; never fill the funnel with synthetic values.

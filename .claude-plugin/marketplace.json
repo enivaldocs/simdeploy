@@ -1,0 +1,14 @@
+{
+  "name": "simdeploy",
+  "owner": {
+    "name": "SimDeploy",
+    "url": "https://simdeploy.com"
+  },
+  "plugins": [
+    {
+      "name": "simdeploy",
+      "source": "./plugin",
+      "description": "Deploy any project in one command. SimDeploy analyzes your code, picks the lowest-cost architecture and ships it — with a deploy skill and a native MCP server for Claude Code."
+    }
+  ]
+}

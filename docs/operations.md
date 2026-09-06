@@ -1,53 +1,53 @@
-# Operações
+# Operations
 
-## Ambientes
+## Environments
 
-development (local, dev-login habilitado) → staging → production. Separar por ambiente: DATABASE_URL, chaves Stripe (test/live), credenciais de provider, APP_URL/domínios, ADMIN_EMAILS, CRON_SECRET. Nunca compartilhar banco ou chaves entre ambientes.
+development (local, dev-login enabled) → staging → production. Separate per environment: DATABASE_URL, Stripe keys (test/live), provider credentials, APP_URL/domains, ADMIN_EMAILS, CRON_SECRET. Never share a database or keys across environments.
 
 ## Deploy safety
 
-`./scripts/preflight.sh` roda lint → typecheck → tests → build → `prisma migrate status`. Qualquer falha aborta. Migrations destrutivas: revisar o SQL gerado em `packages/db/prisma/migrations/` antes de aplicar em produção (`migrate deploy`).
+`./scripts/preflight.sh` runs lint → typecheck → tests → build → `prisma migrate status`. Any failure aborts. Destructive migrations: review the generated SQL in `packages/db/prisma/migrations/` before applying it in production (`migrate deploy`).
 
 ## Background jobs
 
-Sem fila ainda — cron externo chama:
+No queue yet — an external cron calls:
 
 ```
-POST /api/jobs/run            # todos os jobs
-POST /api/jobs/run?job=<name> # um job
+POST /api/jobs/run            # all jobs
+POST /api/jobs/run?job=<name> # a single job
 Authorization: Bearer $CRON_SECRET
 ```
 
-Jobs (idempotentes): `usage_flush` (contadores→banco), `provider_cost_sync` (ACTUAL por projeto; local=0 real), `stripe_reconciliation`, `webhook_retry`, `cleanup` (sessões expiradas, artefatos de falhas antigas), `usage_limit_check` (notifica 80%/100% de banda). Sugestão de cadência: a cada 15min; reconciliation 1x/dia.
+Jobs (idempotent): `usage_flush` (counters→database), `provider_cost_sync` (ACTUAL per project; local=0 real), `stripe_reconciliation`, `webhook_retry`, `cleanup` (expired sessions, artifacts from old failures), `usage_limit_check` (notifies at 80%/100% of bandwidth). Suggested cadence: every 15min; reconciliation once/day.
 
-SUPER_ADMIN logado também pode acionar manualmente (mesma rota).
+A logged-in SUPER_ADMIN can also trigger them manually (same route).
 
-## Backup e restore
+## Backup and restore
 
-Backup: `./scripts/backup-db.sh [dest]` (pg_dump formato custom).
+Backup: `./scripts/backup-db.sh [dest]` (pg_dump custom format).
 
-Restore (TESTAR periodicamente — backup sem restore testado não conta):
+Restore (TEST periodically — a backup without a tested restore does not count):
 
 ```bash
 createdb simdeploy_restore
 pg_restore --dbname=postgresql://user@localhost:5432/simdeploy_restore var/backups/simdeploy-<stamp>.dump
-# validar contagens: psql -d simdeploy_restore -c 'SELECT count(*) FROM "Project"'
-# então apontar DATABASE_URL ou renomear os bancos
+# validate counts: psql -d simdeploy_restore -c 'SELECT count(*) FROM "Project"'
+# then point DATABASE_URL or rename the databases
 ```
 
-Config: `.env` fica fora do git — manter cópia segura das chaves (ENCRYPTION_KEY é crítica: sem ela os secrets de projeto são irrecuperáveis).
+Config: `.env` stays out of git — keep a secure copy of the keys (ENCRYPTION_KEY is critical: without it, project secrets are unrecoverable).
 
-## Observabilidade
+## Observability
 
-- Logs estruturados JSON (logger central); logs de pipeline persistidos por deployment.
-- /admin/system: health real de banco/Stripe/Cloudflare/providers, taxa de sucesso e duração de deploys 24h, falhas de webhook.
-- Alertas: a estrutura de notificações registra deploy_failed, payment_failed, usage_80/100, subscription_canceled em Notification — entrega externa (email) entra com um EmailProvider.
+- Structured JSON logs (central logger); pipeline logs persisted per deployment.
+- /admin/system: real health of database/Stripe/Cloudflare/providers, 24h deploy success rate and duration, webhook failures.
+- Alerts: the notification structure records deploy_failed, payment_failed, usage_80/100, subscription_canceled in Notification — external delivery (email) arrives with an EmailProvider.
 
-## Incidentes comuns
+## Common incidents
 
-| Sintoma | Onde olhar |
+| Symptom | Where to look |
 | --- | --- |
-| Deploy falhando em massa | /admin/deployments?status=failed + logs do deployment |
-| Webhook Stripe falhando | /admin/webhooks (erro por evento) + job webhook_retry |
-| Margem "Configure FX rate" | /admin/settings — taxa USD→BRL ausente |
-| Uso não aparece | job usage_flush + /admin/usage |
+| Mass deploy failures | /admin/deployments?status=failed + the deployment's logs |
+| Stripe webhook failing | /admin/webhooks (error per event) + the webhook_retry job |
+| Margin "Configure FX rate" | /admin/settings — USD→BRL rate missing |
+| Usage not showing | usage_flush job + /admin/usage |

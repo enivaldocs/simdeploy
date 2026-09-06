@@ -1,30 +1,30 @@
 # Providers
 
-## Contrato
+## Contract
 
-Todo provider implementa `DeploymentProvider` (@simdeploy/provider-core): `deploy`, `destroy`, `getLogs`, `getMetrics`, `estimateCost`, `healthCheck` + `pricing` (tabela vigente). A plataforma só fala com providers via registry — adicionar um provider é implementar a interface e registrar; zero `if (provider === ...)` na lógica.
+Every provider implements `DeploymentProvider` (@simdeploy/provider-core): `deploy`, `destroy`, `getLogs`, `getMetrics`, `estimateCost`, `healthCheck` + `pricing` (current table). The platform only talks to providers through the registry — adding a provider means implementing the interface and registering it; zero `if (provider === ...)` in the logic.
 
-## Estado atual
+## Current state
 
-| Provider | Deploy | healthCheck | Pricing | Custo ACTUAL |
+| Provider | Deploy | healthCheck | Pricing | ACTUAL cost |
 | --- | --- | --- | --- | --- |
-| local | funcional (extração sanitizada, subdomínio dev) | sim | sim (zero) | 0 registrado pelo job (real) |
-| cloudflare | interface pronta, upload em desenvolvimento | sim (verify token real) | sim (snapshot datado) | sync futuro via API de billing |
-| hetzner | referência de custo apenas (sem adapter) | — | sim | — |
+| local | functional (sanitized extraction, dev subdomain) | yes | yes (zero) | 0 recorded by the job (real) |
+| cloudflare | interface ready, upload in development | yes (real token verify) | yes (dated snapshot) | future sync via the billing API |
+| hetzner | cost reference only (no adapter) | — | yes | — |
 
 ## Pricing
 
-Fonte da verdade: tabela `ProviderPricing` (seedada de `packages/cost-engine/src/pricing/defaults.ts`, cada item com fonte e data do snapshot). Atualizar preços = atualizar snapshot + re-seed (ou editar no banco). A lógica de cálculo nunca contém preços.
+Source of truth: the `ProviderPricing` table (seeded from `packages/cost-engine/src/pricing/defaults.ts`, each item with the snapshot's source and date). Updating prices = update the snapshot + re-seed (or edit in the database). The calculation logic never contains prices.
 
-## Custos
+## Costs
 
-- `ProviderCost kind=ESTIMATED` — projeções (CostEngine).
-- `ProviderCost kind=ACTUAL` — valores reais registrados (job `provider_cost_sync`; para cloud, sync com a API de billing do provider).
-- Nunca misturar os dois em uma mesma métrica.
+- `ProviderCost kind=ESTIMATED` — projections (CostEngine).
+- `ProviderCost kind=ACTUAL` — real values recorded (the `provider_cost_sync` job; for cloud, sync with the provider's billing API).
+- Never mix the two in the same metric.
 
-## Adicionando um provider
+## Adding a provider
 
-1. Pacote `packages/provider-<slug>` implementando `DeploymentProvider`.
-2. Pricing table com fonte/data em cost-engine (ou direto no banco).
-3. Seed do Provider + registro no `providerRegistry()` quando o deploy estiver funcional.
-4. Health check aparece automaticamente em /admin/system e /admin/providers.
+1. A `packages/provider-<slug>` package implementing `DeploymentProvider`.
+2. A pricing table with source/date in cost-engine (or directly in the database).
+3. Seed the Provider + register it in `providerRegistry()` once the deploy is functional.
+4. The health check appears automatically in /admin/system and /admin/providers.

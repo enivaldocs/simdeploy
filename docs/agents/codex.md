@@ -1,33 +1,33 @@
 # SimDeploy + OpenAI Codex
 
-Codex opera a SimDeploy pela CLI não interativa.
+Codex operates SimDeploy through the non-interactive CLI.
 
-## Setup (uma vez, por um humano)
+## Setup (once, by a human)
 
 ```bash
 npm i -g simdeploy
-simdeploy login --token sd_live_...   # token criado em /dashboard/settings
+simdeploy login --token sd_live_...   # token created in /dashboard/settings
 ```
 
-## Comandos para o agente
+## Commands for the agent
 
 ```bash
-simdeploy analyze --json   # análise offline: framework, arquitetura, custo estimado
-simdeploy deploy --yes     # deploy completo; exit code != 0 em falha
+simdeploy analyze --json   # offline analysis: framework, architecture, estimated cost
+simdeploy deploy --yes     # full deploy; exit code != 0 on failure
 simdeploy status --json    # {deployment: {status, url, error}}
-simdeploy logs             # logs por etapa (ANALYZE/QUEUE/BUILD/DEPLOY)
+simdeploy logs             # per-step logs (ANALYZE/QUEUE/BUILD/DEPLOY)
 ```
 
-## Sugestão para AGENTS.md de projetos de usuários
+## Suggestion for user projects' AGENTS.md
 
 ```markdown
 ## Deploy
 
-- Publicar: `simdeploy deploy --yes` (a URL sai no final; falha => exit != 0)
-- Diagnóstico: `simdeploy logs`
-- Nunca editar configuração de servidor manualmente — a SimDeploy decide a infraestrutura.
+- Publish: `simdeploy deploy --yes` (the URL comes out at the end; failure => exit != 0)
+- Diagnosis: `simdeploy logs`
+- Never edit server configuration manually — SimDeploy decides the infrastructure.
 ```
 
-## API direta
+## Direct API
 
-Se preferir HTTP: ver [README.md](README.md#api) — Bearer token, JSON, erros estruturados.
+If you prefer HTTP: see [README.md](README.md#api) — Bearer token, JSON, structured errors.

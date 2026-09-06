@@ -1,21 +1,21 @@
 # SimDeploy + Claude Code
 
-## Opção A — CLI (recomendada)
+## Option A — CLI (recommended)
 
-Claude Code opera a CLI diretamente. Pré-requisito: um humano rodou `simdeploy login --token sd_live_...` uma vez na máquina.
+Claude Code operates the CLI directly. Prerequisite: a human has run `simdeploy login --token sd_live_...` once on the machine.
 
 ```bash
-simdeploy analyze --json     # inspeção offline do projeto no cwd
-simdeploy deploy --yes       # deploy não interativo; exit != 0 em falha
-simdeploy status --json      # último deployment (status, url, error)
-simdeploy logs               # logs por etapa para diagnóstico
+simdeploy analyze --json     # offline inspection of the project in the cwd
+simdeploy deploy --yes       # non-interactive deploy; exit != 0 on failure
+simdeploy status --json      # latest deployment (status, url, error)
+simdeploy logs               # per-step logs for diagnosis
 ```
 
-Diagnóstico de falha: `deploy` imprime o status final (`ANALYSIS_FAILED` | `BUILD_FAILED` | `DEPLOY_FAILED`) e a mensagem de erro; `simdeploy logs` traz o log da etapa que falhou.
+Failure diagnosis: `deploy` prints the final status (`ANALYSIS_FAILED` | `BUILD_FAILED` | `DEPLOY_FAILED`) and the error message; `simdeploy logs` brings the log of the step that failed.
 
-## Opção B — MCP
+## Option B — MCP
 
-`.mcp.json` no projeto (ou config global):
+`.mcp.json` in the project (or global config):
 
 ```json
 {
@@ -27,12 +27,12 @@ Diagnóstico de falha: `deploy` imprime o status final (`ANALYSIS_FAILED` | `BUI
 }
 ```
 
-Ferramentas expostas: `analyze_project`, `estimate_cost`, `create_project`, `deploy_project`, `list_projects`, `get_project`, `get_deployment`, `get_logs`. Todas retornam JSON em texto; `deploy_project` builda localmente e retorna o deployment com `url`.
+Exposed tools: `analyze_project`, `estimate_cost`, `create_project`, `deploy_project`, `list_projects`, `get_project`, `get_deployment`, `get_logs`. All return JSON as text; `deploy_project` builds locally and returns the deployment with `url`.
 
-## Sugestão de CLAUDE.md para projetos de usuários
+## Suggested CLAUDE.md for user projects
 
 ```markdown
-Para publicar este projeto: `simdeploy deploy --yes`.
-Para ver por que um deploy falhou: `simdeploy logs`.
-Custo estimado antes de publicar: `simdeploy analyze --json`.
+To publish this project: `simdeploy deploy --yes`.
+To see why a deploy failed: `simdeploy logs`.
+Estimated cost before publishing: `simdeploy analyze --json`.
 ```

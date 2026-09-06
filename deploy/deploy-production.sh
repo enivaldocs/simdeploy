@@ -1,9 +1,10 @@
 #!/bin/bash
 # Deploy do SimDeploy para a VPS de produção (roda na SUA máquina).
-# Uso: ./deploy/deploy-production.sh [host]
+# Uso: SIMDEPLOY_HOST=root@SEU_IP ./deploy/deploy-production.sh
+#   ou: ./deploy/deploy-production.sh root@SEU_IP
 set -euo pipefail
 
-HOST="${1:-root@2.25.174.154}"
+HOST="${1:-${SIMDEPLOY_HOST:?defina SIMDEPLOY_HOST=root@IP ou passe como argumento}}"
 KEY="${SIMDEPLOY_SSH_KEY:-$HOME/.ssh/simdeploy_prod}"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 SSH=(ssh -i "$KEY" -o BatchMode=yes "$HOST")

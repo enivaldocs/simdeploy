@@ -1,0 +1,12 @@
+{
+  "name": "simdeploy",
+  "description": "Deploy any project without choosing infrastructure. SimDeploy analyzes your code, picks the lowest-cost architecture, deploys it and returns a public URL — in one command. Includes a deploy skill and a native MCP server.",
+  "version": "0.1.0",
+  "author": {
+    "name": "SimDeploy",
+    "url": "https://simdeploy.com"
+  },
+  "homepage": "https://simdeploy.com/claude-code",
+  "repository": "https://github.com/enivaldocs/simdeploy",
+  "license": "MIT"
+}
