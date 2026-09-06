@@ -1,11 +1,37 @@
 {
   "name": "simdeploy",
   "version": "0.1.0",
-  "private": true,
-  "description": "SimDeploy CLI — deploy sem escolher infraestrutura",
+  "description": "SimDeploy CLI — deploy any project without choosing infrastructure. Analyzes your code, picks the lowest-cost architecture and ships it in one command.",
   "type": "module",
+  "license": "MIT",
+  "homepage": "https://simdeploy.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enivaldocs/simdeploy.git",
+    "directory": "packages/cli"
+  },
+  "keywords": [
+    "deploy",
+    "hosting",
+    "cloud",
+    "cli",
+    "vercel-alternative",
+    "coding-agents",
+    "ai",
+    "nextjs",
+    "vite"
+  ],
   "bin": {
     "simdeploy": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsup",
@@ -14,15 +40,15 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
+    "commander": "^14.0.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
     "@simdeploy/build-engine": "workspace:*",
     "@simdeploy/cost-engine": "workspace:*",
     "@simdeploy/framework-detector": "workspace:*",
     "@simdeploy/project-analyzer": "workspace:*",
     "@simdeploy/shared": "workspace:*",
-    "commander": "^14.0.0",
-    "picocolors": "^1.1.1"
-  },
-  "devDependencies": {
     "@types/node": "^22.18.0",
     "tsup": "^8.5.0",
     "tsx": "^4.20.0",

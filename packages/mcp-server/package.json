@@ -1,8 +1,7 @@
 {
   "name": "@simdeploy/mcp-server",
   "version": "0.1.0",
-  "private": true,
-  "description": "MCP server da SimDeploy — integra Claude Code, Codex e Cursor",
+  "description": "MCP server for SimDeploy — lets Claude Code, Codex and Cursor analyze, deploy and debug projects on SimDeploy.",
   "type": "module",
   "bin": {
     "simdeploy-mcp": "./dist/index.js"
@@ -14,10 +13,6 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@simdeploy/build-engine": "workspace:*",
-    "@simdeploy/cost-engine": "workspace:*",
-    "@simdeploy/project-analyzer": "workspace:*",
-    "@simdeploy/shared": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.17.0"
   },
   "devDependencies": {
@@ -25,6 +20,34 @@
     "tsup": "^8.5.0",
     "tsx": "^4.20.0",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "@simdeploy/build-engine": "workspace:*",
+    "@simdeploy/cost-engine": "workspace:*",
+    "@simdeploy/project-analyzer": "workspace:*",
+    "@simdeploy/shared": "workspace:*"
+  },
+  "license": "MIT",
+  "homepage": "https://simdeploy.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enivaldocs/simdeploy.git",
+    "directory": "packages/mcp-server"
+  },
+  "keywords": [
+    "mcp",
+    "deploy",
+    "claude-code",
+    "cursor",
+    "codex",
+    "ai-agents"
+  ],
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -11,6 +11,7 @@ import type {
   RoutingDecision,
 } from "@simdeploy/shared";
 import { routingDecisionSchema } from "@simdeploy/shared";
+import { adminAlert } from "../admin-notify";
 import { trackEvent } from "../analytics";
 import { audit } from "../audit";
 import { notify } from "../notifications";
@@ -300,6 +301,17 @@ export async function runDeployment(input: RunDeploymentInput): Promise<Deployme
         body: "Your project is published. Autopilot keeps monitoring cost and usage.",
         metadata: { deploymentId: deployment.id },
       });
+      // Alerta pro dono: alguém publicou o primeiro site (a "instalação").
+      const org = await prisma.organization.findUnique({
+        where: { id: project.organizationId },
+        select: { name: true },
+      });
+      await adminAlert("first_deploy", [
+        `Customer: ${org?.name ?? project.organizationId}`,
+        `Project: ${project.name} (${meta.analysis.framework})`,
+        `Trigger: ${meta.trigger}`,
+        `URL: ${deployment.url ?? "-"}`,
+      ]);
     }
     const now = new Date();
     const artifactBytes = statSync(artifactPath).size;

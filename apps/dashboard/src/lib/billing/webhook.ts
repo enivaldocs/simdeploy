@@ -1,5 +1,6 @@
 import { prisma, type SubscriptionStatus } from "@simdeploy/db";
 import type Stripe from "stripe";
+import { adminAlert } from "../admin-notify";
 import { trackEvent } from "../analytics";
 import { env } from "../env";
 import { notify } from "../notifications";
@@ -251,6 +252,18 @@ async function handleInvoice(invoice: Stripe.Invoice, paid: boolean): Promise<vo
       organizationId,
       properties: { invoiceId: invoiceRow.id, amountMinor: invoice.amount_paid },
     });
+    // Notificação de VENDA para o dono.
+    const payingOrg = await prisma.organization.findUnique({
+      where: { id: organizationId },
+      select: { name: true, subscription: { select: { plan: { select: { name: true } } } } },
+    });
+    const amount = ((invoice.amount_paid ?? 0) / 100).toFixed(2);
+    await adminAlert("payment", [
+      `Customer: ${payingOrg?.name ?? organizationId}`,
+      `Plan: ${payingOrg?.subscription?.plan.name ?? "-"}`,
+      `Amount: ${(invoice.currency ?? "brl").toUpperCase()} ${amount}`,
+      hadFailedBefore ? "(recovered payment)" : "(new subscription)",
+    ]);
     if (hadFailedBefore) {
       await notify({
         organizationId,

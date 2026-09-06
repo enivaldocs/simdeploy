@@ -1,4 +1,5 @@
 import { prisma, type User } from "@simdeploy/db";
+import { adminAlert } from "../admin-notify";
 import { trackEvent } from "../analytics";
 import { adminEmails, isDev } from "../env";
 import { notify } from "../notifications";
@@ -143,6 +144,13 @@ export async function upsertUserWithPersonalOrg(input: UpsertUserInput): Promise
     organizationId: membership?.organizationId,
     properties: { source: input.acquisition?.utmSource ?? null },
   });
+  await adminAlert("signup", [
+    `Email: ${user.email}`,
+    input.githubLogin
+      ? `GitHub: @${input.githubLogin}`
+      : `Via: ${input.passwordHash ? "email/password" : "unknown"}`,
+    input.acquisition?.utmSource ? `Source: ${input.acquisition.utmSource}` : "Source: direct",
+  ]);
   return user;
 }
 
