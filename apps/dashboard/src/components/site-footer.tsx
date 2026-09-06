@@ -7,8 +7,9 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
       { href: "/pricing", label: "Pricing" },
       { href: "/ai-deployment-platform", label: "For AI-built software" },
       { href: "/cheap-nextjs-hosting", label: "Next.js hosting" },
+      { href: "/docs", label: "Docs" },
       { href: "/learn", label: "Learn" },
-      { href: "/docs/agents", label: "Docs" },
+      { href: "/changelog", label: "Changelog" },
     ],
   },
   {
@@ -33,6 +34,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
     title: "Company",
     links: [
       { href: "/about", label: "About" },
+      { href: "/security", label: "Security" },
       { href: "mailto:support@autocloud.app", label: "Contact" },
     ],
   },

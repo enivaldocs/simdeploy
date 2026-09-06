@@ -8,7 +8,7 @@ import { analyzeProject } from "@autocloud/project-analyzer";
 import type { DeploymentResponse, ProjectResponse } from "@autocloud/shared";
 import pc from "picocolors";
 import { apiRequest } from "../api-client.js";
-import { readProjectLink, writeProjectLink } from "../config.js";
+import { readProjectLink, writeAgentsGuidance, writeProjectLink } from "../config.js";
 import { readGitInfo } from "../git.js";
 import { check, fail, heading, info, money, printJson } from "../output.js";
 
@@ -46,6 +46,12 @@ async function ensureProject(rootDir: string): Promise<{ projectId: string; slug
     name: created.project.name,
   });
   check(`Project created: ${created.project.name} (${created.project.slug})`);
+  const guidance = writeAgentsGuidance(rootDir);
+  if (guidance === "created") {
+    check("AGENTS.md created — future coding agents will know how to deploy this project");
+  } else if (guidance === "hint") {
+    info("Tip: add `autocloud deploy --yes` to your AGENTS.md/CLAUDE.md so agents deploy here");
+  }
   return { projectId: created.project.id, slug: created.project.slug };
 }
 
