@@ -1,5 +1,5 @@
 {
-  "name": "autocloud-monorepo",
+  "name": "simdeploy-monorepo",
   "private": true,
   "packageManager": "pnpm@10.34.5",
   "engines": {
@@ -12,9 +12,9 @@
     "lint:fix": "biome check --write .",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "db:generate": "pnpm --filter @autocloud/db generate",
-    "db:migrate": "pnpm --filter @autocloud/db migrate:dev",
-    "db:seed": "pnpm --filter @autocloud/db seed"
+    "db:generate": "pnpm --filter @simdeploy/db generate",
+    "db:migrate": "pnpm --filter @simdeploy/db migrate:dev",
+    "db:seed": "pnpm --filter @simdeploy/db seed"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.0",

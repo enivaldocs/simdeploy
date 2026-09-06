@@ -2,10 +2,10 @@ import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import { createInterface } from "node:readline/promises";
-import { buildProject, packArtifact } from "@autocloud/build-engine";
-import { DEFAULT_PRICING_TABLES, estimateCosts } from "@autocloud/cost-engine";
-import { analyzeProject } from "@autocloud/project-analyzer";
-import type { DeploymentResponse, ProjectResponse } from "@autocloud/shared";
+import { buildProject, packArtifact } from "@simdeploy/build-engine";
+import { DEFAULT_PRICING_TABLES, estimateCosts } from "@simdeploy/cost-engine";
+import { analyzeProject } from "@simdeploy/project-analyzer";
+import type { DeploymentResponse, ProjectResponse } from "@simdeploy/shared";
 import pc from "picocolors";
 import { apiRequest } from "../api-client.js";
 import { readProjectLink, writeAgentsGuidance, writeProjectLink } from "../config.js";
@@ -50,7 +50,7 @@ async function ensureProject(rootDir: string): Promise<{ projectId: string; slug
   if (guidance === "created") {
     check("AGENTS.md created — future coding agents will know how to deploy this project");
   } else if (guidance === "hint") {
-    info("Tip: add `autocloud deploy --yes` to your AGENTS.md/CLAUDE.md so agents deploy here");
+    info("Tip: add `simdeploy deploy --yes` to your AGENTS.md/CLAUDE.md so agents deploy here");
   }
   return { projectId: created.project.id, slug: created.project.slug };
 }
@@ -99,7 +99,7 @@ export async function deployCommand(options: DeployOptions): Promise<void> {
   }
 
   // 5. Empacota e envia
-  const tmpDir = mkdtempSync(join(tmpdir(), "autocloud-artifact-"));
+  const tmpDir = mkdtempSync(join(tmpdir(), "simdeploy-artifact-"));
   const artifactPath = join(tmpDir, "artifact.tar.gz");
   try {
     await packArtifact(buildResult.outputDir, artifactPath);
@@ -141,7 +141,7 @@ export async function deployCommand(options: DeployOptions): Promise<void> {
     } else {
       if (!options.json) {
         fail(`Deployment ${deployment.status}: ${deployment.error ?? "sem detalhe"}`);
-        info(`Logs: autocloud logs`);
+        info(`Logs: simdeploy logs`);
       }
       process.exitCode = 1;
     }

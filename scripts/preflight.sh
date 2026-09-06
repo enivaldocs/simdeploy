@@ -18,7 +18,7 @@ pnpm build
 
 echo "== migration validation (diff contra o schema) =="
 # Migração pendente ou drift entre schema e migrations aborta aqui.
-pnpm --filter @autocloud/db exec dotenv -e ../../.env -- prisma migrate status
+pnpm --filter @simdeploy/db exec dotenv -e ../../.env -- prisma migrate status
 
 echo ""
 echo "Preflight OK — seguro para deploy."

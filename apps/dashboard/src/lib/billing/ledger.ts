@@ -1,5 +1,5 @@
-import { type CreditEntryType, prisma } from "@autocloud/db";
-import { balanceOf } from "@autocloud/finance";
+import { type CreditEntryType, prisma } from "@simdeploy/db";
+import { balanceOf } from "@simdeploy/finance";
 import { audit } from "../audit";
 
 /**

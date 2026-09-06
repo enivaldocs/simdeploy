@@ -78,7 +78,7 @@ export async function GET(_request: NextRequest, { params }: Params) {
     headers: {
       "Content-Type": CONTENT_TYPES[ext] ?? "application/octet-stream",
       "Cache-Control": "public, max-age=60",
-      "X-Served-By": "autocloud-local",
+      "X-Served-By": "simdeploy-local",
     },
   });
 }

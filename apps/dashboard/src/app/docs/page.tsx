@@ -6,7 +6,7 @@ import { DOC_PAGES } from "@/lib/docs-content";
 export const metadata = {
   title: "Documentation",
   description:
-    "AutoCloud documentation: CLI, deployments, environment variables, REST API, MCP server, cost engine and plans.",
+    "SimDeploy documentation: CLI, deployments, environment variables, REST API, MCP server, cost engine and plans.",
   alternates: { canonical: "/docs" },
 };
 
@@ -19,7 +19,7 @@ export default function DocsHubPage() {
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12">
         <h1 className="text-3xl font-semibold">Documentation</h1>
         <p className="mt-2 max-w-2xl text-ink-dim">
-          Everything AutoCloud does, documented — for you and for your coding agent. The
+          Everything SimDeploy does, documented — for you and for your coding agent. The
           machine-readable contract lives at{" "}
           <a href="/llms.txt" className="font-mono text-accent hover:underline">
             /llms.txt

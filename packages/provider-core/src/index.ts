@@ -1,11 +1,11 @@
-import { estimateArchitectureCost, resolveUsage } from "@autocloud/cost-engine";
+import { estimateArchitectureCost, resolveUsage } from "@simdeploy/cost-engine";
 import type {
   ArchitectureCostEstimate,
   ArchitectureType,
   ExpectedUsage,
   ProjectAnalysis,
   ProviderPricingTable,
-} from "@autocloud/shared";
+} from "@simdeploy/shared";
 
 export interface DeployInput {
   projectSlug: string;

@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { PackageJsonLike } from "@autocloud/framework-detector";
-import type { DatabaseType, FrameworkId } from "@autocloud/shared";
+import type { PackageJsonLike } from "@simdeploy/framework-detector";
+import type { DatabaseType, FrameworkId } from "@simdeploy/shared";
 import type { WalkedFile } from "./walk.js";
 
 const CODE_EXTENSIONS = new Set(["js", "jsx", "ts", "tsx", "mjs", "cjs", "mts", "cts"]);

@@ -73,7 +73,7 @@ export function TokensPanel({ tokens }: { tokens: TokenItem[] }) {
             {createdToken}
           </code>
           <p className="mt-2 font-mono text-xs text-ink-faint">
-            autocloud login --token {"<token>"}
+            simdeploy login --token {"<token>"}
           </p>
           <button
             type="button"

@@ -1,10 +1,10 @@
-import type { ProviderPricingTable } from "@autocloud/shared";
+import type { ProviderPricingTable } from "@simdeploy/shared";
 
 /**
  * Snapshots default de tabelas públicas de preço. São CONFIGURAÇÃO, não
  * lógica: em produção a fonte da verdade é a tabela ProviderPricing no banco
  * (seedada a partir daqui e atualizável sem deploy). A CLI usa estes snapshots
- * para o modo offline (autocloud analyze sem login).
+ * para o modo offline (simdeploy analyze sem login).
  *
  * Cada tabela carrega `updatedAt` e `source` — os valores devem ser conferidos
  * e reajustados periodicamente contra a fonte.

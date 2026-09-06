@@ -9,7 +9,7 @@ import { LocalProvider } from "../src/index.js";
 const dirs: string[] = [];
 
 function tmp(): string {
-  const dir = mkdtempSync(join(tmpdir(), "autocloud-provider-"));
+  const dir = mkdtempSync(join(tmpdir(), "simdeploy-provider-"));
   dirs.push(dir);
   return dir;
 }
@@ -37,7 +37,7 @@ describe("LocalProvider", () => {
     const sitesDir = tmp();
     const provider = new LocalProvider({ sitesDir, baseUrl: "http://localhost:3000" });
     const artifactPath = await makeArtifact({
-      "index.html": "<h1>hello autocloud</h1>",
+      "index.html": "<h1>hello simdeploy</h1>",
       "assets/app.css": "body{}",
     });
 
@@ -49,11 +49,11 @@ describe("LocalProvider", () => {
       env: {},
     });
 
-    // localhost usa subdomínio (espelha produção <slug>.autocloud.app)
+    // localhost usa subdomínio (espelha produção <slug>.simdeploy.com)
     expect(result.url).toBe("http://meu-projeto.localhost:3000/");
     const published = join(sitesDir, "meu-projeto", "index.html");
     expect(existsSync(published)).toBe(true);
-    expect(readFileSync(published, "utf8")).toContain("hello autocloud");
+    expect(readFileSync(published, "utf8")).toContain("hello simdeploy");
   });
 
   it("substitui deployment anterior de forma atômica", async () => {

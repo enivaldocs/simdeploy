@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { formatMinor } from "@autocloud/finance";
+import { prisma } from "@simdeploy/db";
+import { formatMinor } from "@simdeploy/finance";
 import Link from "next/link";
 import { CopyAgentPrompt } from "@/components/copy-agent-prompt";
 import { SiteFooter } from "@/components/site-footer";
@@ -88,7 +88,7 @@ const FEATURES = [
 const FAQ = [
   {
     q: "What do I need to do to publish a project?",
-    a: "Install the CLI, authenticate once and run autocloud deploy at the project root. Analysis, architecture selection and publishing are automatic.",
+    a: "Install the CLI, authenticate once and run simdeploy deploy at the project root. Analysis, architecture selection and publishing are automatic.",
   },
   {
     q: "Which frameworks are detected?",
@@ -123,29 +123,29 @@ export default async function HomePage() {
     "@graph": [
       {
         "@type": "Organization",
-        name: "AutoCloud",
+        name: "SimDeploy",
         legalName: "Yes Serviços Digitais",
         description:
-          "AutoCloud is the AI-native cloud with an infrastructure Autopilot: it analyzes a project, picks the lowest-cost compatible architecture and deploys it in one command — for developers and their coding agents.",
+          "SimDeploy is the AI-native cloud with an infrastructure Autopilot: it analyzes a project, picks the lowest-cost compatible architecture and deploys it in one command — for developers and their coding agents.",
         contactPoint: [
           {
             "@type": "ContactPoint",
             contactType: "customer support",
-            email: "support@autocloud.app",
+            email: "support@simdeploy.com",
           },
         ],
       },
       {
         "@type": "Service",
         serviceType: "AI-native application deployment platform (PaaS)",
-        name: "AutoCloud",
+        name: "SimDeploy",
         description:
-          "AutoCloud analyzes a software project, automatically selects the lowest-cost compatible architecture (static, edge, serverless, hybrid or node-server), deploys it with a verified health check and keeps optimizing infrastructure based on measured usage.",
+          "SimDeploy analyzes a software project, automatically selects the lowest-cost compatible architecture (static, edge, serverless, hybrid or node-server), deploys it with a verified health check and keeps optimizing infrastructure based on measured usage.",
         provider: { "@type": "Organization", name: "Yes Serviços Digitais" },
       },
       {
         "@type": "SoftwareApplication",
-        name: "AutoCloud",
+        name: "SimDeploy",
         applicationCategory: "DeveloperApplication",
         operatingSystem: "Web",
         isAccessibleForFree: true,
@@ -155,7 +155,7 @@ export default async function HomePage() {
           "Automatic project analysis (framework, API routes, database, workers, static share)",
           "Automatic architecture selection by lowest cost (AICloudRouter)",
           "Cost estimate before every deploy, from provider pricing tables",
-          "One-command deploys (autocloud deploy --yes)",
+          "One-command deploys (simdeploy deploy --yes)",
           "Typed deployment pipeline with verified HTTP health check",
           "Structured per-stage deployment logs",
           "Real usage metering (requests, bandwidth, storage)",
@@ -167,7 +167,7 @@ export default async function HomePage() {
         ],
         offers: plans.map((plan) => ({
           "@type": "Offer",
-          name: `AutoCloud ${plan.name}`,
+          name: `SimDeploy ${plan.name}`,
           price: (plan.priceMonthlyMinor / 100).toFixed(2),
           priceCurrency: plan.currency,
         })),
@@ -205,7 +205,7 @@ export default async function HomePage() {
               You build. <span className="text-accent">AI chooses where it runs.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-dim">
-              AutoCloud is the cloud with an infrastructure Autopilot: it analyzes your project,
+              SimDeploy is the cloud with an infrastructure Autopilot: it analyzes your project,
               picks the lowest-cost architecture and ships it in one command — for you and for your
               coding agent.
             </p>
@@ -217,7 +217,7 @@ export default async function HomePage() {
                 Deploy now
               </Link>
               <a
-                href="mailto:support@autocloud.app"
+                href="mailto:support@simdeploy.com"
                 className="rounded-md border border-edge px-5 py-2.5 text-ink-dim hover:border-accent hover:text-ink"
               >
                 Talk to sales
@@ -245,9 +245,9 @@ export default async function HomePage() {
             </p>
           </div>
           <pre className="overflow-x-auto rounded-xl border border-edge bg-panel p-5 font-mono text-sm leading-relaxed text-ink-dim shadow-2xl">
-            {`$ npx autocloud deploy --yes
+            {`$ npx simdeploy deploy --yes
 
-AutoCloud
+SimDeploy
 
 OK  Project detected: Vite
 OK  128 files analyzed
@@ -264,16 +264,16 @@ Deploying
 OK  Health check OK (HTTP 200)
 OK  Deployment ready
 
-  https://my-project.autocloud.app`}
+  https://my-project.simdeploy.com`}
           </pre>
         </section>
 
         {/* O que é (definição citável — answer-first para AEO) */}
         <section className="border-t border-edge-soft">
           <div className="mx-auto w-full max-w-3xl px-6 py-14 text-center">
-            <h2 className="text-lg font-medium text-ink-dim">What is AutoCloud?</h2>
+            <h2 className="text-lg font-medium text-ink-dim">What is SimDeploy?</h2>
             <p className="mt-4 text-xl leading-relaxed">
-              AutoCloud is an AI-native deploy platform: it{" "}
+              SimDeploy is an AI-native deploy platform: it{" "}
               <span className="text-accent">analyzes the project</span>, automatically picks the{" "}
               <span className="text-accent">lowest-cost compatible architecture</span>, deploys it
               with a verified health check and <span className="text-accent">keeps optimizing</span>{" "}
@@ -362,7 +362,7 @@ OK  Deployment ready
             <pre className="overflow-x-auto rounded-xl border border-edge bg-panel p-5 font-mono text-xs leading-relaxed text-ink-dim">
               {`{
   "mcpServers": {
-    "autocloud": { "command": "autocloud-mcp" }
+    "simdeploy": { "command": "simdeploy-mcp" }
   }
 }
 

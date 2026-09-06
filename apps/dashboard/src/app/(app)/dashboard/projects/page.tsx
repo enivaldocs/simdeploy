@@ -21,7 +21,7 @@ export default async function ProjectsPage() {
         <div className="rounded-lg border border-edge bg-panel p-8 text-center">
           <p className="mb-2 text-ink-dim">Nenhum projeto ainda.</p>
           <p className="font-mono text-sm text-ink-faint">
-            npx autocloud deploy — ou crie um projeto aqui e faça o deploy pela CLI.
+            npx simdeploy deploy — ou crie um projeto aqui e faça o deploy pela CLI.
           </p>
         </div>
       ) : (

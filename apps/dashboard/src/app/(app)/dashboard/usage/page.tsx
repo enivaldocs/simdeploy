@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import { getSession } from "@/lib/auth/session";
 import { usageCollector } from "@/lib/usage-collector";
 

@@ -1,6 +1,6 @@
-import { type ApiToken, prisma } from "@autocloud/db";
-import type { TokenScope } from "@autocloud/shared";
-import { generateApiToken } from "@autocloud/shared/crypto";
+import { type ApiToken, prisma } from "@simdeploy/db";
+import type { TokenScope } from "@simdeploy/shared";
+import { generateApiToken } from "@simdeploy/shared/crypto";
 import { audit } from "../audit";
 
 export async function createApiToken(input: {

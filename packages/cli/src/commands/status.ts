@@ -1,4 +1,4 @@
-import type { DeploymentResponse, ProjectResponse } from "@autocloud/shared";
+import type { DeploymentResponse, ProjectResponse } from "@simdeploy/shared";
 import pc from "picocolors";
 import { apiRequest } from "../api-client.js";
 import { readProjectLink } from "../config.js";
@@ -14,7 +14,7 @@ async function latestDeployment(projectId: string): Promise<DeploymentResponse |
 export async function statusCommand(options: { json?: boolean }): Promise<void> {
   const link = readProjectLink(process.cwd());
   if (!link) {
-    fail("Diretório não vinculado a um projeto AutoCloud. Rode: autocloud deploy");
+    fail("Diretório não vinculado a um projeto SimDeploy. Rode: simdeploy deploy");
     process.exitCode = 1;
     return;
   }
@@ -38,7 +38,7 @@ export async function statusCommand(options: { json?: boolean }): Promise<void> 
 export async function logsCommand(options: { json?: boolean }): Promise<void> {
   const link = readProjectLink(process.cwd());
   if (!link) {
-    fail("Diretório não vinculado a um projeto AutoCloud. Rode: autocloud deploy");
+    fail("Diretório não vinculado a um projeto SimDeploy. Rode: simdeploy deploy");
     process.exitCode = 1;
     return;
   }
@@ -65,7 +65,7 @@ export async function projectsCommand(options: { json?: boolean }): Promise<void
   }
   heading();
   if (projects.length === 0) {
-    console.log("No projects. Run autocloud deploy inside a project directory.");
+    console.log("No projects. Run simdeploy deploy inside a project directory.");
     return;
   }
   for (const project of projects) {

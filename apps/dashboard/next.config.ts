@@ -2,17 +2,17 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   transpilePackages: [
-    "@autocloud/shared",
-    "@autocloud/db",
-    "@autocloud/finance",
-    "@autocloud/framework-detector",
-    "@autocloud/project-analyzer",
-    "@autocloud/cost-engine",
-    "@autocloud/deployment-engine",
-    "@autocloud/provider-core",
-    "@autocloud/provider-local",
-    "@autocloud/provider-cloudflare",
-    "@autocloud/build-engine",
+    "@simdeploy/shared",
+    "@simdeploy/db",
+    "@simdeploy/finance",
+    "@simdeploy/framework-detector",
+    "@simdeploy/project-analyzer",
+    "@simdeploy/cost-engine",
+    "@simdeploy/deployment-engine",
+    "@simdeploy/provider-core",
+    "@simdeploy/provider-local",
+    "@simdeploy/provider-cloudflare",
+    "@simdeploy/build-engine",
   ],
   serverExternalPackages: ["@prisma/client", "tar"],
   webpack: (config) => {

@@ -3,8 +3,8 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 /**
- * Cliente da API AutoCloud para o MCP server. Reusa a autenticação da CLI
- * (~/.autocloud/config.json, criada por `autocloud login`).
+ * Cliente da API SimDeploy para o MCP server. Reusa a autenticação da CLI
+ * (~/.simdeploy/config.json, criada por `simdeploy login`).
  */
 export interface McpApiConfig {
   apiUrl: string;
@@ -12,11 +12,11 @@ export interface McpApiConfig {
 }
 
 export function readCliConfig(): McpApiConfig {
-  const fallback = { apiUrl: process.env.AUTOCLOUD_API_URL ?? "http://localhost:3000" };
+  const fallback = { apiUrl: process.env.SIMDEPLOY_API_URL ?? "http://localhost:3000" };
   try {
     return {
       ...fallback,
-      ...JSON.parse(readFileSync(join(homedir(), ".autocloud", "config.json"), "utf8")),
+      ...JSON.parse(readFileSync(join(homedir(), ".simdeploy", "config.json"), "utf8")),
     };
   } catch {
     return fallback;
@@ -30,12 +30,12 @@ export async function api<T>(
   const config = readCliConfig();
   if (!config.token) {
     throw new Error(
-      "AutoCloud não autenticada. Rode `autocloud login --token <ac_live_...>` primeiro (crie o token no dashboard em /dashboard/settings).",
+      "SimDeploy não autenticada. Rode `simdeploy login --token <sd_live_...>` primeiro (crie o token no dashboard em /dashboard/settings).",
     );
   }
   const headers: Record<string, string> = {
     Authorization: `Bearer ${config.token}`,
-    "User-Agent": "autocloud-mcp/0.1.0",
+    "User-Agent": "simdeploy-mcp/0.1.0",
   };
   let body: string | FormData | undefined;
   if (options.formData) {
@@ -53,7 +53,7 @@ export async function api<T>(
     | (T & { error?: { message?: string } })
     | null;
   if (!response.ok) {
-    throw new Error(payload?.error?.message ?? `AutoCloud API: HTTP ${response.status}`);
+    throw new Error(payload?.error?.message ?? `SimDeploy API: HTTP ${response.status}`);
   }
   return payload as T;
 }

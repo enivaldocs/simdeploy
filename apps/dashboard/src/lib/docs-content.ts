@@ -21,35 +21,35 @@ export interface DocPage {
 export const DOC_PAGES: DocPage[] = [
   {
     slug: "getting-started",
-    title: "Getting started with AutoCloud",
+    title: "Getting started with SimDeploy",
     description:
       "From code to a public URL in one command: install the CLI, authenticate, analyze and deploy.",
     group: "Basics",
     sections: [
       {
         h2: "1. Install the CLI",
-        code: "npm i -g autocloud",
+        code: "npm i -g simdeploy",
       },
       {
         h2: "2. Authenticate",
         paragraphs: [
           "Create an API token in the dashboard (Settings) and log in once. Tokens are scoped and revocable; only a hash is ever stored.",
         ],
-        code: "autocloud login --token ac_live_...",
+        code: "simdeploy login --token sd_live_...",
       },
       {
         h2: "3. Analyze (optional, offline)",
         paragraphs: [
           "The analyzer runs entirely on your machine — nothing is uploaded. It detects the framework, API routes, database, workers and static share, then prices every compatible architecture from provider price tables.",
         ],
-        code: "autocloud analyze --json",
+        code: "simdeploy analyze --json",
       },
       {
         h2: "4. Deploy",
         paragraphs: [
           "The build runs on your machine; only the output is uploaded. The platform re-runs the cost analysis, routes to the lowest-cost compatible architecture, publishes and verifies the URL with a real HTTP health check.",
         ],
-        code: "autocloud deploy --yes\n\n# Deployment ready:\n# https://your-project.autocloud.app",
+        code: "simdeploy deploy --yes\n\n# Deployment ready:\n# https://your-project.simdeploy.com",
       },
       {
         h2: "What is supported today",
@@ -61,19 +61,19 @@ export const DOC_PAGES: DocPage[] = [
   },
   {
     slug: "cli",
-    title: "AutoCloud CLI",
+    title: "SimDeploy CLI",
     description:
       "Command reference: login, analyze, deploy, status, logs, projects — with the flags that matter for automation.",
     group: "Basics",
     sections: [
       {
         h2: "Commands",
-        code: `autocloud login --token <ac_live_...>  # authenticate (once)
-autocloud analyze [--json] [--dir <path>]  # offline analysis + cost estimate
-autocloud deploy [--yes] [--json] [--dir <path>]  # build locally and publish
-autocloud status [--json]  # latest deployment of the linked project
-autocloud logs [--json]    # per-stage logs of the latest deployment
-autocloud projects [--json]  # list your projects`,
+        code: `simdeploy login --token <sd_live_...>  # authenticate (once)
+simdeploy analyze [--json] [--dir <path>]  # offline analysis + cost estimate
+simdeploy deploy [--yes] [--json] [--dir <path>]  # build locally and publish
+simdeploy status [--json]  # latest deployment of the linked project
+simdeploy logs [--json]    # per-stage logs of the latest deployment
+simdeploy projects [--json]  # list your projects`,
       },
       {
         h2: "Automation flags",
@@ -85,7 +85,7 @@ autocloud projects [--json]  # list your projects`,
       {
         h2: "Project linking",
         paragraphs: [
-          "The first deploy in a directory creates the project and writes .autocloud/project.json (added to your .gitignore automatically). Subsequent deploys reuse the link.",
+          "The first deploy in a directory creates the project and writes .simdeploy/project.json (added to your .gitignore automatically). Subsequent deploys reuse the link.",
         ],
       },
     ],
@@ -112,7 +112,7 @@ autocloud projects [--json]  # list your projects`,
       {
         h2: "Reading failures",
         paragraphs: [
-          "Failures carry the stage-typed status plus an error message, and the per-stage logs are available in the dashboard, via autocloud logs, and via GET /api/v1/deployments/:id/logs (JSON by default, ?format=text for plain text).",
+          "Failures carry the stage-typed status plus an error message, and the per-stage logs are available in the dashboard, via simdeploy logs, and via GET /api/v1/deployments/:id/logs (JSON by default, ?format=text for plain text).",
         ],
       },
       {
@@ -142,7 +142,7 @@ autocloud projects [--json]  # list your projects`,
           "Dashboard: project page, Environment Variables tab. API: GET/POST /api/v1/projects/:id/env and DELETE /api/v1/projects/:id/env/:key (scopes env:read / env:write). Targets: all environments, production or preview.",
         ],
         code: `curl -X POST https://<host>/api/v1/projects/<id>/env \\
-  -H "Authorization: Bearer ac_live_..." \\
+  -H "Authorization: Bearer sd_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{"key":"DATABASE_URL","value":"...","target":"production"}'`,
       },
@@ -158,13 +158,13 @@ autocloud projects [--json]  # list your projects`,
     slug: "api",
     title: "REST API",
     description:
-      "The AutoCloud API v1: authentication, endpoints, error format and scopes — everything the dashboard does, programmatically.",
+      "The SimDeploy API v1: authentication, endpoints, error format and scopes — everything the dashboard does, programmatically.",
     group: "Platform",
     sections: [
       {
         h2: "Authentication",
         paragraphs: [
-          "Bearer tokens (ac_live_...) created in the dashboard, with per-token scopes: projects:read/write, deployments:read/write, logs:read, env:read/write, cost:read, billing:read. Rate limits apply per identity; errors return a consistent shape.",
+          "Bearer tokens (sd_live_...) created in the dashboard, with per-token scopes: projects:read/write, deployments:read/write, logs:read, env:read/write, cost:read, billing:read. Rate limits apply per identity; errors return a consistent shape.",
         ],
         code: '{"error": {"code": "forbidden", "message": "..."}}',
       },
@@ -196,17 +196,17 @@ GET  /api/v1/billing                         # plan, credits, invoices`,
     slug: "mcp",
     title: "MCP server",
     description:
-      "Give Claude Code, Codex or Cursor direct tools to analyze, deploy and debug projects on AutoCloud.",
+      "Give Claude Code, Codex or Cursor direct tools to analyze, deploy and debug projects on SimDeploy.",
     group: "For agents",
     sections: [
       {
         h2: "Setup",
         paragraphs: [
-          "The MCP server ships as the autocloud-mcp stdio binary and reuses the CLI's authentication (~/.autocloud/config.json from autocloud login).",
+          "The MCP server ships as the simdeploy-mcp stdio binary and reuses the CLI's authentication (~/.simdeploy/config.json from simdeploy login).",
         ],
         code: `{
   "mcpServers": {
-    "autocloud": { "command": "autocloud-mcp" }
+    "simdeploy": { "command": "simdeploy-mcp" }
   }
 }`,
       },
@@ -219,7 +219,7 @@ GET  /api/v1/billing                         # plan, credits, invoices`,
       {
         h2: "Agent contract",
         paragraphs: [
-          "The stable, machine-readable summary of how agents should operate AutoCloud lives at /llms.txt; the human version is /docs/agents. Deployment states and error shapes are typed and documented so agents can branch on them.",
+          "The stable, machine-readable summary of how agents should operate SimDeploy lives at /llms.txt; the human version is /docs/agents. Deployment states and error shapes are typed and documented so agents can branch on them.",
         ],
       },
     ],
@@ -228,13 +228,13 @@ GET  /api/v1/billing                         # plan, credits, invoices`,
     slug: "cost-engine",
     title: "Cost engine and architecture routing",
     description:
-      "How AutoCloud prices every compatible architecture from provider price tables and picks the cheapest — before anything deploys.",
+      "How SimDeploy prices every compatible architecture from provider price tables and picks the cheapest — before anything deploys.",
     group: "Platform",
     sections: [
       {
         h2: "Estimates, not invoices",
         paragraphs: [
-          "Every figure the cost engine produces is a projection from public provider price tables (with their free allowances) and explicit usage assumptions — always labeled as an estimate. The only real charge on AutoCloud is your subscription plan.",
+          "Every figure the cost engine produces is a projection from public provider price tables (with their free allowances) and explicit usage assumptions — always labeled as an estimate. The only real charge on SimDeploy is your subscription plan.",
         ],
       },
       {
@@ -246,7 +246,7 @@ GET  /api/v1/billing                         # plan, credits, invoices`,
       {
         h2: "Seeing the numbers",
         paragraphs: [
-          "autocloud analyze prints the recommended architecture, its monthly projection and the alternatives with their prices. The same breakdown is stored with every deployment and visible in the dashboard, including the reasons for the chosen route.",
+          "simdeploy analyze prints the recommended architecture, its monthly projection and the alternatives with their prices. The same breakdown is stored with every deployment and visible in the dashboard, including the reasons for the chosen route.",
         ],
       },
     ],
@@ -255,13 +255,13 @@ GET  /api/v1/billing                         # plan, credits, invoices`,
     slug: "plans-and-limits",
     title: "Plans, limits and the free tier",
     description:
-      "What each AutoCloud plan includes, how limits work, and how billing stays predictable.",
+      "What each SimDeploy plan includes, how limits work, and how billing stays predictable.",
     group: "Basics",
     sections: [
       {
         h2: "Free tier",
         paragraphs: [
-          "The free plan is real: projects with an autocloud subdomain, enough bandwidth and deploys for side projects and evaluation, no card required. Limits are explicit on the pricing page and in your dashboard.",
+          "The free plan is real: projects with an simdeploy subdomain, enough bandwidth and deploys for side projects and evaluation, no card required. Limits are explicit on the pricing page and in your dashboard.",
         ],
       },
       {

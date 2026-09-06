@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { logger } from "@autocloud/shared/logger";
+import { prisma } from "@simdeploy/db";
+import { logger } from "@simdeploy/shared/logger";
 
 /**
  * Metering REAL do serving de sites: cada request servida pelo provider

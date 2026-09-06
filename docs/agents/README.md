@@ -1,6 +1,6 @@
-# AutoCloud para coding agents
+# SimDeploy para coding agents
 
-AutoCloud foi desenhada para ser operada por agentes: tudo que o dashboard faz existe em CLI (não interativa) e API. Este diretório documenta o uso por agente/ferramenta:
+SimDeploy foi desenhada para ser operada por agentes: tudo que o dashboard faz existe em CLI (não interativa) e API. Este diretório documenta o uso por agente/ferramenta:
 
 - [claude-code.md](claude-code.md) — Claude Code (CLI + MCP)
 - [codex.md](codex.md) — OpenAI Codex
@@ -10,17 +10,17 @@ AutoCloud foi desenhada para ser operada por agentes: tudo que o dashboard faz e
 
 ```bash
 # 1. Autenticar uma vez (token criado por um humano em /dashboard/settings)
-autocloud login --token ac_live_...
+simdeploy login --token sd_live_...
 
 # 2. Analisar (offline, sem efeitos colaterais)
-autocloud analyze --json
+simdeploy analyze --json
 
 # 3. Deploy não interativo
-autocloud deploy --yes
+simdeploy deploy --yes
 
 # 4. Verificar
-autocloud status --json   # exit code != 0 se o deploy falhou
-autocloud logs            # logs por etapa quando falhar
+simdeploy status --json   # exit code != 0 se o deploy falhou
+simdeploy logs            # logs por etapa quando falhar
 ```
 
 Regras de ouro:
@@ -32,7 +32,7 @@ Regras de ouro:
 
 ## API
 
-Base: `$AUTOCLOUD_API_URL` (default `http://localhost:3000`). Auth: header `Authorization: Bearer ac_live_...`.
+Base: `$SIMDEPLOY_API_URL` (default `http://localhost:3000`). Auth: header `Authorization: Bearer sd_live_...`.
 
 | Método | Rota | Descrição |
 | --- | --- | --- |
@@ -51,4 +51,4 @@ Erros: `{"error": {"code", "message"}}` com HTTP status semântico (401/403/404/
 
 ## MCP
 
-Servidor stdio: `autocloud-mcp` (binário do pacote `@autocloud/mcp-server`). Ferramentas: `analyze_project`, `estimate_cost`, `create_project`, `deploy_project`, `list_projects`, `get_project`, `get_deployment`, `get_logs`. A autenticação reusa `~/.autocloud/config.json` (criada por `autocloud login`).
+Servidor stdio: `simdeploy-mcp` (binário do pacote `@simdeploy/mcp-server`). Ferramentas: `analyze_project`, `estimate_cost`, `create_project`, `deploy_project`, `list_projects`, `get_project`, `get_deployment`, `get_logs`. A autenticação reusa `~/.simdeploy/config.json` (criada por `simdeploy login`).

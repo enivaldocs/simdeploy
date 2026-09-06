@@ -1,15 +1,15 @@
-# AutoCloud
+# SimDeploy
 
 > AI-native deploy platform: it analyzes a project, picks the lowest-cost architecture, deploys it and keeps optimizing. Users (and coding agents) never choose servers, CPU, region or runtime.
 
 Deploy an existing application:
 
-1. Install the CLI: `npm i -g autocloud` (or use `npx autocloud`)
-2. Authenticate: `autocloud login --token <ac_live_...>` (token created at /dashboard/settings)
-3. Inspect first (offline, optional): `autocloud analyze --json`
-4. Deploy non-interactively: `autocloud deploy --yes`
-5. Check result: `autocloud status --json` — exit code is non-zero on failure
-6. Read failure logs: `autocloud logs`
+1. Install the CLI: `npm i -g simdeploy` (or use `npx simdeploy`)
+2. Authenticate: `simdeploy login --token <sd_live_...>` (token created at /dashboard/settings)
+3. Inspect first (offline, optional): `simdeploy analyze --json`
+4. Deploy non-interactively: `simdeploy deploy --yes`
+5. Check result: `simdeploy status --json` — exit code is non-zero on failure
+6. Read failure logs: `simdeploy logs`
 
 Key facts for agents:
 
@@ -22,7 +22,7 @@ Key facts for agents:
 ## Docs
 
 - [Agent guide](/docs/agents): CLI, API and MCP reference for coding agents
-- [API v1](/docs/agents#api): REST endpoints with Bearer token auth (`Authorization: Bearer ac_live_...`)
+- [API v1](/docs/agents#api): REST endpoints with Bearer token auth (`Authorization: Bearer sd_live_...`)
 
 ## API quick reference
 
@@ -36,4 +36,4 @@ Key facts for agents:
 
 ## MCP
 
-Run `autocloud-mcp` (stdio). Tools: analyze_project, estimate_cost, create_project, deploy_project, list_projects, get_project, get_deployment, get_logs. Auth reuses `~/.autocloud/config.json` from `autocloud login`.
+Run `simdeploy-mcp` (stdio). Tools: analyze_project, estimate_cost, create_project, deploy_project, list_projects, get_project, get_deployment, get_logs. Auth reuses `~/.simdeploy/config.json` from `simdeploy login`.

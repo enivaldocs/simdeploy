@@ -37,7 +37,7 @@ export default async function LearnArticlePage({ params }: Params) {
         headline: article.title,
         description: article.description,
         dateModified: article.updated,
-        author: { "@type": "Organization", name: "AutoCloud" },
+        author: { "@type": "Organization", name: "SimDeploy" },
         publisher: { "@type": "Organization", name: "Yes Servicos Digitais" },
       },
       {
@@ -102,7 +102,7 @@ export default async function LearnArticlePage({ params }: Params) {
         <div className="mt-12 rounded-xl border border-edge bg-panel p-6">
           <p className="font-medium">See what your project would actually cost</p>
           <p className="mt-1 text-sm text-ink-dim">
-            autocloud analyze runs offline and prices every compatible architecture from provider
+            simdeploy analyze runs offline and prices every compatible architecture from provider
             price tables — before any deploy.
           </p>
           <Link

@@ -11,7 +11,7 @@ datasource db {
 // Identidade e multi-tenancy
 // ============================================================
 
-/// Papel de STAFF da AutoCloud (admin interno) — não confundir com MemberRole (papel dentro de uma organização cliente)
+/// Papel de STAFF da SimDeploy (admin interno) — não confundir com MemberRole (papel dentro de uma organização cliente)
 enum StaffRole {
   NONE
   SUPPORT
@@ -99,7 +99,7 @@ model Project {
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   name           String
-  /// Slug global: vira o subdomínio <slug>.autocloud.app (e o path do provider local)
+  /// Slug global: vira o subdomínio <slug>.simdeploy.com (e o path do provider local)
   slug           String       @unique
   framework      String?
   gitRepoUrl     String?
@@ -379,7 +379,7 @@ model ApiToken {
   name           String
   /// SHA-256 do token; o token em claro é mostrado uma única vez
   tokenHash      String       @unique
-  /// Prefixo exibível (ac_live_xxxxxx)
+  /// Prefixo exibível (sd_live_xxxxxx)
   displayPrefix  String
   /// TokenScope[]
   scopes         String[]

@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata = {
   title: "Privacy Policy",
   description:
-    "How AutoCloud collects, uses and protects personal data — legal bases (LGPD), subprocessors, retention and data subject rights.",
+    "How SimDeploy collects, uses and protects personal data — legal bases (LGPD), subprocessors, retention and data subject rights.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -12,7 +12,7 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
     title: "1. Who we are",
     paragraphs: [
-      "AutoCloud is operated by Yes Servicos Digitais (data controller under Brazilian law 13.709/2018 — LGPD). Data protection officer contact: support@autocloud.app.",
+      "SimDeploy is operated by Yes Servicos Digitais (data controller under Brazilian law 13.709/2018 — LGPD). Data protection officer contact: support@simdeploy.com.",
     ],
   },
   {
@@ -51,7 +51,7 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
     title: "6. Your rights (LGPD)",
     paragraphs: [
-      "You may request: confirmation of processing, access, correction, anonymization, portability, deletion and consent withdrawal — via support@autocloud.app. We respond within the timeframes set by the LGPD.",
+      "You may request: confirmation of processing, access, correction, anonymization, portability, deletion and consent withdrawal — via support@simdeploy.com. We respond within the timeframes set by the LGPD.",
       "Closing your account unpublishes your projects and starts deletion of personal data, except what we must keep under legal obligation.",
     ],
   },

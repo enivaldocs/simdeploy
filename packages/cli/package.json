@@ -1,11 +1,11 @@
 {
-  "name": "autocloud",
+  "name": "simdeploy",
   "version": "0.1.0",
   "private": true,
-  "description": "AutoCloud CLI — deploy sem escolher infraestrutura",
+  "description": "SimDeploy CLI — deploy sem escolher infraestrutura",
   "type": "module",
   "bin": {
-    "autocloud": "./dist/index.js"
+    "simdeploy": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup",
@@ -14,11 +14,11 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@autocloud/build-engine": "workspace:*",
-    "@autocloud/cost-engine": "workspace:*",
-    "@autocloud/framework-detector": "workspace:*",
-    "@autocloud/project-analyzer": "workspace:*",
-    "@autocloud/shared": "workspace:*",
+    "@simdeploy/build-engine": "workspace:*",
+    "@simdeploy/cost-engine": "workspace:*",
+    "@simdeploy/framework-detector": "workspace:*",
+    "@simdeploy/project-analyzer": "workspace:*",
+    "@simdeploy/shared": "workspace:*",
     "commander": "^14.0.0",
     "picocolors": "^1.1.1"
   },

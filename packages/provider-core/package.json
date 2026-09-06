@@ -1,5 +1,5 @@
 {
-  "name": "@autocloud/provider-core",
+  "name": "@simdeploy/provider-core",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,8 +11,8 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@autocloud/cost-engine": "workspace:*",
-    "@autocloud/shared": "workspace:*"
+    "@simdeploy/cost-engine": "workspace:*",
+    "@simdeploy/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.18.0",

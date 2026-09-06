@@ -6,6 +6,6 @@ export default defineConfig({
   target: "node20",
   clean: true,
   // Empacota os pacotes do workspace para a CLI ser distribuível standalone.
-  noExternal: [/^@autocloud\//],
+  noExternal: [/^@simdeploy\//],
   banner: { js: "#!/usr/bin/env node" },
 });

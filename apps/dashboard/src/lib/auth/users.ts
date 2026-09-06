@@ -1,4 +1,4 @@
-import { prisma, type User } from "@autocloud/db";
+import { prisma, type User } from "@simdeploy/db";
 import { trackEvent } from "../analytics";
 import { adminEmails, isDev } from "../env";
 import { notify } from "../notifications";
@@ -48,7 +48,7 @@ export interface UpsertUserInput {
 /** Staff role vem de ADMIN_EMAILS; em dev, o dev-login vira SUPER_ADMIN. */
 function resolveStaffRole(email: string): "SUPER_ADMIN" | "NONE" {
   if (adminEmails().includes(email.toLowerCase())) return "SUPER_ADMIN";
-  if (isDev() && email === "dev@autocloud.local") return "SUPER_ADMIN";
+  if (isDev() && email === "dev@simdeploy.local") return "SUPER_ADMIN";
   return "NONE";
 }
 
@@ -126,8 +126,8 @@ export async function upsertUserWithPersonalOrg(input: UpsertUserInput): Promise
     organizationId: membership?.organizationId,
     userId: user.id,
     type: "welcome",
-    title: "Welcome to AutoCloud",
-    body: "Run `npx autocloud deploy --yes` inside a project to publish it in minutes.",
+    title: "Welcome to SimDeploy",
+    body: "Run `npx simdeploy deploy --yes` inside a project to publish it in minutes.",
   });
   await trackEvent({
     name: "user_registered",

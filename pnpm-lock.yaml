@@ -20,37 +20,37 @@ importers:
 
   apps/dashboard:
     dependencies:
-      '@autocloud/build-engine':
+      '@simdeploy/build-engine':
         specifier: workspace:*
         version: link:../../packages/build-engine
-      '@autocloud/cost-engine':
+      '@simdeploy/cost-engine':
         specifier: workspace:*
         version: link:../../packages/cost-engine
-      '@autocloud/db':
+      '@simdeploy/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@autocloud/deployment-engine':
+      '@simdeploy/deployment-engine':
         specifier: workspace:*
         version: link:../../packages/deployment-engine
-      '@autocloud/finance':
+      '@simdeploy/finance':
         specifier: workspace:*
         version: link:../../packages/finance
-      '@autocloud/framework-detector':
+      '@simdeploy/framework-detector':
         specifier: workspace:*
         version: link:../../packages/framework-detector
-      '@autocloud/project-analyzer':
+      '@simdeploy/project-analyzer':
         specifier: workspace:*
         version: link:../../packages/project-analyzer
-      '@autocloud/provider-cloudflare':
+      '@simdeploy/provider-cloudflare':
         specifier: workspace:*
         version: link:../../packages/provider-cloudflare
-      '@autocloud/provider-core':
+      '@simdeploy/provider-core':
         specifier: workspace:*
         version: link:../../packages/provider-core
-      '@autocloud/provider-local':
+      '@simdeploy/provider-local':
         specifier: workspace:*
         version: link:../../packages/provider-local
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       next:
@@ -93,7 +93,7 @@ importers:
 
   packages/build-engine:
     dependencies:
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
       tar:
@@ -112,19 +112,19 @@ importers:
 
   packages/cli:
     dependencies:
-      '@autocloud/build-engine':
+      '@simdeploy/build-engine':
         specifier: workspace:*
         version: link:../build-engine
-      '@autocloud/cost-engine':
+      '@simdeploy/cost-engine':
         specifier: workspace:*
         version: link:../cost-engine
-      '@autocloud/framework-detector':
+      '@simdeploy/framework-detector':
         specifier: workspace:*
         version: link:../framework-detector
-      '@autocloud/project-analyzer':
+      '@simdeploy/project-analyzer':
         specifier: workspace:*
         version: link:../project-analyzer
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
       commander:
@@ -152,7 +152,7 @@ importers:
 
   packages/cost-engine:
     dependencies:
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -168,14 +168,14 @@ importers:
 
   packages/db:
     dependencies:
-      '@autocloud/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@prisma/client':
         specifier: ^6.16.0
         version: 6.19.3(prisma@6.19.3(typescript@5.9.3))(typescript@5.9.3)
+      '@simdeploy/shared':
+        specifier: workspace:*
+        version: link:../shared
     devDependencies:
-      '@autocloud/cost-engine':
+      '@simdeploy/cost-engine':
         specifier: workspace:*
         version: link:../cost-engine
       '@types/node':
@@ -196,10 +196,10 @@ importers:
 
   packages/deployment-engine:
     dependencies:
-      '@autocloud/cost-engine':
+      '@simdeploy/cost-engine':
         specifier: workspace:*
         version: link:../cost-engine
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -227,7 +227,7 @@ importers:
 
   packages/framework-detector:
     dependencies:
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -243,21 +243,21 @@ importers:
 
   packages/mcp-server:
     dependencies:
-      '@autocloud/build-engine':
-        specifier: workspace:*
-        version: link:../build-engine
-      '@autocloud/cost-engine':
-        specifier: workspace:*
-        version: link:../cost-engine
-      '@autocloud/project-analyzer':
-        specifier: workspace:*
-        version: link:../project-analyzer
-      '@autocloud/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@modelcontextprotocol/sdk':
         specifier: ^1.17.0
         version: 1.30.0(zod@4.5.4)
+      '@simdeploy/build-engine':
+        specifier: workspace:*
+        version: link:../build-engine
+      '@simdeploy/cost-engine':
+        specifier: workspace:*
+        version: link:../cost-engine
+      '@simdeploy/project-analyzer':
+        specifier: workspace:*
+        version: link:../project-analyzer
+      '@simdeploy/shared':
+        specifier: workspace:*
+        version: link:../shared
     devDependencies:
       '@types/node':
         specifier: ^22.18.0
@@ -277,10 +277,10 @@ importers:
 
   packages/project-analyzer:
     dependencies:
-      '@autocloud/framework-detector':
+      '@simdeploy/framework-detector':
         specifier: workspace:*
         version: link:../framework-detector
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -296,13 +296,13 @@ importers:
 
   packages/provider-cloudflare:
     dependencies:
-      '@autocloud/cost-engine':
+      '@simdeploy/cost-engine':
         specifier: workspace:*
         version: link:../cost-engine
-      '@autocloud/provider-core':
+      '@simdeploy/provider-core':
         specifier: workspace:*
         version: link:../provider-core
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -318,10 +318,10 @@ importers:
 
   packages/provider-core:
     dependencies:
-      '@autocloud/cost-engine':
+      '@simdeploy/cost-engine':
         specifier: workspace:*
         version: link:../cost-engine
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -337,13 +337,13 @@ importers:
 
   packages/provider-local:
     dependencies:
-      '@autocloud/cost-engine':
+      '@simdeploy/cost-engine':
         specifier: workspace:*
         version: link:../cost-engine
-      '@autocloud/provider-core':
+      '@simdeploy/provider-core':
         specifier: workspace:*
         version: link:../provider-core
-      '@autocloud/shared':
+      '@simdeploy/shared':
         specifier: workspace:*
         version: link:../shared
       tar:

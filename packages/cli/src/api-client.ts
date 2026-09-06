@@ -13,7 +13,7 @@ export class ApiError extends Error {
 
 export class NotLoggedInError extends Error {
   constructor() {
-    super("Não autenticado. Rode: autocloud login --token <ac_live_...>");
+    super("Não autenticado. Rode: simdeploy login --token <sd_live_...>");
     this.name = "NotLoggedInError";
   }
 }
@@ -30,7 +30,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   if (options.requireAuth !== false && !config.token) throw new NotLoggedInError();
 
   const headers: Record<string, string> = {
-    "User-Agent": "autocloud-cli/0.1.0",
+    "User-Agent": "simdeploy-cli/0.1.0",
   };
   if (config.token) headers.Authorization = `Bearer ${config.token}`;
 
@@ -53,7 +53,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
     throw new ApiError(
       0,
       "connection_failed",
-      `Não foi possível conectar em ${config.apiUrl} — o servidor AutoCloud está no ar? (${error instanceof Error ? error.message : error})`,
+      `Não foi possível conectar em ${config.apiUrl} — o servidor SimDeploy está no ar? (${error instanceof Error ? error.message : error})`,
     );
   }
 

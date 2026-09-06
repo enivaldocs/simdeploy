@@ -2,7 +2,7 @@
 
 ## Contrato
 
-Todo provider implementa `DeploymentProvider` (@autocloud/provider-core): `deploy`, `destroy`, `getLogs`, `getMetrics`, `estimateCost`, `healthCheck` + `pricing` (tabela vigente). A plataforma só fala com providers via registry — adicionar um provider é implementar a interface e registrar; zero `if (provider === ...)` na lógica.
+Todo provider implementa `DeploymentProvider` (@simdeploy/provider-core): `deploy`, `destroy`, `getLogs`, `getMetrics`, `estimateCost`, `healthCheck` + `pricing` (tabela vigente). A plataforma só fala com providers via registry — adicionar um provider é implementar a interface e registrar; zero `if (provider === ...)` na lógica.
 
 ## Estado atual
 

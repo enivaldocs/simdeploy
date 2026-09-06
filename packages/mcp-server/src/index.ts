@@ -1,19 +1,19 @@
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { buildProject, packArtifact } from "@autocloud/build-engine";
-import { DEFAULT_PRICING_TABLES, estimateCosts } from "@autocloud/cost-engine";
-import { analyzeProject } from "@autocloud/project-analyzer";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+import { buildProject, packArtifact } from "@simdeploy/build-engine";
+import { DEFAULT_PRICING_TABLES, estimateCosts } from "@simdeploy/cost-engine";
+import { analyzeProject } from "@simdeploy/project-analyzer";
 import { api } from "./api.js";
 
 /**
- * MCP server da AutoCloud. Ferramentas locais (analyze/estimate) funcionam
+ * MCP server da SimDeploy. Ferramentas locais (analyze/estimate) funcionam
  * offline; as demais falam com a API usando o token da CLI.
  */
-const server = new Server({ name: "autocloud", version: "0.1.0" }, { capabilities: { tools: {} } });
+const server = new Server({ name: "simdeploy", version: "0.1.0" }, { capabilities: { tools: {} } });
 
 const projectDirProp = {
   type: "object" as const,
@@ -41,7 +41,7 @@ const TOOLS = [
   },
   {
     name: "create_project",
-    description: "Cria um projeto na AutoCloud.",
+    description: "Cria um projeto na SimDeploy.",
     inputSchema: {
       type: "object" as const,
       properties: {
@@ -54,14 +54,14 @@ const TOOLS = [
   {
     name: "deploy_project",
     description:
-      "Faz o deploy de um projeto local na AutoCloud: analisa, builda localmente e publica. Retorna a URL pública ou o erro do pipeline.",
+      "Faz o deploy de um projeto local na SimDeploy: analisa, builda localmente e publica. Retorna a URL pública ou o erro do pipeline.",
     inputSchema: {
       type: "object" as const,
       properties: {
         projectDir: { type: "string", description: "Caminho absoluto do diretório do projeto" },
         projectId: {
           type: "string",
-          description: "Id do projeto AutoCloud (opcional — cria um novo se omitido)",
+          description: "Id do projeto SimDeploy (opcional — cria um novo se omitido)",
         },
       },
       required: ["projectDir"],
@@ -69,12 +69,12 @@ const TOOLS = [
   },
   {
     name: "list_projects",
-    description: "Lista os projetos da organização na AutoCloud.",
+    description: "Lista os projetos da organização na SimDeploy.",
     inputSchema: { type: "object" as const, properties: {} },
   },
   {
     name: "get_project",
-    description: "Detalhes de um projeto AutoCloud (status, domínio, custo estimado).",
+    description: "Detalhes de um projeto SimDeploy (status, domínio, custo estimado).",
     inputSchema: {
       type: "object" as const,
       properties: { projectId: { type: "string" } },
@@ -141,7 +141,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         }
 
         const buildResult = await buildProject({ rootDir: projectDir, analysis });
-        const tmpDir = mkdtempSync(join(tmpdir(), "autocloud-mcp-"));
+        const tmpDir = mkdtempSync(join(tmpdir(), "simdeploy-mcp-"));
         try {
           const artifactPath = join(tmpDir, "artifact.tar.gz");
           await packArtifact(buildResult.outputDir, artifactPath);

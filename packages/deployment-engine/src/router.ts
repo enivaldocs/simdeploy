@@ -1,11 +1,11 @@
-import { compareEstimates } from "@autocloud/cost-engine";
+import { compareEstimates } from "@simdeploy/cost-engine";
 import type {
   ArchitectureCostEstimate,
   ArchitectureType,
   ProjectAnalysis,
   RoutingDecision,
   RoutingStrategy,
-} from "@autocloud/shared";
+} from "@simdeploy/shared";
 
 export interface ProviderCapability {
   /** Slug do provider com adapter disponível para deploy real. */

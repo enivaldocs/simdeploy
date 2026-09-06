@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata = {
   title: "Acceptable Use Policy",
   description:
-    "What may and may not be hosted on AutoCloud, and how we handle violations and abuse reports.",
+    "What may and may not be hosted on SimDeploy, and how we handle violations and abuse reports.",
   alternates: { canonical: "/acceptable-use" },
 };
 
@@ -12,7 +12,7 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
     title: "1. Principle",
     paragraphs: [
-      "AutoCloud publishes third-party software to the internet. This policy defines prohibited uses and how we act when they occur. It is part of the Terms of Service.",
+      "SimDeploy publishes third-party software to the internet. This policy defines prohibited uses and how we act when they occur. It is part of the Terms of Service.",
     ],
   },
   {
@@ -31,14 +31,14 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
     title: "3. Platform use",
     paragraphs: [
       "Circumventing plan limits, interfering with other customers' projects, exploiting platform vulnerabilities (report them instead) or reselling the service without a written agreement is prohibited.",
-      "Good-faith security research on your own account is welcome; report findings to support@autocloud.app.",
+      "Good-faith security research on your own account is welcome; report findings to support@simdeploy.com.",
     ],
   },
   {
     title: "4. Enforcement",
     paragraphs: [
       "Violations lead to unpublishing of the project and, in serious or repeated cases, account suspension. Whenever possible we notify first; for active abuse against third parties we unpublish first and notify afterwards. Every action is recorded in the audit log.",
-      "To report abuse hosted on AutoCloud: support@autocloud.app with the URL and a description of the issue.",
+      "To report abuse hosted on SimDeploy: support@simdeploy.com with the URL and a description of the issue.",
     ],
   },
 ];

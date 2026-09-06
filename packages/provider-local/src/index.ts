@@ -1,19 +1,19 @@
 import { accessSync, constants, mkdirSync, renameSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { LOCAL_PRICING } from "@autocloud/cost-engine";
+import { LOCAL_PRICING } from "@simdeploy/cost-engine";
 import {
   type DeployInput,
   type DeploymentProvider,
   type DeployResult,
   estimateWithPricing,
   type ProviderHealth,
-} from "@autocloud/provider-core";
+} from "@simdeploy/provider-core";
 import type {
   ArchitectureCostEstimate,
   ExpectedUsage,
   ProjectAnalysis,
   ProviderPricingTable,
-} from "@autocloud/shared";
+} from "@simdeploy/shared";
 import { extractArtifactSafely } from "./extract.js";
 
 export { extractArtifactSafely, UnsafeArtifactError } from "./extract.js";

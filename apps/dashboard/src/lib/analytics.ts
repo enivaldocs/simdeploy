@@ -1,6 +1,6 @@
-import { prisma } from "@autocloud/db";
-import type { AnalyticsEvent, AnalyticsSink } from "@autocloud/shared";
-import { logger } from "@autocloud/shared/logger";
+import { prisma } from "@simdeploy/db";
+import type { AnalyticsEvent, AnalyticsSink } from "@simdeploy/shared";
+import { logger } from "@simdeploy/shared/logger";
 
 /** Sink que persiste eventos na tabela própria (sem ferramenta externa). */
 class DbAnalyticsSink implements AnalyticsSink {

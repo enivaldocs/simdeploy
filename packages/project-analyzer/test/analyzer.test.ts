@@ -7,7 +7,7 @@ import { analyzeProject } from "../src/index.js";
 const created: string[] = [];
 
 function fixture(files: Record<string, string>): string {
-  const dir = mkdtempSync(join(tmpdir(), "autocloud-analyzer-"));
+  const dir = mkdtempSync(join(tmpdir(), "simdeploy-analyzer-"));
   created.push(dir);
   for (const [rel, content] of Object.entries(files)) {
     const abs = join(dir, rel);

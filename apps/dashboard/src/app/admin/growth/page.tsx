@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { computeFunnel } from "@autocloud/finance";
+import { prisma } from "@simdeploy/db";
+import { computeFunnel } from "@simdeploy/finance";
 import { AdminTable, Stat } from "@/components/admin-ui";
 import { requireStaff } from "@/lib/auth/staff";
 

@@ -1,4 +1,4 @@
-import type { ProjectAnalysis, ProviderPricingTable } from "@autocloud/shared";
+import type { ProjectAnalysis, ProviderPricingTable } from "@simdeploy/shared";
 import { describe, expect, it } from "vitest";
 import {
   architectureCompatibility,

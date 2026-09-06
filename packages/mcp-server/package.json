@@ -1,11 +1,11 @@
 {
-  "name": "@autocloud/mcp-server",
+  "name": "@simdeploy/mcp-server",
   "version": "0.1.0",
   "private": true,
-  "description": "MCP server da AutoCloud — integra Claude Code, Codex e Cursor",
+  "description": "MCP server da SimDeploy — integra Claude Code, Codex e Cursor",
   "type": "module",
   "bin": {
-    "autocloud-mcp": "./dist/index.js"
+    "simdeploy-mcp": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup",
@@ -14,10 +14,10 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@autocloud/build-engine": "workspace:*",
-    "@autocloud/cost-engine": "workspace:*",
-    "@autocloud/project-analyzer": "workspace:*",
-    "@autocloud/shared": "workspace:*",
+    "@simdeploy/build-engine": "workspace:*",
+    "@simdeploy/cost-engine": "workspace:*",
+    "@simdeploy/project-analyzer": "workspace:*",
+    "@simdeploy/shared": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.17.0"
   },
   "devDependencies": {

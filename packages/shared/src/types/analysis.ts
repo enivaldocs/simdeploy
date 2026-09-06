@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Frameworks reconhecidos pelo detector. Extensível: novos frameworks são
- * adicionados registrando um detector em @autocloud/framework-detector e
+ * adicionados registrando um detector em @simdeploy/framework-detector e
  * incluindo o id aqui.
  */
 export const FRAMEWORK_IDS = [

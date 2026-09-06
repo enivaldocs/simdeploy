@@ -4,7 +4,7 @@ Fonte: Semrush Keyword Strategy Builder, seed "vps", database US (2026-08-29). O
 
 ## Tese
 
-A AutoCloud não vende VPS — ela torna o VPS desnecessário para a maioria dos projetos. O jogo certo com esse universo de keywords é **interceptar o funil de quem pesquisa VPS/hosting** com guias tecnicamente honestos, nos ângulos onde o produto é a conclusão natural: **custo calculado** e **zero gestão de servidor**. Guias que terminam em "e neste caso você realmente precisa de um VPS" ganham confiança (e citação por IAs) — o oposto de landing disfarçada.
+A SimDeploy não vende VPS — ela torna o VPS desnecessário para a maioria dos projetos. O jogo certo com esse universo de keywords é **interceptar o funil de quem pesquisa VPS/hosting** com guias tecnicamente honestos, nos ângulos onde o produto é a conclusão natural: **custo calculado** e **zero gestão de servidor**. Guias que terminam em "e neste caso você realmente precisa de um VPS" ganham confiança (e citação por IAs) — o oposto de landing disfarçada.
 
 Regra herdada dos outros projetos: **nunca gerar as 182 páginas de uma vez** (thin content). Escalar adicionando guias bons, medindo indexação/queries no GSC antes de cada lote.
 
@@ -34,7 +34,7 @@ Regra herdada dos outros projetos: **nunca gerar as 182 páginas de uma vez** (t
 | automated-backups-for-a-vps | how to set up automated backups for a vps | 14 | 120 |
 | vps-management | vps management + benefits angle | 21 | 660 |
 
-Formato de cada guia: 4 seções honestas + FAQ (schema FAQPage + Article JSON-LD) + uma única seção final "Where AutoCloud fits" + CTA para analyze. Conteúdo real, sem números inventados.
+Formato de cada guia: 4 seções honestas + FAQ (schema FAQPage + Article JSON-LD) + uma única seção final "Where SimDeploy fits" + CTA para analyze. Conteúdo real, sem números inventados.
 
 ## Lote 2 (próximo, após indexação do Lote 1)
 

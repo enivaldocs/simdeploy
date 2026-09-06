@@ -7,7 +7,7 @@ import type {
   PricingResource,
   ProjectAnalysis,
   ProviderPricingTable,
-} from "@autocloud/shared";
+} from "@simdeploy/shared";
 
 export {
   CLOUDFLARE_PRICING,

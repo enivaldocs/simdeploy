@@ -13,7 +13,7 @@ export const info = (message: string): void => {
 };
 
 export const heading = (): void => {
-  console.log(`\n${pc.bold("AutoCloud")}\n`);
+  console.log(`\n${pc.bold("SimDeploy")}\n`);
 };
 
 export const money = (usd: number): string => pc.bold(`USD ${usd.toFixed(2)}/month`);

@@ -1,5 +1,5 @@
-import { DEFAULT_PRICING_TABLES } from "@autocloud/cost-engine";
 import { PrismaClient } from "@prisma/client";
+import { DEFAULT_PRICING_TABLES } from "@simdeploy/cost-engine";
 
 const prisma = new PrismaClient();
 

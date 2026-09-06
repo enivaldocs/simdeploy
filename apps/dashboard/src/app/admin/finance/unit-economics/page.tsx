@@ -1,4 +1,4 @@
-import { formatMinor } from "@autocloud/finance";
+import { formatMinor } from "@simdeploy/finance";
 import { moneyByCurrency, Stat } from "@/components/admin-ui";
 import { getUnitEconomics } from "@/lib/admin/metrics";
 import { requireStaff } from "@/lib/auth/staff";

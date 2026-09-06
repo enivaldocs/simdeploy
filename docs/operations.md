@@ -29,9 +29,9 @@ Backup: `./scripts/backup-db.sh [dest]` (pg_dump formato custom).
 Restore (TESTAR periodicamente — backup sem restore testado não conta):
 
 ```bash
-createdb autocloud_restore
-pg_restore --dbname=postgresql://user@localhost:5432/autocloud_restore var/backups/autocloud-<stamp>.dump
-# validar contagens: psql -d autocloud_restore -c 'SELECT count(*) FROM "Project"'
+createdb simdeploy_restore
+pg_restore --dbname=postgresql://user@localhost:5432/simdeploy_restore var/backups/simdeploy-<stamp>.dump
+# validar contagens: psql -d simdeploy_restore -c 'SELECT count(*) FROM "Project"'
 # então apontar DATABASE_URL ou renomear os bancos
 ```
 

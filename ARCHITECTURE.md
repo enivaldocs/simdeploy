@@ -1,4 +1,4 @@
-# Arquitetura da AutoCloud
+# Arquitetura da SimDeploy
 
 ## Princípios
 
@@ -14,7 +14,7 @@
 ```
 ┌───────────┐   ┌────────────┐   ┌───────────────┐
 │    CLI    │   │ Dashboard  │   │  MCP server   │
-│ autocloud │   │  Next.js   │   │ (agents)      │
+│ simdeploy │   │  Next.js   │   │ (agents)      │
 └─────┬─────┘   └─────┬──────┘   └──────┬────────┘
       │ Bearer token  │ session cookie  │ Bearer token
       └───────────────┼─────────────────┘
@@ -68,7 +68,7 @@ Executar `npm install && npm run build` de código arbitrário é execução rem
 | `ProjectAnalysis.schemaVersion` | CLI antiga ↔ API nova sem quebra |
 | Router separado do CostEngine | custo é cálculo; rota é decisão (estratégia, disponibilidade de adapter) |
 | Provider `local` completo | pipeline exercitado de ponta a ponta sem credenciais cloud; contrato idêntico ao de produção |
-| Subdomínio em dev (`<slug>.localhost:3000`) | espelha produção (`<slug>.autocloud.app`); assets com path absoluto funcionam |
+| Subdomínio em dev (`<slug>.localhost:3000`) | espelha produção (`<slug>.simdeploy.com`); assets com path absoluto funcionam |
 | Rate limiter em memória atrás de interface | trocar por Redis quando houver mais de uma instância, sem tocar os chamadores |
 
 ## Multi-tenancy
@@ -79,7 +79,7 @@ Toda query de API filtra por `organizationId` derivado da autenticação (nunca 
 
 ## Observabilidade
 
-- Logger estruturado central (`@autocloud/shared/logger`, JSON por linha) — sem `console.log` espalhado na lógica.
+- Logger estruturado central (`@simdeploy/shared/logger`, JSON por linha) — sem `console.log` espalhado na lógica.
 - Logs de pipeline persistidos (`LogEntry`) com stage/level/metadata.
 - `AuditLog` para mutações; `AnalyticsEvent` para eventos de produto (sink desacoplado em tabela própria).
 - Traces: fase futura (interface do logger aceita bindings para correlação).

@@ -1,5 +1,5 @@
 {
-  "name": "@autocloud/provider-local",
+  "name": "@simdeploy/provider-local",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,9 +11,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@autocloud/cost-engine": "workspace:*",
-    "@autocloud/provider-core": "workspace:*",
-    "@autocloud/shared": "workspace:*",
+    "@simdeploy/cost-engine": "workspace:*",
+    "@simdeploy/provider-core": "workspace:*",
+    "@simdeploy/shared": "workspace:*",
     "tar": "^7.4.3"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { type Organization, type Plan, prisma } from "@autocloud/db";
+import { type Organization, type Plan, prisma } from "@simdeploy/db";
 import { trackEvent } from "../analytics";
 import { env } from "../env";
 import { requireStripe } from "./stripe-client";
@@ -59,7 +59,7 @@ export async function ensureStripePrice(
   let productId = plan.stripeProductId;
   if (!productId) {
     const product = await stripe.products.create({
-      name: `AutoCloud ${plan.name}`,
+      name: `SimDeploy ${plan.name}`,
       metadata: { planSlug: plan.slug },
     });
     productId = product.id;

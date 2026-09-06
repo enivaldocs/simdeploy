@@ -12,7 +12,7 @@ Rotas em `/admin`, protegidas por RBAC de staff verificado no backend (`requireS
 | OPERATIONS | overview, projects, deployments, usage, providers, webhooks, system |
 | SUPPORT | overview, customers (=Customer 360), projects, deployments, support |
 
-Staff é atribuído via env `ADMIN_EMAILS` (promove a SUPER_ADMIN no login). Em desenvolvimento, o dev-login (`dev@autocloud.local`) é SUPER_ADMIN.
+Staff é atribuído via env `ADMIN_EMAILS` (promove a SUPER_ADMIN no login). Em desenvolvimento, o dev-login (`dev@simdeploy.local`) é SUPER_ADMIN.
 
 ## Telas
 

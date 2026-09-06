@@ -1,4 +1,4 @@
-import { prisma, type SubscriptionStatus } from "@autocloud/db";
+import { prisma, type SubscriptionStatus } from "@simdeploy/db";
 import type Stripe from "stripe";
 import { trackEvent } from "../analytics";
 import { env } from "../env";

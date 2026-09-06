@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { formatMinor } from "@autocloud/finance";
+import { prisma } from "@simdeploy/db";
+import { formatMinor } from "@simdeploy/finance";
 import { trackEvent } from "@/lib/analytics";
 import { getSession } from "@/lib/auth/session";
 import { getCreditBalance } from "@/lib/billing/ledger";

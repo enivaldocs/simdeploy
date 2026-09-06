@@ -1,17 +1,17 @@
-import { CLOUDFLARE_PRICING } from "@autocloud/cost-engine";
+import { CLOUDFLARE_PRICING } from "@simdeploy/cost-engine";
 import {
   type DeployInput,
   type DeploymentProvider,
   type DeployResult,
   estimateWithPricing,
   type ProviderHealth,
-} from "@autocloud/provider-core";
+} from "@simdeploy/provider-core";
 import type {
   ArchitectureCostEstimate,
   ExpectedUsage,
   ProjectAnalysis,
   ProviderPricingTable,
-} from "@autocloud/shared";
+} from "@simdeploy/shared";
 
 const CF_API = "https://api.cloudflare.com/client/v4";
 

@@ -1,5 +1,5 @@
 {
-  "name": "@autocloud/dashboard",
+  "name": "@simdeploy/dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,22 +10,22 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@autocloud/build-engine": "workspace:*",
-    "@autocloud/cost-engine": "workspace:*",
-    "@autocloud/db": "workspace:*",
-    "@autocloud/deployment-engine": "workspace:*",
-    "@autocloud/framework-detector": "workspace:*",
-    "@autocloud/project-analyzer": "workspace:*",
-    "@autocloud/provider-cloudflare": "workspace:*",
-    "@autocloud/provider-core": "workspace:*",
-    "@autocloud/provider-local": "workspace:*",
-    "@autocloud/shared": "workspace:*",
+    "@simdeploy/build-engine": "workspace:*",
+    "@simdeploy/cost-engine": "workspace:*",
+    "@simdeploy/db": "workspace:*",
+    "@simdeploy/deployment-engine": "workspace:*",
+    "@simdeploy/framework-detector": "workspace:*",
+    "@simdeploy/project-analyzer": "workspace:*",
+    "@simdeploy/provider-cloudflare": "workspace:*",
+    "@simdeploy/provider-core": "workspace:*",
+    "@simdeploy/provider-local": "workspace:*",
+    "@simdeploy/shared": "workspace:*",
     "next": "^15.5.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "stripe": "^18.5.0",
     "zod": "^4.1.5",
-    "@autocloud/finance": "workspace:*"
+    "@simdeploy/finance": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.0",

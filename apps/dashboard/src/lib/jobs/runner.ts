@@ -1,6 +1,6 @@
 import { rmSync } from "node:fs";
-import { prisma } from "@autocloud/db";
-import { logger } from "@autocloud/shared/logger";
+import { prisma } from "@simdeploy/db";
+import { logger } from "@simdeploy/shared/logger";
 import type Stripe from "stripe";
 import { audit } from "../audit";
 import { getStripe } from "../billing/stripe-client";
@@ -85,7 +85,7 @@ async function providerCostSync(): Promise<JobResult> {
 }
 
 /**
- * Reconciliação Stripe ↔ AutoCloud: nunca depender só de webhooks. Compara
+ * Reconciliação Stripe ↔ SimDeploy: nunca depender só de webhooks. Compara
  * assinaturas ativas no Stripe com o banco e corrige divergências (auditado).
  */
 async function stripeReconciliation(): Promise<JobResult> {

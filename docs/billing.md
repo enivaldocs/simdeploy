@@ -2,7 +2,7 @@
 
 ## Princípios
 
-1. **Dinheiro nunca usa float** — minor units (centavos) inteiros + currency em toda transação (`@autocloud/finance` valida).
+1. **Dinheiro nunca usa float** — minor units (centavos) inteiros + currency em toda transação (`@simdeploy/finance` valida).
 2. **Frontend nunca confirma pagamento** — só o webhook Stripe muda estado de assinatura/pagamento.
 3. **ESTIMATED ≠ ACTUAL** — projeção de custo (CostEstimate/ProviderCost ESTIMATED) nunca se mistura com valores reais (Payment/Invoice/ProviderCost ACTUAL).
 4. **Planos são configuração** — tabela Plan (preço, limites, ids Stripe); editáveis em /admin/settings sem deploy.

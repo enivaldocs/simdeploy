@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { logger } from "@autocloud/shared/logger";
+import { prisma } from "@simdeploy/db";
+import { logger } from "@simdeploy/shared/logger";
 
 export interface AuditInput {
   organizationId?: string;

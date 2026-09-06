@@ -2,7 +2,7 @@
 
 ## O que é
 
-AutoCloud: plataforma SaaS de deploy que analisa o projeto do usuário, escolhe a arquitetura de menor custo e publica. Monorepo pnpm + Turborepo. Detalhes: [ARCHITECTURE.md](ARCHITECTURE.md).
+SimDeploy: plataforma SaaS de deploy que analisa o projeto do usuário, escolhe a arquitetura de menor custo e publica. Monorepo pnpm + Turborepo. Detalhes: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 Para instruções de USO da plataforma por agentes (deployar um app com a CLI/MCP), ver [docs/agents/](docs/agents/).
 
@@ -16,10 +16,10 @@ pnpm lint                         # biome check .
 pnpm build                        # turbo build (dashboard + cli + mcp)
 pnpm db:migrate                   # prisma migrate dev (usa .env da raiz)
 pnpm db:seed                      # providers, pricing e planos
-pnpm --filter @autocloud/dashboard dev   # dashboard em :3000
+pnpm --filter @simdeploy/dashboard dev   # dashboard em :3000
 ```
 
-Rodar um pacote só: `pnpm --filter @autocloud/<nome> test|typecheck`.
+Rodar um pacote só: `pnpm --filter @simdeploy/<nome> test|typecheck`.
 
 ## Regras do repositório
 
@@ -27,13 +27,13 @@ Rodar um pacote só: `pnpm --filter @autocloud/<nome> test|typecheck`.
 2. **Custos são projeções.** Toda exibição de custo leva rótulo de estimativa/projeção. Nunca apresentar estimativa como fatura real.
 3. **Código de usuário não roda no servidor.** Build acontece na CLI. Não introduzir `exec` de conteúdo de artefato no dashboard.
 4. **Isolamento por organização.** Toda query de dados de usuário filtra por `organizationId` derivado do auth context — nunca do input da request.
-5. **Input da API sempre validado com zod** (schemas compartilhados em `@autocloud/shared`).
-6. **Secrets**: criptografar com `@autocloud/shared/crypto`; nunca logar valores; nunca retornar depois de salvos.
+5. **Input da API sempre validado com zod** (schemas compartilhados em `@simdeploy/shared`).
+6. **Secrets**: criptografar com `@simdeploy/shared/crypto`; nunca logar valores; nunca retornar depois de salvos.
 7. **Providers desacoplados**: novidades de infraestrutura entram como implementação de `DeploymentProvider` registrada no registry — sem `if (provider === "x")` na lógica.
 8. **Novos frameworks**: adicionar um detector em `packages/framework-detector/src/detectors.ts` + o id em `FRAMEWORK_IDS` (shared) + testes.
 9. **Estados de deployment**: alterar a máquina de estados exige atualizar `TRANSITIONS` + enum Prisma + testes de transição.
 10. **Sem emojis** em copy de UI/CLI.
-12. **Dinheiro**: minor units inteiros + currency (`@autocloud/finance`); nunca float; nunca somar moedas sem taxa; margens sem FX configurada mostram "Configure FX rate".
+12. **Dinheiro**: minor units inteiros + currency (`@simdeploy/finance`); nunca float; nunca somar moedas sem taxa; margens sem FX configurada mostram "Configure FX rate".
 13. **Dados reais somente**: dashboards/admin mostram 0/"No data" quando não há dado — nunca valores fabricados.
 14. **ESTIMATED vs ACTUAL**: custo projetado e custo real nunca se misturam (tabelas e telas separam).
 11. Imports internos entre pacotes usam extensão `.js` (estilo NodeNext resolvido pelo bundler); manter o padrão.

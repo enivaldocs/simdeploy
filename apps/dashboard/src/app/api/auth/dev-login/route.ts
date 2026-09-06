@@ -14,7 +14,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return apiError(404, "not_found", "Não disponível.");
   }
   const form = await request.formData().catch(() => null);
-  const email = String(form?.get("email") ?? "dev@autocloud.local");
+  const email = String(form?.get("email") ?? "dev@simdeploy.local");
 
   const user = await upsertUserWithPersonalOrg({
     email,

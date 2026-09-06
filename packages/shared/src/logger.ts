@@ -1,6 +1,6 @@
 /**
  * Logger estruturado central (JSON por linha). Zero dependências.
- * Server-only: importar via "@autocloud/shared/logger".
+ * Server-only: importar via "@simdeploy/shared/logger".
  */
 export type LogLevel = "debug" | "info" | "warn" | "error";
 
@@ -60,4 +60,4 @@ export class Logger {
   }
 }
 
-export const logger = new Logger({ bindings: { service: "autocloud" } });
+export const logger = new Logger({ bindings: { service: "simdeploy" } });

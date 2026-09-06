@@ -2,7 +2,7 @@
 
 ## Proposta
 
-Você cria o projeto. A AutoCloud analisa, escolhe a arquitetura de menor custo, faz o deploy e otimiza. O usuário (humano ou agente) nunca escolhe CPU, RAM, região, runtime ou provider.
+Você cria o projeto. A SimDeploy analisa, escolhe a arquitetura de menor custo, faz o deploy e otimiza. O usuário (humano ou agente) nunca escolhe CPU, RAM, região, runtime ou provider.
 
 ## Fluxo principal (estado atual)
 
@@ -10,8 +10,8 @@ Você cria o projeto. A AutoCloud analisa, escolhe a arquitetura de menor custo,
 Visitante → homepage/landings (landing_view)
 → Signup (dev login local; GitHub OAuth via env) (signup_started/completed)
 → Cria projeto (dashboard ou CLI cria na hora do deploy)
-→ autocloud analyze (offline) — arquitetura + custo estimado
-→ autocloud deploy --yes — build no cliente, pipeline no servidor
+→ simdeploy analyze (offline) — arquitetura + custo estimado
+→ simdeploy deploy --yes — build no cliente, pipeline no servidor
 → URL pública com health check verificado
 → Uso medido (requests/bandwidth do serving; deployments; storage)
 → Billing: planos no banco; upgrade via Stripe Checkout; webhook confirma

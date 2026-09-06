@@ -1,6 +1,6 @@
-import { type Organization, prisma, type User } from "@autocloud/db";
-import { API_TOKEN_PREFIX, TOKEN_SCOPES, type TokenScope } from "@autocloud/shared";
-import { hashToken } from "@autocloud/shared/crypto";
+import { type Organization, prisma, type User } from "@simdeploy/db";
+import { API_TOKEN_PREFIX, TOKEN_SCOPES, type TokenScope } from "@simdeploy/shared";
+import { hashToken } from "@simdeploy/shared/crypto";
 import type { NextRequest } from "next/server";
 import { getSession } from "../auth/session";
 import { rateLimiters } from "../rate-limit";

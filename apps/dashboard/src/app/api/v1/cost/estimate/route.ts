@@ -1,5 +1,5 @@
-import { estimateCosts } from "@autocloud/cost-engine";
-import { costEstimateRequestSchema } from "@autocloud/shared";
+import { estimateCosts } from "@simdeploy/cost-engine";
+import { costEstimateRequestSchema } from "@simdeploy/shared";
 import type { NextRequest } from "next/server";
 import { trackEvent } from "@/lib/analytics";
 import { authenticateApi, requireScope } from "@/lib/api/auth";

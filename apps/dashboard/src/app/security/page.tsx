@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata = {
   title: "Security",
   description:
-    "How AutoCloud is secured: client-side builds, artifact validation, encrypted secrets, tenant isolation, audit logging and signed payment webhooks.",
+    "How SimDeploy is secured: client-side builds, artifact validation, encrypted secrets, tenant isolation, audit logging and signed payment webhooks.",
   alternates: { canonical: "/security" },
 };
 
@@ -27,7 +27,7 @@ const CONTROLS: Array<{ title: string; body: string }> = [
   },
   {
     title: "Payment integrity",
-    body: "Payment state changes only through Stripe webhooks with validated signatures, deduplication and controlled retries — never from the frontend. Card data never touches AutoCloud servers.",
+    body: "Payment state changes only through Stripe webhooks with validated signatures, deduplication and controlled retries — never from the frontend. Card data never touches SimDeploy servers.",
   },
   {
     title: "Audit trail",
@@ -59,8 +59,8 @@ export default function SecurityPage() {
         </div>
         <p className="mt-10 text-sm text-ink-dim">
           Found a vulnerability? Report it to{" "}
-          <a href="mailto:support@autocloud.app" className="text-accent hover:underline">
-            support@autocloud.app
+          <a href="mailto:support@simdeploy.com" className="text-accent hover:underline">
+            support@simdeploy.com
           </a>
           . Good-faith research on your own account is welcome. See also the{" "}
           <a href="/dpa" className="text-accent hover:underline">

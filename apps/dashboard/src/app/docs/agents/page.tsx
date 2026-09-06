@@ -34,20 +34,20 @@ export default function AgentDocsPage() {
           <h2 className="mb-3 text-xl font-medium">Deploy an existing application</h2>
           <pre className="overflow-x-auto rounded-lg border border-edge bg-panel p-4 font-mono text-sm leading-relaxed text-ink-dim">
             {`# 1. Install the CLI
-npm i -g autocloud
+npm i -g simdeploy
 
 # 2. Authenticate (token created at /dashboard/settings)
-autocloud login --token ac_live_...
+simdeploy login --token sd_live_...
 
 # 3. Analyze (offline, no side effects)
-autocloud analyze --json
+simdeploy analyze --json
 
 # 4. Non-interactive deploy — essential for agents
-autocloud deploy --yes
+simdeploy deploy --yes
 
 # 5. Verify (exit code != 0 on failure)
-autocloud status --json
-autocloud logs`}
+simdeploy status --json
+simdeploy logs`}
           </pre>
         </section>
 
@@ -62,7 +62,7 @@ autocloud logs`}
               Sempre <span className="font-mono text-ink">--json</span> quando for interpretar a
               saída.
             </li>
-            <li>Builds run on the local machine; only the output goes to AutoCloud.</li>
+            <li>Builds run on the local machine; only the output goes to SimDeploy.</li>
             <li>
               Estados de deployment: CREATED, ANALYZING, QUEUED, BUILDING, DEPLOYING, READY e as
               falhas tipadas ANALYSIS_FAILED, BUILD_FAILED, DEPLOY_FAILED.
@@ -74,7 +74,7 @@ autocloud logs`}
         <section className="mb-10" id="api">
           <h2 className="mb-3 text-xl font-medium">API v1</h2>
           <p className="mb-3 text-sm text-ink-dim">
-            Auth: <span className="font-mono text-ink">Authorization: Bearer ac_live_...</span> —
+            Auth: <span className="font-mono text-ink">Authorization: Bearer sd_live_...</span> —
             erros retornam{" "}
             <span className="font-mono text-ink">{`{"error":{"code","message"}}`}</span>.
           </p>
@@ -95,14 +95,14 @@ autocloud logs`}
         <section className="mb-10">
           <h2 className="mb-3 text-xl font-medium">MCP</h2>
           <p className="mb-3 text-sm leading-relaxed text-ink-dim">
-            Servidor stdio <span className="font-mono text-ink">autocloud-mcp</span> com as
+            Servidor stdio <span className="font-mono text-ink">simdeploy-mcp</span> com as
             ferramentas analyze_project, estimate_cost, create_project, deploy_project,
             list_projects, get_project, get_deployment e get_logs. A autenticação reusa a da CLI.
           </p>
           <pre className="overflow-x-auto rounded-lg border border-edge bg-panel p-4 font-mono text-sm text-ink-dim">
             {`{
   "mcpServers": {
-    "autocloud": { "command": "autocloud-mcp" }
+    "simdeploy": { "command": "simdeploy-mcp" }
   }
 }`}
           </pre>

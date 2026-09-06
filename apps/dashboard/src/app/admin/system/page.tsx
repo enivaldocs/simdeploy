@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { CloudflareProvider } from "@autocloud/provider-cloudflare";
+import { prisma } from "@simdeploy/db";
+import { CloudflareProvider } from "@simdeploy/provider-cloudflare";
 import { AdminTable, Stat } from "@/components/admin-ui";
 import { requireStaff } from "@/lib/auth/staff";
 import { getStripe } from "@/lib/billing/stripe-client";

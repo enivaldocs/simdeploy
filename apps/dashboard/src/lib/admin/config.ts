@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import { audit } from "../audit";
 
 /**

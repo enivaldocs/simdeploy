@@ -1,4 +1,4 @@
-import { createTokenRequestSchema } from "@autocloud/shared";
+import { createTokenRequestSchema } from "@simdeploy/shared";
 import type { NextRequest } from "next/server";
 import { authenticateApi } from "@/lib/api/auth";
 import { forbidden, handleApiError, ok } from "@/lib/api/respond";

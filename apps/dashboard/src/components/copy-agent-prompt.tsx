@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 
-const AGENT_PROMPT = `Deploy this project to AutoCloud:
-1. Install the CLI: npm i -g autocloud
-2. Authenticate: autocloud login --token <create one at /dashboard/settings>
-3. Inspect first (offline): autocloud analyze --json
-4. Deploy non-interactively: autocloud deploy --yes
-5. On failure, read: autocloud logs
+const AGENT_PROMPT = `Deploy this project to SimDeploy:
+1. Install the CLI: npm i -g simdeploy
+2. Authenticate: simdeploy login --token <create one at /dashboard/settings>
+3. Inspect first (offline): simdeploy analyze --json
+4. Deploy non-interactively: simdeploy deploy --yes
+5. On failure, read: simdeploy logs
 Full agent contract: /llms.txt and /docs/agents`;
 
 /**

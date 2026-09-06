@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { decryptSecret, encryptSecret } from "@autocloud/shared/crypto";
+import { prisma } from "@simdeploy/db";
+import { decryptSecret, encryptSecret } from "@simdeploy/shared/crypto";
 import { audit } from "../audit";
 import { env } from "../env";
 

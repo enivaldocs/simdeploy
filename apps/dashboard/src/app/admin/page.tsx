@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { formatMinor } from "@autocloud/finance";
+import { prisma } from "@simdeploy/db";
+import { formatMinor } from "@simdeploy/finance";
 import Link from "next/link";
 import { moneyByCurrency, Stat } from "@/components/admin-ui";
 import { StatusBadge } from "@/components/status-badge";

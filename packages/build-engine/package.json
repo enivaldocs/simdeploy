@@ -1,5 +1,5 @@
 {
-  "name": "@autocloud/build-engine",
+  "name": "@simdeploy/build-engine",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@autocloud/shared": "workspace:*",
+    "@simdeploy/shared": "workspace:*",
     "tar": "^7.4.3"
   },
   "devDependencies": {

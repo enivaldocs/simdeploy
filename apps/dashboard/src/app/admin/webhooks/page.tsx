@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import { AdminTable, Stat } from "@/components/admin-ui";
 import { requireStaff } from "@/lib/auth/staff";
 import { timeAgo } from "@/lib/format";

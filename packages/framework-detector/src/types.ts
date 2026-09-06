@@ -1,4 +1,4 @@
-import type { FrameworkId, RuntimeKind } from "@autocloud/shared";
+import type { FrameworkId, RuntimeKind } from "@simdeploy/shared";
 
 export interface PackageJsonLike {
   name?: string;

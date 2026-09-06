@@ -1,5 +1,5 @@
 {
-  "name": "@autocloud/db",
+  "name": "@simdeploy/db",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,11 +14,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@autocloud/shared": "workspace:*",
+    "@simdeploy/shared": "workspace:*",
     "@prisma/client": "^6.16.0"
   },
   "devDependencies": {
-    "@autocloud/cost-engine": "workspace:*",
+    "@simdeploy/cost-engine": "workspace:*",
     "@types/node": "^22.18.0",
     "dotenv-cli": "^10.0.0",
     "prisma": "^6.16.0",

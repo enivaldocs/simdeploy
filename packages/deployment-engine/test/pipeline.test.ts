@@ -1,4 +1,4 @@
-import type { DeploymentStatus } from "@autocloud/shared";
+import type { DeploymentStatus } from "@simdeploy/shared";
 import { describe, expect, it } from "vitest";
 import { type PipelineHooks, type PipelineStage, runPipeline } from "../src/pipeline.js";
 

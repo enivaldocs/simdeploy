@@ -1,5 +1,5 @@
-import { DEFAULT_PRICING_TABLES, estimateCosts } from "@autocloud/cost-engine";
-import { analyzeProject } from "@autocloud/project-analyzer";
+import { DEFAULT_PRICING_TABLES, estimateCosts } from "@simdeploy/cost-engine";
+import { analyzeProject } from "@simdeploy/project-analyzer";
 import pc from "picocolors";
 import { check, heading, info, money, printJson } from "../output.js";
 
@@ -59,5 +59,5 @@ export async function analyzeCommand(options: { json?: boolean; dir?: string }):
     console.log(`\n${pc.yellow("WARN")} ${warning}`);
   }
 
-  console.log(`\nRun ${pc.bold("autocloud deploy")} to deploy.\n`);
+  console.log(`\nRun ${pc.bold("simdeploy deploy")} to deploy.\n`);
 }

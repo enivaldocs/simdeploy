@@ -44,7 +44,7 @@ export default async function DocPage({ params }: Params) {
                   item.slug === page.slug ? "text-accent" : "text-ink-dim hover:text-ink"
                 }`}
               >
-                {item.title.replace(" with AutoCloud", "")}
+                {item.title.replace(" with SimDeploy", "")}
               </Link>
             ))}
             <Link href="/docs/agents" className="text-sm text-ink-dim hover:text-ink">

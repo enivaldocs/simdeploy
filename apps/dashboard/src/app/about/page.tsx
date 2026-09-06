@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata = {
   title: "About",
   description:
-    "AutoCloud is the AI-native deploy platform by Yes Servicos Digitais: automatic project analysis, lowest-cost architecture and one-command publishing.",
+    "SimDeploy is the AI-native deploy platform by Yes Servicos Digitais: automatic project analysis, lowest-cost architecture and one-command publishing.",
   alternates: { canonical: "/about" },
 };
 
@@ -14,10 +14,10 @@ export default function AboutPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
-        <h1 className="text-3xl font-semibold">About AutoCloud</h1>
+        <h1 className="text-3xl font-semibold">About SimDeploy</h1>
         <div className="mt-8 space-y-5 leading-relaxed text-ink-dim">
           <p>
-            AutoCloud started from a simple observation: code is increasingly written by people with
+            SimDeploy started from a simple observation: code is increasingly written by people with
             the help of AI agents — yet shipping that code still demands infrastructure decisions
             that neither the person nor the agent should have to make. Which runtime, which region,
             how much memory, which provider, and what it will all cost.
@@ -35,7 +35,7 @@ export default function AboutPage() {
             project will quite possibly be done by your agent, not by you.
           </p>
           <p>
-            AutoCloud is a product by <span className="text-ink">Yes Servicos Digitais</span>, a
+            SimDeploy is a product by <span className="text-ink">Yes Servicos Digitais</span>, a
             Brazilian company operating consumer SaaS and digital infrastructure platforms.
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function AboutPage() {
             Start free
           </Link>
           <a
-            href="mailto:support@autocloud.app"
+            href="mailto:support@simdeploy.com"
             className="rounded-md border border-edge px-5 py-2.5 text-ink-dim hover:border-accent hover:text-ink"
           >
             Contact

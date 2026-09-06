@@ -1,5 +1,5 @@
-import { displayStatus } from "@autocloud/deployment-engine";
-import type { DeploymentStatus } from "@autocloud/shared";
+import { displayStatus } from "@simdeploy/deployment-engine";
+import type { DeploymentStatus } from "@simdeploy/shared";
 
 const STYLES: Record<ReturnType<typeof displayStatus>, string> = {
   Ready: "text-ok border-ok/40 bg-ok/10",

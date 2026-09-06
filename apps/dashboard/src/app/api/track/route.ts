@@ -1,4 +1,4 @@
-import { ANALYTICS_EVENTS, type AnalyticsEventName } from "@autocloud/shared";
+import { ANALYTICS_EVENTS, type AnalyticsEventName } from "@simdeploy/shared";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 import { trackEvent } from "@/lib/analytics";

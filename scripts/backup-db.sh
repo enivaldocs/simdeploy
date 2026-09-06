@@ -9,6 +9,6 @@ mkdir -p "$DEST_DIR"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 DB_URL="${DATABASE_URL:-$(grep '^DATABASE_URL=' .env | cut -d= -f2-)}"
 
-FILE="$DEST_DIR/autocloud-$STAMP.dump"
+FILE="$DEST_DIR/simdeploy-$STAMP.dump"
 pg_dump --format=custom --file="$FILE" "$DB_URL"
 echo "Backup criado: $FILE ($(du -h "$FILE" | cut -f1))"

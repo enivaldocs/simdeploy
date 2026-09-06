@@ -9,15 +9,15 @@ import { fail } from "./output.js";
 const program = new Command();
 
 program
-  .name("autocloud")
-  .description("AutoCloud — deploy sem escolher servidores, CPU ou infraestrutura")
+  .name("simdeploy")
+  .description("SimDeploy — deploy sem escolher servidores, CPU ou infraestrutura")
   .version("0.1.0");
 
 program
   .command("login")
   .description("Autentica a CLI com um API token (crie em /dashboard/settings)")
-  .option("--token <token>", "API token (ac_live_...)")
-  .option("--api-url <url>", "URL da API AutoCloud")
+  .option("--token <token>", "API token (sd_live_...)")
+  .option("--api-url <url>", "URL da API SimDeploy")
   .action(wrap(loginCommand));
 
 program

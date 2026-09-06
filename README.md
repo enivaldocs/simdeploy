@@ -1,11 +1,11 @@
-# AutoCloud
+# SimDeploy
 
 **You build. AI chooses where it runs.**
 
-AutoCloud é uma plataforma de deploy AI-native: ela analisa o projeto, escolhe a arquitetura de menor custo, publica e segue otimizando a infraestrutura conforme o uso. O usuário nunca escolhe CPU, RAM, região, runtime ou provider.
+SimDeploy é uma plataforma de deploy AI-native: ela analisa o projeto, escolhe a arquitetura de menor custo, publica e segue otimizando a infraestrutura conforme o uso. O usuário nunca escolhe CPU, RAM, região, runtime ou provider.
 
 ```bash
-npx autocloud deploy
+npx simdeploy deploy
 ```
 
 ## O mecanismo: Autopilot Infrastructure
@@ -25,8 +25,8 @@ Projeto → AI Project Analyzer → detecção de framework → detecção de ne
 
 Funcionando de ponta a ponta hoje:
 
-- `autocloud analyze` — Cloud Cost Scanner offline (nada sai da máquina).
-- `autocloud deploy --yes` — cria projeto, builda no cliente, publica no provider `local` e retorna URL funcional (`http://<slug>.localhost:3000/`).
+- `simdeploy analyze` — Cloud Cost Scanner offline (nada sai da máquina).
+- `simdeploy deploy --yes` — cria projeto, builda no cliente, publica no provider `local` e retorna URL funcional (`http://<slug>.localhost:3000/`).
 - Dashboard (Next.js): Overview, Projects, Deployments com timeline e logs, Environment Variables criptografadas, API tokens com scopes.
 - API v1 completa (mesmas capacidades da CLI/dashboard) e MCP server para Claude Code/Codex/Cursor.
 
@@ -53,7 +53,7 @@ packages/provider-core        Interface DeploymentProvider + registry
 packages/provider-local       Provider de dev (publica em var/sites)
 packages/provider-cloudflare  Adapter Cloudflare (healthCheck/pricing prontos)
 packages/build-engine         Build no cliente + empacotamento tar.gz
-packages/cli                  CLI autocloud
+packages/cli                  CLI simdeploy
 packages/mcp-server           MCP server (Claude Code, Codex, Cursor)
 ```
 
@@ -79,16 +79,16 @@ pnpm db:migrate
 pnpm db:seed        # providers, tabelas de preço e planos
 
 # 4. Dashboard + API
-pnpm --filter @autocloud/dashboard dev   # http://localhost:3000
+pnpm --filter @simdeploy/dashboard dev   # http://localhost:3000
 
 # 5. CLI
-pnpm --filter autocloud build
+pnpm --filter simdeploy build
 # no dashboard: Dev login → Settings → Create API token
-node packages/cli/dist/index.js login --token ac_live_...
+node packages/cli/dist/index.js login --token sd_live_...
 
 # 6. Deploy de um projeto qualquer
 cd ~/meu-projeto
-node /caminho/para/autocloud/packages/cli/dist/index.js deploy --yes
+node /caminho/para/simdeploy/packages/cli/dist/index.js deploy --yes
 ```
 
 ### Environment variables
@@ -115,7 +115,7 @@ pnpm build       # turbo build (dashboard + CLI + MCP)
 
 - Código de usuário **nunca roda no servidor**: o build acontece no cliente (CLI) e o servidor recebe apenas artefatos estáticos, validados antes da extração (sem symlinks, sem `..`, limites de tamanho e quantidade).
 - Secrets de projeto criptografados em repouso (AES-256-GCM) e nunca exibidos após salvos.
-- API tokens `ac_live_*` com scopes; apenas o hash SHA-256 é persistido.
+- API tokens `sd_live_*` com scopes; apenas o hash SHA-256 é persistido.
 - Sessões httpOnly com hash no banco; OAuth state assinado com HMAC.
 - Isolamento multi-tenant por `organizationId` em todas as queries; rate limiting por identidade; audit log de todas as mutações.
 - Serving de sites com proteção de path traversal e allowlist de content-types.

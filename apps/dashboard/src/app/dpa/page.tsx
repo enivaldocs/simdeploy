@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata = {
   title: "Data Processing Agreement",
   description:
-    "How AutoCloud acts as processor for personal data contained in customer projects, under the Brazilian LGPD.",
+    "How SimDeploy acts as processor for personal data contained in customer projects, under the Brazilian LGPD.",
   alternates: { canonical: "/dpa" },
 };
 
@@ -13,7 +13,7 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
     title: "1. Roles",
     paragraphs: [
       "For YOUR account data (email, billing, usage), Yes Servicos Digitais is the controller — see the Privacy Policy.",
-      "For personal data possibly contained in the PROJECTS you publish (code, served content, environment variables), you are the controller and AutoCloud acts as processor (article 5, VII, LGPD), processing that data exclusively to provide the service: storing, publishing and serving your project.",
+      "For personal data possibly contained in the PROJECTS you publish (code, served content, environment variables), you are the controller and SimDeploy acts as processor (article 5, VII, LGPD), processing that data exclusively to provide the service: storing, publishing and serving your project.",
     ],
   },
   {
@@ -39,7 +39,7 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
     paragraphs: [
       "Security incidents involving personal data are communicated to the affected customer without undue delay, with the information required by the LGPD.",
       "Upon account closure or project deletion, published content is unpublished and artifacts are deleted from our systems, except backup copies purged on a regular cycle.",
-      "Questions and requests: support@autocloud.app.",
+      "Questions and requests: support@simdeploy.com.",
     ],
   },
 ];

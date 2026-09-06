@@ -1,5 +1,5 @@
-import { ProviderRegistry } from "@autocloud/provider-core";
-import { LocalProvider } from "@autocloud/provider-local";
+import { ProviderRegistry } from "@simdeploy/provider-core";
+import { LocalProvider } from "@simdeploy/provider-local";
 import { env } from "../env";
 import { sitesDir } from "../paths";
 

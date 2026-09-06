@@ -9,7 +9,7 @@ Código de usuário é HOSTIL. Ele nunca executa no servidor da plataforma: o bu
 | Área | Controle |
 | --- | --- |
 | Autenticação | Sessão httpOnly com hash SHA-256 no banco; OAuth state HMAC; dev-login só com NODE_ENV=development |
-| API tokens | `ac_live_*`, só hash persistido, scopes, expiração, revogação, lastUsedAt |
+| API tokens | `sd_live_*`, só hash persistido, scopes, expiração, revogação, lastUsedAt |
 | RBAC | MemberRole (org) + StaffRole (admin) verificados no backend em toda rota/página |
 | Multi-tenant | Toda query filtra por organizationId derivado do auth context, nunca do input (anti-IDOR) |
 | Input | zod em toda rota de API (schemas compartilhados) |

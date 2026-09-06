@@ -1,5 +1,5 @@
 /**
- * Dinheiro na AutoCloud: SEMPRE minor units (centavos) inteiros + currency.
+ * Dinheiro na SimDeploy: SEMPRE minor units (centavos) inteiros + currency.
  * Nunca float; nunca somar moedas diferentes sem conversão explícita.
  */
 

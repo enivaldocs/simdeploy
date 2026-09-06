@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header";
 
 export const metadata = {
   title: "Changelog",
-  description: "What shipped on AutoCloud — real releases, dated.",
+  description: "What shipped on SimDeploy — real releases, dated.",
   alternates: { canonical: "/changelog" },
 };
 
@@ -39,10 +39,10 @@ const ENTRIES: Array<{ date: string; title: string; items: string[] }> = [
   },
   {
     date: "2026-08-29",
-    title: "AutoCloud foundation",
+    title: "SimDeploy foundation",
     items: [
       "Autopilot Infrastructure: deterministic project analyzer, cost engine over provider price tables, lowest-cost architecture router.",
-      "One-command deploys: autocloud deploy --yes with client-side builds and typed pipeline states.",
+      "One-command deploys: simdeploy deploy --yes with client-side builds and typed pipeline states.",
       "Dashboard, REST API v1 with scoped tokens, non-interactive CLI and MCP server for coding agents.",
       "Encrypted environment variables, per-organization isolation, audit log.",
     ],

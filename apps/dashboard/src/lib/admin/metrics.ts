@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import {
   arrFromMrr,
   computeArpu,
@@ -7,7 +7,7 @@ import {
   computeLtv,
   computeMrr,
   type GrossMarginResult,
-} from "@autocloud/finance";
+} from "@simdeploy/finance";
 import { getFxRateUsdBrl } from "./config";
 
 /**

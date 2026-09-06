@@ -1,6 +1,6 @@
 /**
  * Criptografia de secrets e geração/hashing de API tokens.
- * Server-only: importar via "@autocloud/shared/crypto" — nunca em código de client.
+ * Server-only: importar via "@simdeploy/shared/crypto" — nunca em código de client.
  */
 import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
 import { API_TOKEN_PREFIX } from "./types/tokens.js";
@@ -54,7 +54,7 @@ export function hashToken(token: string): string {
 export interface GeneratedApiToken {
   /** Token completo — mostrado uma única vez ao usuário. */
   token: string;
-  /** Prefixo exibível para identificação (ex.: ac_live_a1b2c3). */
+  /** Prefixo exibível para identificação (ex.: sd_live_a1b2c3). */
   displayPrefix: string;
   /** SHA-256 do token, para armazenamento. */
   tokenHash: string;

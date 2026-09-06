@@ -1,12 +1,12 @@
-import { prisma } from "@autocloud/db";
-import { formatMinor } from "@autocloud/finance";
+import { prisma } from "@simdeploy/db";
+import { formatMinor } from "@simdeploy/finance";
 import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { trackEvent } from "@/lib/analytics";
 
 export const metadata = {
-  title: "Pricing — AutoCloud",
+  title: "Pricing — SimDeploy",
   description:
     "Predictable cloud pricing. Free to start, plans that scale with your projects — no surprise bills.",
 };
@@ -67,7 +67,7 @@ export default async function PricingPage() {
                   <li>{limits.maxDeploymentsPerDay ?? "—"} deploys/day</li>
                   <li>{limits.bandwidthGb ?? "—"} GB bandwidth/mo</li>
                   <li>{limits.storageGb ?? "—"} GB storage</li>
-                  <li>{limits.customDomains ? "Custom domains" : "autocloud subdomain"}</li>
+                  <li>{limits.customDomains ? "Custom domains" : "simdeploy subdomain"}</li>
                 </ul>
                 <Link
                   href={plan.priceMonthlyMinor === 0 ? "/login" : "/dashboard/billing"}

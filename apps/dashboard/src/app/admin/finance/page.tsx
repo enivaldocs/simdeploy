@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { computeGrossMargin, formatMinor } from "@autocloud/finance";
+import { prisma } from "@simdeploy/db";
+import { computeGrossMargin, formatMinor } from "@simdeploy/finance";
 import Link from "next/link";
 import { AdminTable, moneyByCurrency, Stat } from "@/components/admin-ui";
 import { getFxRateUsdBrl } from "@/lib/admin/config";

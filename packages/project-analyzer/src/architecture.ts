@@ -1,4 +1,4 @@
-import type { ArchitectureType, FrameworkId } from "@autocloud/shared";
+import type { ArchitectureType, FrameworkId } from "@simdeploy/shared";
 
 export interface ArchitectureInput {
   framework: FrameworkId;

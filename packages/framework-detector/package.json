@@ -1,5 +1,5 @@
 {
-  "name": "@autocloud/framework-detector",
+  "name": "@simdeploy/framework-detector",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@autocloud/shared": "workspace:*"
+    "@simdeploy/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.18.0",

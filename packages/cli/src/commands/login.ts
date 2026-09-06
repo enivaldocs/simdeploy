@@ -14,13 +14,13 @@ export async function loginCommand(options: { token?: string; apiUrl?: string })
   const apiUrl = options.apiUrl ?? readConfig().apiUrl ?? DEFAULT_API_URL;
 
   if (!options.token) {
-    fail("Informe um API token: autocloud login --token <ac_live_...>");
+    fail("Informe um API token: simdeploy login --token <sd_live_...>");
     info(`Crie um token no dashboard: ${apiUrl}/dashboard/settings`);
     process.exitCode = 1;
     return;
   }
-  if (!options.token.startsWith("ac_live_")) {
-    fail("Token inválido — tokens AutoCloud começam com ac_live_");
+  if (!options.token.startsWith("sd_live_")) {
+    fail("Token inválido — tokens SimDeploy começam com sd_live_");
     process.exitCode = 1;
     return;
   }

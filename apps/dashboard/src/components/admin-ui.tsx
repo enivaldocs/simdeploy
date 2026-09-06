@@ -1,4 +1,4 @@
-import { formatMinor } from "@autocloud/finance";
+import { formatMinor } from "@simdeploy/finance";
 
 /** Componentes de exibição do admin. Sem dado real → "No data", nunca fake. */
 

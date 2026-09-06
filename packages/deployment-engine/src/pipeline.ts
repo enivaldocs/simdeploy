@@ -1,4 +1,4 @@
-import type { DeploymentStatus, LogStage } from "@autocloud/shared";
+import type { DeploymentStatus, LogStage } from "@simdeploy/shared";
 import { assertTransition } from "./state-machine.js";
 
 export interface PipelineStage {

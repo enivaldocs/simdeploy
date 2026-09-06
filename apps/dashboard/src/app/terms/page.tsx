@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata = {
   title: "Terms of Service",
   description:
-    "AutoCloud Terms of Service: account, plans and payment, acceptable use, user content, cancellation and refunds.",
+    "SimDeploy Terms of Service: account, plans and payment, acceptable use, user content, cancellation and refunds.",
   alternates: { canonical: "/terms" },
 };
 
@@ -12,7 +12,7 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
     title: "1. The service",
     paragraphs: [
-      "AutoCloud is a deployment and hosting platform operated by Yes Servicos Digitais (Brazil). It analyzes software projects, automatically selects the infrastructure architecture, publishes the project to a URL and measures usage (requests, bandwidth, storage).",
+      "SimDeploy is a deployment and hosting platform operated by Yes Servicos Digitais (Brazil). It analyzes software projects, automatically selects the infrastructure architecture, publishes the project to a URL and measures usage (requests, bandwidth, storage).",
       "Infrastructure cost figures shown in the product are projections computed from public provider price tables and are always labeled as estimates. The only real charge is your subscription, described in section 3.",
     ],
   },
@@ -26,16 +26,16 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
     title: "3. Plans, payment and refunds",
     paragraphs: [
-      "Plans have a fixed monthly (or annual) price with explicit limits shown on the pricing page and in the dashboard. Payments are processed by Stripe; AutoCloud never stores card data.",
+      "Plans have a fixed monthly (or annual) price with explicit limits shown on the pricing page and in the dashboard. Payments are processed by Stripe; SimDeploy never stores card data.",
       "You can change plans or cancel at any time through the billing portal. Cancellation takes effect at the next cycle; access remains until the end of the paid period.",
-      "Online purchases carry a 7 (seven) calendar day right of withdrawal from the date of purchase, with a full refund (article 49 of the Brazilian Consumer Code). To exercise it, contact support@autocloud.app.",
+      "Online purchases carry a 7 (seven) calendar day right of withdrawal from the date of purchase, with a full refund (article 49 of the Brazilian Consumer Code). To exercise it, contact support@simdeploy.com.",
       "Failed payments are notified; after the grace period, the subscription reverts to the free plan and its limits apply.",
     ],
   },
   {
     title: "4. Acceptable use",
     paragraphs: [
-      "You may not use AutoCloud to host or distribute: malware, phishing or pages impersonating third parties; content that infringes copyright or violates applicable law; spam or abuse infrastructure (including attacks against third parties); cryptocurrency mining; child sexual abuse material (removed and reported immediately).",
+      "You may not use SimDeploy to host or distribute: malware, phishing or pages impersonating third parties; content that infringes copyright or violates applicable law; spam or abuse infrastructure (including attacks against third parties); cryptocurrency mining; child sexual abuse material (removed and reported immediately).",
       "It is also prohibited to circumvent plan limits, interfere with the platform or with other customers' projects, or resell the service without a written agreement.",
       "Projects that violate this section may be unpublished immediately. Whenever possible we notify first; for active abuse against third parties we act first and notify afterwards. See the full Acceptable Use Policy.",
     ],
@@ -64,7 +64,7 @@ const SECTIONS: Array<{ title: string; paragraphs: string[] }> = [
   {
     title: "8. Contact and governing law",
     paragraphs: [
-      "Questions about these terms: support@autocloud.app. These terms are governed by Brazilian law.",
+      "Questions about these terms: support@simdeploy.com. These terms are governed by Brazilian law.",
     ],
   },
 ];

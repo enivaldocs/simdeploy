@@ -1,4 +1,4 @@
-import { type DeploymentStatus, TERMINAL_STATUSES } from "@autocloud/shared";
+import { type DeploymentStatus, TERMINAL_STATUSES } from "@simdeploy/shared";
 
 /**
  * Máquina de estados do pipeline de deployment.

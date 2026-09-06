@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StatusBadge } from "@/components/status-badge";
@@ -98,7 +98,7 @@ export default async function ProjectPage({
             <div className="bg-panel p-6 text-sm text-ink-faint">
               <p className="mb-2">Nenhum deployment. Na raiz do projeto, rode:</p>
               <pre className="rounded-md bg-panel-2 p-3 font-mono text-xs text-ink-dim">
-                {`npx autocloud deploy --yes`}
+                {`npx simdeploy deploy --yes`}
               </pre>
             </div>
           ) : (

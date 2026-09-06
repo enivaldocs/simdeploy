@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import type { NextRequest } from "next/server";
 import { authenticateApi, requireScope } from "@/lib/api/auth";
 import { handleApiError, notFound, ok } from "@/lib/api/respond";

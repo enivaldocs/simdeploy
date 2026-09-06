@@ -1,7 +1,7 @@
-import { estimateCosts } from "@autocloud/cost-engine";
-import { prisma } from "@autocloud/db";
-import { NoRouteError, routeDeployment } from "@autocloud/deployment-engine";
-import { analyzeProjectRequestSchema } from "@autocloud/shared";
+import { estimateCosts } from "@simdeploy/cost-engine";
+import { prisma } from "@simdeploy/db";
+import { NoRouteError, routeDeployment } from "@simdeploy/deployment-engine";
+import { analyzeProjectRequestSchema } from "@simdeploy/shared";
 import type { NextRequest } from "next/server";
 import { trackEvent } from "@/lib/analytics";
 import { authenticateApi, requireScope } from "@/lib/api/auth";

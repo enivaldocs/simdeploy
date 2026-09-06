@@ -21,13 +21,13 @@
 - [x] Interface `DeploymentProvider` + registry
 - [x] Provider `local` funcional (extração sanitizada, URL por subdomínio)
 - [x] Pipeline com máquina de estados, eventos e logs persistidos
-- [x] Subdomínios (`<slug>.localhost` em dev; modelo `Domain` pronto para `autocloud.app`)
+- [x] Subdomínios (`<slug>.localhost` em dev; modelo `Domain` pronto para `simdeploy.com`)
 - [ ] Deploy real no Cloudflare (Workers Static Assets / Workers for Platforms) — healthCheck e pricing prontos
 - [ ] Custom domains com validação DNS + SSL
 
 ## Fase 4 — CLI (concluída)
 
-- [x] `autocloud login | analyze | deploy [--yes|--json] | logs | status | projects`
+- [x] `simdeploy login | analyze | deploy [--yes|--json] | logs | status | projects`
 - [x] API tokens com scopes; criação/revogação no dashboard
 - [x] Modo não interativo e saída JSON para agents
 
@@ -46,7 +46,7 @@
 - [x] Admin/Business OS: overview, customers + Customer 360, finance + P&L por cliente, unit economics, growth/funil, usage, providers, webhooks, system health, settings (planos/FX/flags) — RBAC de staff no backend
 - [x] Analytics de funil + aquisição UTM first-touch
 - [x] Notificações (welcome, first_deploy, deploy_failed, payment_failed/recovered, usage 80/100, cancelamento) — entrega por email via adapter futuro
-- [x] Jobs + reconciliation (Stripe ↔ AutoCloud) + cleanup + limites de uso
+- [x] Jobs + reconciliation (Stripe ↔ SimDeploy) + cleanup + limites de uso
 - [x] Estados UPLOADING/HEALTH_CHECK com health check HTTP real
 - [x] Pricing page + landings de aquisição + robots/sitemap/OG
 - [ ] Autopilot: comparação alocado × usado → `OptimizationRecommendation` na UI

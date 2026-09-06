@@ -2,7 +2,7 @@
 
 ## Arquitetura
 
-Camada desacoplada: eventos nomeados (`ANALYTICS_EVENTS` em @autocloud/shared) → `trackEvent()` → sink plugável (hoje: tabela AnalyticsEvent; ferramenta externa entra trocando o sink, sem tocar chamadores). Falha de analytics nunca derruba o caminho principal.
+Camada desacoplada: eventos nomeados (`ANALYTICS_EVENTS` em @simdeploy/shared) → `trackEvent()` → sink plugável (hoje: tabela AnalyticsEvent; ferramenta externa entra trocando o sink, sem tocar chamadores). Falha de analytics nunca derruba o caminho principal.
 
 ## Eventos
 

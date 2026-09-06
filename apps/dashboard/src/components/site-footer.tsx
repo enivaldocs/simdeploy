@@ -25,7 +25,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
   {
     title: "Compare",
     links: [
-      { href: "/vercel-alternative", label: "AutoCloud vs deploy platforms" },
+      { href: "/vercel-alternative", label: "SimDeploy vs deploy platforms" },
       { href: "/cheap-nextjs-hosting", label: "Lowest-cost Next.js hosting" },
       { href: "/ai-deployment-platform", label: "Why agent-first" },
     ],
@@ -35,7 +35,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
     links: [
       { href: "/about", label: "About" },
       { href: "/security", label: "Security" },
-      { href: "mailto:support@autocloud.app", label: "Contact" },
+      { href: "mailto:support@simdeploy.com", label: "Contact" },
     ],
   },
   {
@@ -81,8 +81,8 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-edge-soft">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-2 px-6 py-5 text-xs text-ink-faint">
-          <p>AutoCloud — a Yes Servicos Digitais product. All rights reserved.</p>
-          <p className="font-mono">npx autocloud deploy</p>
+          <p>SimDeploy — a Yes Servicos Digitais product. All rights reserved.</p>
+          <p className="font-mono">npx simdeploy deploy</p>
         </div>
       </div>
     </footer>

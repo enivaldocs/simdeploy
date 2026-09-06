@@ -4,8 +4,8 @@ import {
   createFsContext,
   detectFramework,
   type FrameworkDetector,
-} from "@autocloud/framework-detector";
-import type { PackageManager, ProjectAnalysis } from "@autocloud/shared";
+} from "@simdeploy/framework-detector";
+import type { PackageManager, ProjectAnalysis } from "@simdeploy/shared";
 import { recommendArchitecture } from "./architecture.js";
 import {
   computeStaticPercentage,

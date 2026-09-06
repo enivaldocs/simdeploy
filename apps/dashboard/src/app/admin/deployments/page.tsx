@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import Link from "next/link";
 import { AdminTable, Stat } from "@/components/admin-ui";
 import { StatusBadge } from "@/components/status-badge";

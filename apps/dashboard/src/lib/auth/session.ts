@@ -1,5 +1,5 @@
-import { type Organization, prisma, type User } from "@autocloud/db";
-import { generateSessionToken, hashToken } from "@autocloud/shared/crypto";
+import { type Organization, prisma, type User } from "@simdeploy/db";
+import { generateSessionToken, hashToken } from "@simdeploy/shared/crypto";
 import { cookies } from "next/headers";
 import { env } from "../env";
 

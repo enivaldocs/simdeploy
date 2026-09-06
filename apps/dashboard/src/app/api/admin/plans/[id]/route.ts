@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 import { forbidden, handleApiError, notFound, ok, unauthorized } from "@/lib/api/respond";

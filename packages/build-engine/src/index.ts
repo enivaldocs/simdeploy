@@ -1,7 +1,7 @@
 import { spawn } from "node:child_process";
 import { existsSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
-import type { ProjectAnalysis } from "@autocloud/shared";
+import type { ProjectAnalysis } from "@simdeploy/shared";
 import * as tar from "tar";
 
 export interface BuildOptions {

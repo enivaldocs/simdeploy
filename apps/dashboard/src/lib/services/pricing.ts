@@ -1,11 +1,11 @@
-import { DEFAULT_PRICING_TABLES } from "@autocloud/cost-engine";
-import { prisma } from "@autocloud/db";
+import { DEFAULT_PRICING_TABLES } from "@simdeploy/cost-engine";
+import { prisma } from "@simdeploy/db";
 import {
   type ArchitectureType,
   architectureTypeSchema,
   type ProviderPricingTable,
   resourceKindSchema,
-} from "@autocloud/shared";
+} from "@simdeploy/shared";
 
 /**
  * Fonte da verdade de pricing em produção: tabela ProviderPricing.

@@ -1,4 +1,4 @@
-import type { ArchitectureCostEstimate, ProjectAnalysis } from "@autocloud/shared";
+import type { ArchitectureCostEstimate, ProjectAnalysis } from "@simdeploy/shared";
 import { describe, expect, it } from "vitest";
 import { NoRouteError, routeDeployment } from "../src/router.js";
 

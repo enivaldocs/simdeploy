@@ -1,16 +1,16 @@
 import { statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { estimateCosts } from "@autocloud/cost-engine";
-import { type Deployment, type Project, prisma } from "@autocloud/db";
-import { NoRouteError, routeDeployment, runPipeline } from "@autocloud/deployment-engine";
+import { estimateCosts } from "@simdeploy/cost-engine";
+import { type Deployment, type Project, prisma } from "@simdeploy/db";
+import { NoRouteError, routeDeployment, runPipeline } from "@simdeploy/deployment-engine";
 import type {
   CreateDeploymentMeta,
   DeploymentResponse,
   DeploymentStatus,
   LogStage,
   RoutingDecision,
-} from "@autocloud/shared";
-import { routingDecisionSchema } from "@autocloud/shared";
+} from "@simdeploy/shared";
+import { routingDecisionSchema } from "@simdeploy/shared";
 import { trackEvent } from "../analytics";
 import { audit } from "../audit";
 import { notify } from "../notifications";

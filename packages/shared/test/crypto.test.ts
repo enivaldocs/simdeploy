@@ -41,9 +41,9 @@ describe("encryptSecret/decryptSecret", () => {
 });
 
 describe("generateApiToken", () => {
-  it("gera token com prefixo ac_live_ e hash consistente", () => {
+  it("gera token com prefixo sd_live_ e hash consistente", () => {
     const { token, displayPrefix, tokenHash } = generateApiToken();
-    expect(token.startsWith("ac_live_")).toBe(true);
+    expect(token.startsWith("sd_live_")).toBe(true);
     expect(displayPrefix.length).toBeLessThan(token.length);
     expect(token.startsWith(displayPrefix)).toBe(true);
     expect(tokenHash).toBe(hashToken(token));

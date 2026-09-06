@@ -4,7 +4,7 @@ const RESERVED_SUBDOMAINS = new Set(["www", "app", "api", "dashboard"]);
 
 /**
  * Roteamento por subdomínio para sites publicados — espelha produção
- * (<slug>.autocloud.app). Em dev, <slug>.localhost:3000 reescreve para
+ * (<slug>.simdeploy.com). Em dev, <slug>.localhost:3000 reescreve para
  * /sites/<slug>/..., então assets com path absoluto funcionam.
  */
 export function middleware(request: NextRequest) {

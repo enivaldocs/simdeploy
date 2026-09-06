@@ -53,9 +53,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         ],
       },
       {
-        h2: "Where AutoCloud fits",
+        h2: "Where SimDeploy fits",
         paragraphs: [
-          "AutoCloud analyzes your project (framework, API routes, static share, database, workers) and computes the monthly cost of each compatible architecture from provider price tables — then deploys on the cheapest one. If your project truly needs a server-style architecture, the analysis says so instead of hiding it. Run autocloud analyze in your repo; it is free, offline, and shows the numbers before any deploy.",
+          "SimDeploy analyzes your project (framework, API routes, static share, database, workers) and computes the monthly cost of each compatible architecture from provider price tables — then deploys on the cheapest one. If your project truly needs a server-style architecture, the analysis says so instead of hiding it. Run simdeploy analyze in your repo; it is free, offline, and shows the numbers before any deploy.",
         ],
       },
     ],
@@ -98,9 +98,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         ],
       },
       {
-        h2: "Where AutoCloud fits",
+        h2: "Where SimDeploy fits",
         paragraphs: [
-          "AutoCloud's cost engine compares architectures — static, hybrid, serverless, node-server — against real provider price tables for your specific project, before you deploy. Projects that genuinely need a persistent server are routed (and priced) as such; the rest stop paying for idle capacity.",
+          "SimDeploy's cost engine compares architectures — static, hybrid, serverless, node-server — against real provider price tables for your specific project, before you deploy. Projects that genuinely need a persistent server are routed (and priced) as such; the rest stop paying for idle capacity.",
         ],
       },
     ],
@@ -138,7 +138,7 @@ export const LEARN_ARTICLES: LearnArticle[] = [
       {
         h2: "Estimate it instead of guessing",
         paragraphs: [
-          "The cost of a project is a function of its architecture and its usage — both measurable. AutoCloud computes exactly this: it analyzes your repo, prices every compatible architecture from provider price tables (free allowances included) and shows the monthly projection before any deploy. Estimates are labeled as estimates; the real bill only ever comes from your plan.",
+          "The cost of a project is a function of its architecture and its usage — both measurable. SimDeploy computes exactly this: it analyzes your repo, prices every compatible architecture from provider price tables (free allowances included) and shows the monthly projection before any deploy. Estimates are labeled as estimates; the real bill only ever comes from your plan.",
         ],
       },
     ],
@@ -181,9 +181,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         ],
       },
       {
-        h2: "Where AutoCloud fits",
+        h2: "Where SimDeploy fits",
         paragraphs: [
-          "On AutoCloud there is no server for you to harden: builds run on your machine, only static output and functions are published, user code never executes on the platform's own servers, secrets are encrypted at rest, and the serving layer is the provider's hardened edge. The checklist above stays valid for the machines you still operate — and disappears for the projects you deploy here.",
+          "On SimDeploy there is no server for you to harden: builds run on your machine, only static output and functions are published, user code never executes on the platform's own servers, secrets are encrypted at rest, and the serving layer is the provider's hardened edge. The checklist above stays valid for the machines you still operate — and disappears for the projects you deploy here.",
         ],
       },
     ],
@@ -223,9 +223,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         ],
       },
       {
-        h2: "Where AutoCloud fits",
+        h2: "Where SimDeploy fits",
         paragraphs: [
-          "For projects deployed on AutoCloud, the artifact-based model changes the equation: your source of truth is your repository, every deploy is a rebuildable artifact, and there is no server state to lose. The backup discipline above remains essential for the databases and machines you run elsewhere.",
+          "For projects deployed on SimDeploy, the artifact-based model changes the equation: your source of truth is your repository, every deploy is a rebuildable artifact, and there is no server state to lose. The backup discipline above remains essential for the databases and machines you run elsewhere.",
         ],
       },
     ],
@@ -263,9 +263,9 @@ export const LEARN_ARTICLES: LearnArticle[] = [
         ],
       },
       {
-        h2: "Where AutoCloud fits",
+        h2: "Where SimDeploy fits",
         paragraphs: [
-          "AutoCloud removes the management layer entirely: no runtime to patch, no sizing to revisit, no deploy scripts to maintain. The platform analyzes the project, picks the lowest-cost compatible architecture, deploys with a verified health check and measures real usage. One command — from you or from your coding agent.",
+          "SimDeploy removes the management layer entirely: no runtime to patch, no sizing to revisit, no deploy scripts to maintain. The platform analyzes the project, picks the lowest-cost compatible architecture, deploys with a verified health check and measures real usage. One command — from you or from your coding agent.",
         ],
       },
     ],

@@ -8,7 +8,7 @@ CREATED → ANALYZING → QUEUED → BUILDING → UPLOADING → DEPLOYING → HE
        ANALYSIS_FAILED      BUILD_FAILED  DEPLOY_FAILED  DEPLOY_FAILED  DEPLOY_FAILED
 ```
 
-CANCELED é possível até BUILDING/UPLOADING. Transições validadas por `@autocloud/deployment-engine` (testes cobrem caminho feliz, falhas tipadas e transições inválidas). Toda transição gera `DeploymentEvent`; toda etapa gera `LogEntry` (stage ANALYZE/QUEUE/BUILD/UPLOAD/DEPLOY/HEALTH/SYSTEM).
+CANCELED é possível até BUILDING/UPLOADING. Transições validadas por `@simdeploy/deployment-engine` (testes cobrem caminho feliz, falhas tipadas e transições inválidas). Toda transição gera `DeploymentEvent`; toda etapa gera `LogEntry` (stage ANALYZE/QUEUE/BUILD/UPLOAD/DEPLOY/HEALTH/SYSTEM).
 
 ## Pipeline (o que cada etapa faz hoje)
 
@@ -26,4 +26,4 @@ commit/branch/message (git info da CLI), trigger (cli/api/dashboard/git), analys
 
 ## Consumo por agentes
 
-`GET /api/v1/deployments/:id` (status+eventos), `GET /api/v1/deployments/:id/logs` (JSON; `?format=text`), CLI `autocloud status|logs --json`, MCP `get_deployment`/`get_logs`.
+`GET /api/v1/deployments/:id` (status+eventos), `GET /api/v1/deployments/:id/logs` (JSON; `?format=text`), CLI `simdeploy status|logs --json`, MCP `get_deployment`/`get_logs`.

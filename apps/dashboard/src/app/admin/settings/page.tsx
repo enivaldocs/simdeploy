@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { formatMinor } from "@autocloud/finance";
+import { prisma } from "@simdeploy/db";
+import { formatMinor } from "@simdeploy/finance";
 import { AdminTable } from "@/components/admin-ui";
 import { getFeatureFlags, getFxRateUsdBrl } from "@/lib/admin/config";
 import { requireStaff } from "@/lib/auth/staff";

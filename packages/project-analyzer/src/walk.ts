@@ -20,7 +20,7 @@ export const DEFAULT_IGNORED_DIRS = new Set([
   ".next",
   ".turbo",
   ".vercel",
-  ".autocloud",
+  ".simdeploy",
   "dist",
   "build",
   "out",

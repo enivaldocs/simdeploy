@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { routingDecisionSchema } from "@autocloud/shared";
+import { prisma } from "@simdeploy/db";
+import { routingDecisionSchema } from "@simdeploy/shared";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StatusBadge } from "@/components/status-badge";

@@ -1,5 +1,5 @@
-import { type Prisma, prisma } from "@autocloud/db";
-import type { ProjectResponse } from "@autocloud/shared";
+import { type Prisma, prisma } from "@simdeploy/db";
+import type { ProjectResponse } from "@simdeploy/shared";
 import { trackEvent } from "../analytics";
 import { audit } from "../audit";
 
@@ -40,9 +40,9 @@ export async function createProject(input: {
       gitRepoUrl: input.gitRepoUrl,
       environments: { create: [{ name: "production" }, { name: "preview" }] },
       domains: {
-        // Subdomínio canônico do projeto. Em produção: <slug>.autocloud.app;
+        // Subdomínio canônico do projeto. Em produção: <slug>.simdeploy.com;
         // no dev o provider local serve em /sites/<slug>/.
-        create: { hostname: `${slug}.autocloud.app`, type: "SUBDOMAIN", status: "ACTIVE" },
+        create: { hostname: `${slug}.simdeploy.com`, type: "SUBDOMAIN", status: "ACTIVE" },
       },
     },
   });

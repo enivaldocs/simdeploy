@@ -1,5 +1,5 @@
-import { prisma } from "@autocloud/db";
-import { createProjectRequestSchema } from "@autocloud/shared";
+import { prisma } from "@simdeploy/db";
+import { createProjectRequestSchema } from "@simdeploy/shared";
 import type { NextRequest } from "next/server";
 import { authenticateApi, requireScope } from "@/lib/api/auth";
 import { handleApiError, ok } from "@/lib/api/respond";

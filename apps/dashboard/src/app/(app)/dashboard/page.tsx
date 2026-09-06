@@ -1,4 +1,4 @@
-import { prisma } from "@autocloud/db";
+import { prisma } from "@simdeploy/db";
 import Link from "next/link";
 import { StatusBadge } from "@/components/status-badge";
 import { getSession } from "@/lib/auth/session";
@@ -104,7 +104,7 @@ export default async function OverviewPage() {
           </ol>
           {projectCount === 0 ? (
             <pre className="mt-4 rounded-md bg-panel-2 p-3 font-mono text-xs text-ink-dim">
-              {`npx autocloud deploy --yes   # na raiz do seu projeto`}
+              {`npx simdeploy deploy --yes   # na raiz do seu projeto`}
             </pre>
           ) : null}
         </div>
@@ -125,7 +125,7 @@ export default async function OverviewPage() {
         {recentDeployments.length === 0 ? (
           <p className="bg-panel p-6 text-sm text-ink-faint">
             Nenhum deployment ainda. Rode{" "}
-            <span className="font-mono text-ink-dim">autocloud deploy</span> em um projeto para
+            <span className="font-mono text-ink-dim">simdeploy deploy</span> em um projeto para
             começar.
           </p>
         ) : (

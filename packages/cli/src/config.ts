@@ -13,10 +13,10 @@ export interface ProjectLink {
   name: string;
 }
 
-const CONFIG_DIR = join(homedir(), ".autocloud");
+const CONFIG_DIR = join(homedir(), ".simdeploy");
 const CONFIG_FILE = join(CONFIG_DIR, "config.json");
 
-export const DEFAULT_API_URL = process.env.AUTOCLOUD_API_URL ?? "http://localhost:3000";
+export const DEFAULT_API_URL = process.env.SIMDEPLOY_API_URL ?? "http://localhost:3000";
 
 export function readConfig(): CliConfig {
   try {
@@ -31,11 +31,11 @@ export function writeConfig(config: CliConfig): void {
   writeFileSync(CONFIG_FILE, `${JSON.stringify(config, null, 2)}\n`, { mode: 0o600 });
 }
 
-/** Link projeto local ↔ projeto AutoCloud (fica em .autocloud/project.json). */
+/** Link projeto local ↔ projeto SimDeploy (fica em .simdeploy/project.json). */
 export function readProjectLink(rootDir: string): ProjectLink | null {
   try {
     return JSON.parse(
-      readFileSync(join(rootDir, ".autocloud", "project.json"), "utf8"),
+      readFileSync(join(rootDir, ".simdeploy", "project.json"), "utf8"),
     ) as ProjectLink;
   } catch {
     return null;
@@ -46,11 +46,11 @@ const AGENTS_MD_SNIPPET = `# Agent guide
 
 ## Deploy
 
-This project deploys with AutoCloud.
+This project deploys with SimDeploy.
 
-- Publish: \`autocloud deploy --yes\` (prints the public URL; non-zero exit on failure)
-- Diagnose a failed deploy: \`autocloud logs\`
-- Architecture and cost preview (offline): \`autocloud analyze --json\`
+- Publish: \`simdeploy deploy --yes\` (prints the public URL; non-zero exit on failure)
+- Diagnose a failed deploy: \`simdeploy logs\`
+- Architecture and cost preview (offline): \`simdeploy analyze --json\`
 
 Deployment states are typed (READY, BUILD_FAILED, DEPLOY_FAILED, ...) — branch on them.
 `;
@@ -68,19 +68,19 @@ export function writeAgentsGuidance(rootDir: string): "created" | "exists" | "hi
     return "created";
   }
   const content = readFileSync(agentsPath, "utf8");
-  return content.toLowerCase().includes("autocloud") ? "exists" : "hint";
+  return content.toLowerCase().includes("simdeploy") ? "exists" : "hint";
 }
 
 export function writeProjectLink(rootDir: string, link: ProjectLink): void {
-  const dir = join(rootDir, ".autocloud");
+  const dir = join(rootDir, ".simdeploy");
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, "project.json"), `${JSON.stringify(link, null, 2)}\n`);
   const gitignore = join(rootDir, ".gitignore");
   // Garante que o link (local) não vá para o repositório do usuário.
   if (existsSync(gitignore)) {
     const content = readFileSync(gitignore, "utf8");
-    if (!content.includes(".autocloud")) {
-      writeFileSync(gitignore, `${content.trimEnd()}\n.autocloud/\n`);
+    if (!content.includes(".simdeploy")) {
+      writeFileSync(gitignore, `${content.trimEnd()}\n.simdeploy/\n`);
     }
   }
 }

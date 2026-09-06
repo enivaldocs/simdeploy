@@ -14,9 +14,9 @@ export const TOKEN_SCOPES = [
 export const tokenScopeSchema = z.enum(TOKEN_SCOPES);
 export type TokenScope = z.infer<typeof tokenScopeSchema>;
 
-export const API_TOKEN_PREFIX = "ac_live_";
+export const API_TOKEN_PREFIX = "sd_live_";
 
-/** Scopes padrão para tokens criados pela CLI (fluxo autocloud login). */
+/** Scopes padrão para tokens criados pela CLI (fluxo simdeploy login). */
 export const CLI_DEFAULT_SCOPES: readonly TokenScope[] = [
   "projects:read",
   "projects:write",
