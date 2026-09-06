@@ -153,8 +153,13 @@ export async function runDeployment(input: RunDeploymentInput): Promise<Deployme
             });
           } catch (error) {
             if (error instanceof NoRouteError && meta.analysis.requiresServer) {
+              // Mensagem agent-actionable: diz o próximo passo, não só o problema.
+              const fix =
+                meta.analysis.framework === "nextjs"
+                  ? 'Next step: set `output: "export"` in next.config to deploy this Next.js app as static.'
+                  : "Next step: produce a static build (no server runtime) — SSR/serverless is rolling out on the cloud adapter.";
               throw new NoRouteError(
-                `${error.message} Projetos com servidor (SSR/API) ainda dependem do provider cloud (em breve); um build 100% estático (ex.: output "export" no Next.js) já pode ser publicado.`,
+                `This project needs a server runtime (SSR/API), which is not yet available on SimDeploy. ${fix}`,
               );
             }
             throw error;

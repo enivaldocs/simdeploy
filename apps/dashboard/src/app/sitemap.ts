@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/pricing`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/docs`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/docs/agents`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/claude-code`, changeFrequency: "weekly", priority: 0.9 },
     ...DOC_PAGES.map((page) => ({
       url: `${base}/docs/${page.slug}`,
       changeFrequency: "weekly" as const,

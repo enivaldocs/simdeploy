@@ -16,6 +16,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
     title: "For agents",
     links: [
       { href: "/docs/agents", label: "Agent docs" },
+      { href: "/claude-code", label: "Claude Code" },
       { href: "/claude-code-deploy", label: "Claude Code" },
       { href: "/codex-deploy", label: "Codex" },
       { href: "/cursor-deploy", label: "Cursor" },
