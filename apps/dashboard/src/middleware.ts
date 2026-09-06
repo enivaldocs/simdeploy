@@ -9,7 +9,11 @@ const RESERVED_SUBDOMAINS = new Set(["www", "app", "api", "dashboard"]);
  */
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") ?? "";
-  const match = host.match(/^([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\.localhost(?::\d+)?$/);
+  // Sites de clientes: <slug>.localhost (dev) e <slug>.simdeploy.com (prod)
+  // reescrevem para /sites/<slug>/... — assets com path absoluto funcionam.
+  const match = host.match(
+    /^([a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\.(?:localhost(?::\d+)?|simdeploy\.com)$/,
+  );
   if (match?.[1] && !RESERVED_SUBDOMAINS.has(match[1])) {
     const url = request.nextUrl.clone();
     url.pathname = `/sites/${match[1]}${url.pathname === "/" ? "" : url.pathname}`;
