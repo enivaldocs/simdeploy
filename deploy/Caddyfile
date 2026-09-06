@@ -21,3 +21,8 @@ https:// {
 	encode zstd gzip
 	reverse_proxy 127.0.0.1:3000
 }
+
+# Coexistência na mesma VPS: outros apps (ex.: SuaVPN) adicionam seus
+# próprios blocos aqui sem tocar nos do SimDeploy. NÃO remover este import.
+import /etc/caddy/sites/*.caddy
+

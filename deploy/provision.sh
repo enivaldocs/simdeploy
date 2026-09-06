@@ -71,7 +71,11 @@ systemctl daemon-reload
 systemctl enable simdeploy >/dev/null
 
 echo "== Caddy config =="
+# VPS compartilhada: o deploy/Caddyfile já traz o import de /etc/caddy/sites/*,
+# então regravar aqui preserva os blocos de outros apps (SuaVPN etc.).
+mkdir -p /etc/caddy/sites
 cp "$APP_DIR/repo/deploy/Caddyfile" /etc/caddy/Caddyfile
+caddy validate --config /etc/caddy/Caddyfile
 systemctl enable caddy >/dev/null
 
 echo "== Cron dos background jobs (a cada 15min) =="
