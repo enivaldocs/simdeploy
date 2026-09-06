@@ -7,6 +7,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ href: string; label: string
       { href: "/pricing", label: "Pricing" },
       { href: "/ai-deployment-platform", label: "For AI-built software" },
       { href: "/cheap-nextjs-hosting", label: "Next.js hosting" },
+      { href: "/learn", label: "Learn" },
       { href: "/docs/agents", label: "Docs" },
     ],
   },

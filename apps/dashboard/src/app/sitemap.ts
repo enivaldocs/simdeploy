@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { LANDING_PAGES } from "@/lib/landings";
+import { LEARN_ARTICLES } from "@/lib/learn-content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.APP_URL ?? "http://localhost:3000";
@@ -16,6 +17,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/${slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    { url: `${base}/learn`, changeFrequency: "weekly" as const, priority: 0.8 },
+    ...LEARN_ARTICLES.map((article) => ({
+      url: `${base}/learn/${article.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 }

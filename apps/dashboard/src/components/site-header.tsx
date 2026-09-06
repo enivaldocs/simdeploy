@@ -8,6 +8,9 @@ export function SiteHeader() {
         auto<span className="text-accent">cloud</span>
       </Link>
       <nav className="flex items-center gap-6 text-sm text-ink-dim">
+        <Link href="/learn" className="hover:text-ink">
+          Learn
+        </Link>
         <Link href="/pricing" className="hover:text-ink">
           Pricing
         </Link>
