@@ -1,0 +1,23 @@
+# Caddy do SimDeploy: TLS automático para o apex/www e ON-DEMAND para os
+# subdomínios de clientes (<slug>.simdeploy.com) e domínios custom.
+# O "ask" consulta a plataforma antes de emitir qualquer certificado —
+# sem isso, apontar qualquer DNS ao IP forçaria emissões (abuso conhecido).
+{
+	email support@simdeploy.com
+	on_demand_tls {
+		ask http://127.0.0.1:3000/api/tls-check
+	}
+}
+
+simdeploy.com, www.simdeploy.com {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3000
+}
+
+https:// {
+	tls {
+		on_demand
+	}
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3000
+}

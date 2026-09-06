@@ -1,0 +1,16 @@
+[Unit]
+Description=SimDeploy dashboard (Next.js)
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/simdeploy/repo/apps/dashboard
+EnvironmentFile=/opt/simdeploy/.env
+ExecStart=/usr/bin/pnpm start
+Restart=always
+RestartSec=5
+User=root
+# O serviço só serve HTTP local; o Caddy faz TLS e é a borda pública.
+
+[Install]
+WantedBy=multi-user.target
