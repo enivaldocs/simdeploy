@@ -1,5 +1,5 @@
 {
-  "name": "@simdeploy/mcp-server",
+  "name": "simdeploy-mcp",
   "version": "0.1.0",
   "description": "MCP server for SimDeploy — lets Claude Code, Codex and Cursor analyze, deploy and debug projects on SimDeploy.",
   "type": "module",
